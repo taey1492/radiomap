@@ -1,0 +1,43 @@
+/* 드래그 방지 */
+body {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-use-select: none;
+	user-select: none;
+}
+a {
+	text-decoration: none;
+	color: black;
+}
+button {
+	background-color: rgba(255, 255, 255, 0);
+	border: 0;
+	cursor: pointer;
+}
+
+/* 전체 영역 */
+.hidden {
+	display: none;
+}
+
+.mainArea {
+	display: flex;
+	flex-direction: column;
+	margin: 10px 5px;
+}
+
+.headerArea {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-right: 30px;
+	align-items: center;
+}
+
+.mainLogo {
+	margin: 2vw;
+}
+.mainLogoImg {
+	width: 160px;
+	height: 80px;
+}
