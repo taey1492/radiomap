@@ -1,0 +1,59 @@
+body {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-use-select: none;
+	user-select: none;
+}
+a {
+	text-decoration: none;
+	color: black;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+/* 전체 영역 */
+.mainArea {
+	display: flex;
+	flex-direction: column;
+	margin: 30px 50px;
+}
+
+.headerArea {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-right: 50px;
+}
+
+.bodyArea {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+/* .signInClick {
+	
+} */
+
+.leftArea {
+	display: flex;
+	flex-direction: column;
+}
+
+.menuBarArea {
+	display: flex;
+	flex-direction: column;
+}
+
+.rightArea {
+	display: flex;
+	flex-direction: row;
+}
+.mainLogo {
+	margin: 2vw;
+}
+.mainLogoImg {
+	width: 200px;
+	height: 100px;
+}

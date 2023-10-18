@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>방사능 지도</title>
+		<link rel="stylesheet" href="../CSS/settings.css" />
+		<link rel="stylesheet" href="../CSS/index.css" />
+	</head>
+
+	<body>
+		<!-- 전체 영역 -->
+		<div class="mainArea">
+			<!-- header 영역 -->
+			<div class="headerArea">
+				<div class="logoArea">
+					<head th:replace="common/header"></head>
+				</div>
+				<!-- 로그인하기 -->
+				<div class="signInClick">
+					<a href="/signin">로그인</a>
+				</div>
+			</div>
+			<!-- 왼쪽 가운데 오른쪽 영역 -->
+			<div class="bodyArea">
+				<!-- 왼쪽 영역 -->
+				<div class="leftArea">
+					<!-- 메뉴 바 -->
+					<div class="menuBarArea">
+						<div>방사능</div>
+						<div>날씨</div>
+					</div>
+				</div>
+
+				<!-- 가운데 영역(지도) -->
+				<div class="centerArea">
+					<section>
+						<img src="../img/cat5.jpg" alt="noMainArea" />
+					</section>
+				</div>
+
+				<!-- 오른쪽 영역(핀 클릭 시 세부 내용) -->
+				<div class="rightArea">오른쪽!</div>
+			</div>
+		</div>
+	</body>
+</html>
