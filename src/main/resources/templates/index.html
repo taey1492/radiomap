@@ -46,7 +46,8 @@
 				<!-- 가운데 영역(지도) -->
 				<div class="centerArea">
 					<section class="mapArea">
-						<img src="../img/cat5.jpg" alt="noMainArea" class="map" />
+						<div id="map" style="width: 500px; height: 400px"></div>
+						<!-- <img src="../img/cat5.jpg" alt="noMainArea" class="map" /> -->
 					</section>
 				</div>
 
@@ -55,4 +56,39 @@
 			</div>
 		</div>
 	</body>
+
+	<!-- script -->
+	<script
+		type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=LIBRARY"
+	></script>
+	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script
+		type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"
+	></script>
+
+	<script>
+		const container = document.getElementById("map");
+		const options = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			level: 3,
+		};
+		const map = new kakao.maps.Map(container, options);
+		const positions = [
+			{ latlng: new kakao.maps.LatLng(33.450701, 126.570667) },
+		];
+		const clustererOptions = {
+			averageCenter: true,
+			gridSize: 50,
+			minLevel: 5,
+		};
+
+		new kakao.maps.MarkerClusterer(clustererOptions).addMarkers(
+			positions.map(function (position) {
+				return new kakao.maps.Marker({ position: position.latlng });
+			}),
+			map
+		);
+	</script>
 </html>
