@@ -1,6 +1,5 @@
 package com.example.radio.Model;
 
-
 import lombok.Data;
 
 import javax.persistence.Entity;

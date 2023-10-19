@@ -1,6 +1,5 @@
 package com.example.radio.Model;
 
-
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -15,6 +14,4 @@ public class Radiodata {
     int month;
     String item;
     String pinnacle;
-
-
 }
