@@ -23,14 +23,14 @@ button {
 .mainArea {
 	display: flex;
 	flex-direction: column;
-	margin: 10px 5px;
+	margin: 10px 0;
 }
 
 .headerArea {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	margin-right: 30px;
+	margin-right: 15px;
 	align-items: center;
 }
 
