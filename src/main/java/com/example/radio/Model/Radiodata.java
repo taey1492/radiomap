@@ -14,7 +14,7 @@ public class Radiodata {
     int year;
     int month;
     String item;
-
+    String pinnacle;
 
 
 }
