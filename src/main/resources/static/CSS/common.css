@@ -4,6 +4,7 @@ body {
 	-moz-user-select: none;
 	-ms-use-select: none;
 	user-select: none;
+	background-color: #f6f9fc;
 }
 a {
 	text-decoration: none;
@@ -15,11 +16,11 @@ button {
 	cursor: pointer;
 }
 
-/* 전체 영역 */
 .hidden {
 	display: none;
 }
 
+/* 전체 영역 */
 .mainArea {
 	display: flex;
 	flex-direction: column;
@@ -30,14 +31,15 @@ button {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	margin-right: 15px;
+	margin-right: 5px;
 	align-items: center;
 }
 
 .mainLogo {
-	margin: 2vw;
+	margin: 20px;
 }
 .mainLogoImg {
-	width: 160px;
-	height: 80px;
+	width: 120px;
+	height: 60px;
+	border-radius: 15px;
 }
