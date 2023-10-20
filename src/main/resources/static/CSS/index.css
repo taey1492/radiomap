@@ -11,20 +11,16 @@
 	background-color: rgba(211, 211, 211, 0.657);
 }
 
-.leftArea {
-	display: flex;
-	flex-direction: column;
-	margin-left: 5px;
-}
-
 .menuBarArea {
-	background-color: rgba(103, 150, 188, 0.475);
+	width: 200px;
+	height: 105px;
+	background-color: rgba(103, 150, 188, 0.689);
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	margin: 5px 5px 0 0;
-	padding: 65px 50px 10px 2%;
+	align-items: flex-start;
+	margin: 5px 5px 0 5px;
+	padding: 65px 0 10px 6px;
 	position: absolute;
 	z-index: 2;
 }
@@ -36,8 +32,8 @@
 	background-color: rgba(255, 255, 255, 0);
 	border: 0;
 	border-radius: 50px;
-	margin: 0 0 5px 0;
-	padding: 10px 10px;
+	margin: 0 0 5px 0px;
+	padding: 10px 90px 10px 4px;
 	cursor: pointer;
 	text-align: center;
 	transition-duration: 0.3s;
@@ -50,12 +46,18 @@
 }
 
 .menu {
+	margin: 2px 0 0 3px;
 	font-weight: bold;
 }
 
 .radioBtnImg {
-	width: 20px;
-	height: 20px;
+	width: 30px;
+	height: 30px;
+}
+
+.material-symbols-outlined {
+	width: 30px;
+	height: 30px;
 }
 
 .centerArea {
@@ -72,6 +74,7 @@
 	border-radius: 5px;
 	width: 100vw;
 	height: 100vw;
+	box-shadow: 0 10px 10px 0 rgba(128, 128, 128, 0.279);
 }
 
 .rightArea {
