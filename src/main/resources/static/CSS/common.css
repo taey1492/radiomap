@@ -16,6 +16,14 @@ button {
 	cursor: pointer;
 }
 
+@font-face {
+	font-family: "Ansungtangmyun-Bold";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/Ansungtangmyun-Bold.woff2")
+		format("woff2");
+	font-weight: normal;
+	font-style: normal;
+}
+
 .hidden {
 	display: none;
 }
@@ -24,7 +32,6 @@ button {
 .mainArea {
 	display: flex;
 	flex-direction: column;
-	margin: 10px 0;
 }
 
 .headerArea {
@@ -33,13 +40,24 @@ button {
 	justify-content: space-between;
 	margin-right: 5px;
 	align-items: center;
+	position: absolute;
+	z-index: 2;
 }
 
 .mainLogo {
+	display: flex;
+	flex-direction: row;
 	margin: 20px;
+	align-items: center;
 }
 .mainLogoImg {
-	width: 120px;
-	height: 60px;
+	width: 30px;
+	height: 30px;
 	border-radius: 15px;
+	margin-right: 8px;
+}
+.mainLogoLtr {
+	font-family: "Ansungtangmyun-Bold";
+	font-size: 30px;
+	font-weight: bold;
 }
