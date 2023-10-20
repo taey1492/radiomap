@@ -7,28 +7,25 @@
 		<link rel="stylesheet" href="../CSS/settings.css" />
 		<link rel="stylesheet" href="../CSS/common.css" />
 		<link rel="stylesheet" href="../CSS/index.css" />
-		<link
-			rel="stylesheet"
-			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-		/>
 	</head>
 
 	<body>
 		<!-- 전체 영역 -->
 		<div class="mainArea">
-			<!-- 가운데 영역 -->
-			<div class="centerArea">
-				<!-- header 영역 -->
-				<div class="headerArea">
-					<div class="logoArea">
-						<head th:replace="common/header" />
-					</div>
-					<!-- 로그인 버튼 -->
-					<!-- <div class="signInClick">
+			<!-- header 영역 -->
+			<div class="headerArea">
+				<div class="logoArea">
+					<head th:replace="common/header" />
+				</div>
+				<!-- 로그인 버튼 -->
+				<!-- <div class="signInClick">
 							<a href="./">로그인</a>
 						</div> -->
-				</div>
-				<section class="mapArea">
+			</div>
+
+			<!-- 지도 영역 -->
+			<section class="mapArea">
+				<div id="map" class="map">
 					<!-- 메뉴 바 영역-->
 					<div class="menuBarArea">
 						<div class="menuBarBtn">
@@ -49,11 +46,8 @@
 							<button class="menu">게시판</button>
 						</div>
 					</div>
-
-					<div id="map" class="map"></div>
-					<!-- <img src="../img/cat5.jpg" alt="noMainArea" class="map" /> -->
-				</section>
-			</div>
+				</div>
+			</section>
 		</div>
 	</body>
 
@@ -98,5 +92,17 @@
 		const moveRadioMap = (event) => {
 			location = "/map/index";
 		};
+
+		// 맵 + 메뉴 바 사이즈 조절
+		document.addEventListener("DOMContentLoaded", () => {
+			const h = window.innerHeight;
+			const map = document.querySelector("#map");
+			map.style.height = `${h}px`;
+
+			const bar = document.querySelector(".menuBarArea");
+
+			bar.style.height = `${0.87 * parseInt(map.style.height)}px`;
+			console.log(bar.style.height);
+		});
 	</script>
 </html>

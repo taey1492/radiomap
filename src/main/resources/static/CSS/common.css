@@ -1,10 +1,18 @@
-/* 드래그 방지 */
+@font-face {
+	font-family: "Ansungtangmyun-Bold";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/Ansungtangmyun-Bold.woff2")
+		format("woff2");
+	font-weight: normal;
+	font-style: normal;
+}
 body {
+	/* 드래그 방지 */
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-use-select: none;
 	user-select: none;
 	background-color: #f6f9fc;
+	width: 100vw;
 }
 a {
 	text-decoration: none;
@@ -16,14 +24,6 @@ button {
 	cursor: pointer;
 }
 
-@font-face {
-	font-family: "Ansungtangmyun-Bold";
-	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/Ansungtangmyun-Bold.woff2")
-		format("woff2");
-	font-weight: normal;
-	font-style: normal;
-}
-
 .hidden {
 	display: none;
 }
@@ -32,18 +32,21 @@ button {
 .mainArea {
 	display: flex;
 	flex-direction: column;
+	width: 100vw;
 }
 
+/* 헤더 영역 */
 .headerArea {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	margin-right: 5px;
+	margin: 5px 5px 0 4px;
 	align-items: center;
 	position: absolute;
-	z-index: 2;
+	z-index: 3;
 }
 
+/* 메인 로고 영역 */
 .mainLogo {
 	display: flex;
 	flex-direction: row;
