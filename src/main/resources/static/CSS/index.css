@@ -13,7 +13,7 @@
 
 /* 메뉴 바 영역 */
 .menuBarArea {
-	width: 200px;
+	width: 185px;
 	height: 100%;
 	background-color: rgb(180, 205, 226);
 	border-radius: 10px;
@@ -22,7 +22,7 @@
 	align-items: flex-start;
 	margin: 10px 5px 10px 10px;
 	padding: 65px 0 10px 6px;
-	box-shadow: 0 8px 8px 0 rgb(216, 216, 216);
+	box-shadow: 3px 3px 3px 3px rgba(216, 216, 216, 0.476);
 	position: absolute;
 	z-index: 3;
 }
@@ -33,9 +33,9 @@
 	width: 100px;
 	background-color: rgba(255, 255, 255, 0);
 	border: 0;
-	border-radius: 50px;
+	border-radius: 10px;
 	margin: 0 0 5px 0px;
-	padding: 10px 90px 10px 4px;
+	padding: 10px 75px 10px 4px;
 	cursor: pointer;
 	text-align: center;
 	transition-duration: 0.3s;
