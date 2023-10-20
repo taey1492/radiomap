@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/map")
 public class RadioMapController {
@@ -27,27 +26,38 @@ public class RadioMapController {
         return "/map/index";
     }
 
-    @PostMapping("/index")
-    public String indexPost(@ModelAttribute Radiodata radiodata) {
+    // @PostMapping("/index")
+    // public String indexPost(@ModelAttribute Radiodata radiodata) {
 
-        String pinnacle = radiodata.getR_pinnacle();
+    // String pinnacle = radiodata.getR_pinnacle();
 
-        System.out.println(pinnacle);
+    // System.out.println(pinnacle);
 
+    // List<Radiodata> radiodatalist =
+    // radioDataRepository.findByr_pinnacle(pinnacle);
 
-      List<Radiodata> radiodatalist = radioDataRepository.findByr_pinnacle(pinnacle);
+    // for (Radiodata radiodata1 : radiodatalist) {
+    // System.out.println(radiodata1);
+    // }
 
+    // return "redirect:/mpa/index";
+    // }
 
+    // @PostMapping("/test")
+    // public String test() {
 
+    // String pinnacle = radiodata.getR_pinnacle();
 
-        for (Radiodata radiodata1 : radiodatalist) {
-            System.out.println(radiodata1);
-        }
+    // System.out.println(pinnacle);
 
+    // List<Radiodata> radiodatalist =
+    // radioDataRepository.findByr_pinnacle(pinnacle);
 
+    // for (Radiodata radiodata1 : radiodatalist) {
+    // System.out.println(radiodata1);
+    // }
 
-
-        return"redirect:/mpa/index";
-    }
+    // return "test/test";
+    // }
 
 }
