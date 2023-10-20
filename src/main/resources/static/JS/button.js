@@ -1,8 +1,8 @@
 const MENUBARBTN = "menuBarBtn";
 const SELECTEDBTN = "selectedBtn";
 
-const boolRadioBtn = true;
-const boolEQBtn = false;
+let boolRadioBtn = true;
+let boolEQBtn = false;
 
 const radio = document.querySelector("#radioBtn");
 const eq = document.querySelector("#eqBtn");
@@ -14,8 +14,6 @@ const selectRadioBtn = (event) => {
 		boolRadioBtn = true;
 		boolEQBtn = false;
 	}
-
-	// console.log(boolRadioBtn, boolEQBtn);
 };
 const selectEQBtn = (event) => {
 	if (eq.classList == MENUBARBTN) {
@@ -24,6 +22,4 @@ const selectEQBtn = (event) => {
 		boolEQBtn = true;
 		boolRadioBtn = false;
 	}
-
-	// console.log(boolRadioBtn, boolEQBtn);
 };

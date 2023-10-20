@@ -25,7 +25,7 @@
 
 			<!-- 지도 영역 -->
 			<section class="mapArea">
-				<div id="map" class="map">
+				<div id="kakaoMap" class="map">
 					<!-- 메뉴 바 영역-->
 					<div class="menuBarArea">
 						<div
@@ -56,31 +56,27 @@
 
 	<!-- script -->
 	<!-- kakao 지도 관련 script -->
-	<script
-		type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=LIBRARY"
-	></script>
+
 	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 	<script
 		type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"
 	></script>
 
+	// 맵 + 메뉴 바 사이즈 조절
 	<script>
-		// 맵 + 메뉴 바 사이즈 조절
 		document.addEventListener("DOMContentLoaded", () => {
 			const h = window.innerHeight;
-			const map = document.querySelector("#map");
+			const map = document.querySelector("#kakaoMap");
 			map.style.height = `${h}px`;
 
 			const bar = document.querySelector(".menuBarArea");
 
-			bar.style.height = `${0.87 * parseInt(map.style.height)}px`;
+			bar.style.height = `${0.88 * parseInt(map.style.height)}px`;
 			console.log(bar.style.height);
 		});
 	</script>
 
 	<script src="../JS/kakaoMap.js"></script>
-
 	<script src="../JS/button.js"></script>
 </html>

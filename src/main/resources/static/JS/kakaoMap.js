@@ -1,4 +1,4 @@
-const container = document.getElementById("map");
+const container = document.getElementById("kakaoMap");
 const options = {
 	center: new kakao.maps.LatLng(34.7884269497, 127.9254114941),
 	level: 3,
