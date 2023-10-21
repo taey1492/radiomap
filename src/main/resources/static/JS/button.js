@@ -8,18 +8,20 @@ const radio = document.querySelector("#radioBtn");
 const eq = document.querySelector("#eqBtn");
 
 const selectRadioBtn = (event) => {
-	if (radio.classList == MENUBARBTN) {
+	if (!boolRadioBtn) {
 		radio.classList.replace(MENUBARBTN, SELECTEDBTN);
 		eq.classList = MENUBARBTN;
 		boolRadioBtn = true;
 		boolEQBtn = false;
 	}
+	console.log(boolRadioBtn, boolEQBtn);
 };
 const selectEQBtn = (event) => {
-	if (eq.classList == MENUBARBTN) {
+	if (!boolEQBtn) {
 		eq.classList.replace(MENUBARBTN, SELECTEDBTN);
 		radio.classList = MENUBARBTN;
-		boolEQBtn = true;
 		boolRadioBtn = false;
+		boolEQBtn = true;
 	}
+	console.log(boolRadioBtn, boolEQBtn);
 };
