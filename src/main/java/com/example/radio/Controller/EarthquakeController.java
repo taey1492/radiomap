@@ -1,12 +1,17 @@
 package com.example.radio.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.radio.Model.Earthquake;
 import com.example.radio.Repository.EarthquakeRepository;
@@ -22,18 +27,40 @@ public class EarthquakeController {
     return "test/test";
   }
 
+  @GetMapping("/gettest")
+  @ResponseBody
+  public List<Float> test(@RequestParam int id) {
+
+    // 비동기 통신 영역입니다.
+    Optional<Earthquake> earthq = earthquakeRepository.findById(id);
+    Float lat = earthq.get().getLat();
+    Float lon = earthq.get().getLon();
+
+    List<Float> l = new ArrayList<>();
+    l.add(lat);
+    l.add(lon);
+
+    return l;
+  }
+
   @PostMapping("/test")
 
-  public String testPost(@ModelAttribute Earthquake earthquake) {
+  public String testPost(@ModelAttribute Earthquake earthquake, Model model) {
 
-    int id = earthquake.getId();
+    int i = earthquake.getId();
 
-    Earthquake earthq = earthquakeRepository.findById(id).get();
+    Optional<Earthquake> earthq = earthquakeRepository.findById(i);
 
-    Float lat = earthq.getLat();
-    Float lon = earthq.getLon();
-    System.out.println(lat + "/" + lon);
-    return "redirect:/test";
+    Float lat = earthq.get().getLat();
+    Float lon = earthq.get().getLon();
+
+    List<Float> l = new ArrayList<>();
+    l.add(lat);
+    l.add(lon);
+
+    model.addAttribute("earthqlist", l);
+
+    return "test/test";
   }
 
 }

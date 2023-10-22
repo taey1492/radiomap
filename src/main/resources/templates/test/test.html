@@ -1,6 +1,33 @@
-<form action="/test" method="post">
+<body>
+  <form action="/test" method="post">
 
-  <input type="text" name="id">
-  <button>입력</button>
+    <input type="text" name="id" id="id">
+    <button type="button" onclick="push()">비동기</button>
+    <button>입력</button>
 
-</form>
+  </form>
+  <hr>
+
+  <div>
+    이곳에 적혀야 하는데
+    <textarea name="textarea" id="textarea" cols="30" rows="10"></textarea>
+    <div th:text="${earthqlist}"></div>
+
+    <!-- <div th:text="${earthqlist[0]}"></div> -->
+
+    <h1>[[${earthqlist}]]</h1>
+
+
+  </div>
+</body>
+
+<script>
+
+  const push = async () => {
+    const id = document.querySelector("#id").value;
+    const data = await fetch(`/gettest?id=${id}`);
+    const res = await data.text();
+    document.querySelector("#textarea").innerText = res;
+
+  }
+</script>
