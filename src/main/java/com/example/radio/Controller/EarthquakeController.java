@@ -46,10 +46,9 @@ public class EarthquakeController {
   @GetMapping("/yeartest")
   @ResponseBody
   public List<Earthquake> yearOut(@RequestParam int year) {
-    System.out.println(year);
 
     List<Earthquake> eqList = earthquakeRepository.findAllByEqyear(year);
-
+    System.out.println(eqList);
     return eqList;
   }
 

@@ -18,7 +18,7 @@
   <form action="/yeartest">
     <input type="text" name="yeartest" id="yeartest" placeholder="검색년도를 입력하세요">
 
-    <button type="button" onclick="yeartest1()">년도입력</button>
+    <button type="button" onclick="yeartest1()">비동기년도호출</button>
     <button>입력</button>
   </form>
   <hr>
@@ -35,21 +35,24 @@
 
 <!-- 지도용 script -->
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1599ebd89f92e779af67726a3670fb94"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"></script>
+
 <script>
+
   var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
       center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
       level: 3 // 지도의 확대 레벨
     };
-  // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+
   var map = new kakao.maps.Map(mapContainer, mapOption);
-</script>
 
+  var markerPosition = new kakao.maps.LatLng(33.450701, 126.570667); // 마커를 생성합니다
+  var marker = new kakao.maps.Marker({
+    position: markerPosition
+  });//마커를 지도에 세팅
 
-<script>
-
-
+  marker.setMap(map);
 
   const push = async () => {
     const id = document.querySelector("#id").value;
@@ -65,6 +68,9 @@
     const data = await fetch(`/yeartest?year=${year}`);
     const res = await data.text();
     document.querySelector("#textarea").innerText = res;
+
+    // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+
   }
 
 </script>

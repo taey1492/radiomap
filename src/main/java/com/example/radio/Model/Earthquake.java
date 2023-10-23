@@ -16,8 +16,6 @@ public class Earthquake {
 
   int num;
 
-  // @Column(name = "yeardatetime")
-  // String time;
   int eqyear;
   int eqmonth;
   int eqday;
