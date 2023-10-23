@@ -1,3 +1,10 @@
+/* 나눔 고딕체 */
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+.nanumgothic * {
+	font-family: "Nanum Gothic", sans-serif;
+}
+/* 안성탕면체 Bold */
 @font-face {
 	font-family: "Ansungtangmyun-Bold";
 	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/Ansungtangmyun-Bold.woff2")
@@ -5,6 +12,23 @@
 	font-weight: normal;
 	font-style: normal;
 }
+/* 배민 도현체 */
+@font-face {
+	font-family: "BMDOHYEON";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMDOHYEON.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+/* 배민 주아체 */
+@font-face {
+	font-family: "BMJUA";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
 body {
 	/* 드래그 방지 */
 	-webkit-user-select: none;
