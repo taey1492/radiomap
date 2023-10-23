@@ -27,11 +27,12 @@ public class EarthquakeController {
     return "test/test";
   }
 
+  // 비동기 통신 웹페이지 영역입니다.
   @GetMapping("/gettest")
   @ResponseBody
   public List<Float> test(@RequestParam int id) {
+    System.out.println(id);
 
-    // 비동기 통신 영역입니다.
     Optional<Earthquake> earthq = earthquakeRepository.findById(id);
     Float lat = earthq.get().getLat();
     Float lon = earthq.get().getLon();
@@ -39,8 +40,17 @@ public class EarthquakeController {
     List<Float> l = new ArrayList<>();
     l.add(lat);
     l.add(lon);
-
     return l;
+  }
+
+  @GetMapping("/yeartest")
+  @ResponseBody
+  public List<Earthquake> yearOut(@RequestParam int year) {
+    System.out.println(year);
+
+    List<Earthquake> eqList = earthquakeRepository.findAllByEqyear(year);
+
+    return eqList;
   }
 
   @PostMapping("/test")
@@ -59,7 +69,6 @@ public class EarthquakeController {
     l.add(lon);
 
     model.addAttribute("earthqlist", l);
-
     return "test/test";
   }
 
