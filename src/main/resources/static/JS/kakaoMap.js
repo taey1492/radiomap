@@ -12,15 +12,8 @@ const clustererOptions = {
 	minLevel: 15,
 };
 
-new kakao.maps.MarkerClusterer(clustererOptions).addMarkers(
-	positions.map(function (position) {
-		return new kakao.maps.Marker({ position: position.latlng });
-	}),
-	map
-);
-
 // 지도 마커 생성
-const kakaoMap = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+// const kakaoMap = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
 // 마커 위치
 const markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
@@ -31,7 +24,7 @@ const marker = new kakao.maps.Marker({
 });
 
 // 마커가 지도 위에 표시되도록 설정합니다
-marker.setMap(kakaoMap);
+marker.setMap(map);
 
 // 지도 위의 마커 제거
 // marker.setMap(null);
