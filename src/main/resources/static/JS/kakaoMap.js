@@ -137,24 +137,29 @@ for (let i = 0; i < radioPoint.length; i++) {
 
 //year로 검색하는 영역입니다.
 const eqyearpush = async () => {
-    const year = document.querySelector("#yeartest").value;
-    const data = await fetch(`/yeartest?year=${year}`);
+    //year로 인식할 input 구현해야 합니다.
+    //const year = document.querySelector("#yeartest").value;
+    const year = "2023";
+    const data = await fetch(`/yearsearch?year=${year}`);
     const res = await data.text();
     const json = JSON.parse(res); //json형식으로 읽기
-    document.querySelector("#textarea").innerText = json; //textarea영역에 출력(지도에 찍히는것과는 상관없습니다.)
-
+    console.log(json[0]); //json데이터 확인
     for (let i = 0; i < json.length; i++) {
-        // i 번째 json 형태에서 필요한 데이터 가져오기
+        // i 번째 json 형태에서 필요한 데이터 가져오기\
+
         let jlat = json[i].lat;
         let jlon = json[i].lon;
+        let jeqscale = json[i].eqscale; //규모
+        let jmagnitude = json[i].magnitude; //진도
+        let jlocation = json[i].location;
 
         // 마커를 생성합니다(카카오)
         // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
         var markerPosition = new kakao.maps.LatLng(jlat, jlon);
-
         var marker = new kakao.maps.Marker({
             position: markerPosition,
         });
+
         //마커를 지도에 세팅
         marker.setMap(map);
     }

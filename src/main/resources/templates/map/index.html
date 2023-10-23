@@ -1,82 +1,72 @@
 <!DOCTYPE html>
 <html lang="ko">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>MARRAD</title>
-		<link rel="stylesheet" href="../CSS/settings.css" />
-		<link rel="stylesheet" href="../CSS/common.css" />
-		<link rel="stylesheet" href="../CSS/index.css" />
-	</head>
 
-	<body>
-		<!-- 전체 영역 -->
-		<div class="mainArea">
-			<!-- header 영역 -->
-			<div class="headerArea">
-				<div class="logoArea">
-					<head th:replace="common/header" />
-				</div>
-				<!-- 로그인 버튼 -->
-				<!-- <div class="signInClick">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>MARRAD</title>
+	<link rel="stylesheet" href="../CSS/settings.css" />
+	<link rel="stylesheet" href="../CSS/common.css" />
+	<link rel="stylesheet" href="../CSS/index.css" />
+</head>
+
+<body>
+	<!-- 전체 영역 -->
+	<div class="mainArea">
+		<!-- header 영역 -->
+		<div class="headerArea">
+			<div class="logoArea">
+
+				<head th:replace="common/header" />
+			</div>
+			<!-- 로그인 버튼 -->
+			<!-- <div class="signInClick">
 							<a href="./">로그인</a>
 						</div> -->
-			</div>
+		</div>
 
-			<!-- 지도 영역 -->
-			<section class="mapArea">
-				<div id="map" class="map">
-					<!-- 메뉴 바 영역-->
-					<div class="menuBarArea">
-						<div
-							id="radioBtn"
-							class="selectedBtn"
-							onclick="selectRadioBtn(event)"
-						>
-							<img
-								src="../img/icon_radioactivity_mono.png"
-								alt="noRadioBtnImg"
-								class="radioBtnImg"
-							/>
-							<button class="menu">방사능</button>
-						</div>
-						<div id="eqBtn" class="menuBarBtn" onclick="selectEQBtn(event)">
-							<img
-								src="../img/icon_earthquake.png"
-								alt="noRadioBtnImg"
-								class="radioBtnImg"
-							/>
-							<button class="menu">지진</button>
-						</div>
+		<!-- 지도 영역 -->
+		<section class="mapArea">
+			<div id="map" class="map">
+				<!-- 메뉴 바 영역-->
+				<div class="menuBarArea">
+					<div id="radioBtn" class="selectedBtn" onclick="selectRadioBtn(event)">
+						<img src="../img/icon_radioactivity_mono.png" alt="noRadioBtnImg" class="radioBtnImg" />
+						<button class="menu">방사능</button>
+					</div>
+					<div id="eqBtn" class="menuBarBtn" onclick="selectEQBtn(event), eqyearpush()">
+						<img src="../img/icon_earthquake.png" alt="noRadioBtnImg" class="radioBtnImg" />
+						<button class="menu">지진</button>
 					</div>
 				</div>
-			</section>
-		</div>
-	</body>
+			</div>
+		</section>
+	</div>
+</body>
 
-	<!-- script -->
+<!-- script -->
 
-	<!-- kakao 지도 관련 script -->
-	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-	<script
-		type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"
-	></script>
+<!-- kakao 지도 관련 script -->
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"></script>
 
-	<!-- 맵 + 메뉴 바 화면 사이즈 조절 -->
-	<script>
-		document.addEventListener("DOMContentLoaded", () => {
-			const h = window.innerHeight;
-			const map = document.querySelector("#map");
-			map.style.height = `${h}px`;
+<!-- 맵 + 메뉴 바 화면 사이즈 조절 -->
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const h = window.innerHeight;
+		const map = document.querySelector("#map");
+		map.style.height = `${h}px`;
 
-			const bar = document.querySelector(".menuBarArea");
+		const bar = document.querySelector(".menuBarArea");
 
-			bar.style.height = `${0.88 * parseInt(map.style.height)}px`;
-			console.log(bar.style.height);
-		});
-	</script>
+		bar.style.height = `${0.88 * parseInt(map.style.height)}px`;
+		console.log(bar.style.height);
+	});
+</script>
 
-	<script src="../JS/kakaoMap.js"></script>
-	<script src="../JS/button.js"></script>
+<script src="../JS/kakaoMap.js"></script>
+<script src="../JS/button.js"></script>
+
+
+
 </html>

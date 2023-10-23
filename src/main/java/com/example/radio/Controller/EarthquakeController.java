@@ -48,17 +48,15 @@ public class EarthquakeController {
 
   }
 
-  @GetMapping("/yeartest")
+  @GetMapping("/yearsearch")
   @ResponseBody
   public List<Earthquake> yearOut(@RequestParam int year) {
 
     List<Earthquake> eqList = earthquakeRepository.findAllByEqyear(year);
-
     return eqList;
   }
 
   @PostMapping("/test")
-
   public String testPost(@ModelAttribute Earthquake earthquake, Model model) {
 
     int i = earthquake.getId();
