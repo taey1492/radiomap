@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Radiodata {
+public class RadioData {
     @Id @GeneratedValue
     int id;
 

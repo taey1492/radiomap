@@ -10,9 +10,8 @@
  @Entity
  @Data
  public class RadioAddress {
- @Id @GeneratedValue
- int id;
 
+  @Id
  @Column(name = "r_pinnacle")
  String pinnacle;
  @Column(name = "r_pin")
