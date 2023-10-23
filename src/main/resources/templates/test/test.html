@@ -10,7 +10,7 @@
   <form action="/test" method="post">
 
     <input type="text" name="id" id="id">
-    <button type="button" onclick="push()">비동기id호출</button>
+    <button type="button" onclick="idtest()">비동기id호출</button>
     <button>입력</button>
 
   </form>
@@ -38,6 +38,7 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"></script>
 
 <script>
+
   var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
       center: new kakao.maps.LatLng(37.450701, 126.570667), // 지도의 중심좌표
@@ -46,50 +47,37 @@
 
   var map = new kakao.maps.Map(mapContainer, mapOption);
 
-  const push = async () => {
+  //id 비동기 테스트 영역입니다.(실험용 부분이라 구현할 필요 없습니다)
+  const idtest = async () => {
     const id = document.querySelector("#id").value;
     const data = await fetch(`/gettest?id=${id}`);
     const res = await data.text();
-
     document.querySelector("#textarea").innerText = res
-
-
-
   }
 
+  //year로 검색하는 테스트 영역입니다.
   const yeartest1 = async () => {
-
     const year = document.querySelector("#yeartest").value;
     const data = await fetch(`/yeartest?year=${year}`);
     const res = await data.text();
-    const json = JSON.parse(res)
-
-    document.querySelector("#textarea").innerText = json;
-
+    const json = JSON.parse(res)//json형식으로 읽기
+    document.querySelector("#textarea").innerText = json;//textarea영역에 출력(지도에 찍히는것과는 상관없습니다.)
 
     for (let i = 0; i < json.length; i++) {
-      console.log(json)
-      console.log(json[0])
+      // i 번째 json 형태에서 필요한 데이터 가져오기
       let jlat = json[i].lat
       let jlon = json[i].lon
 
-
-      // 마커를 생성합니다
+      // 마커를 생성합니다(카카오)
+      // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
       var markerPosition = new kakao.maps.LatLng(jlat, jlon);
+
       var marker = new kakao.maps.Marker({
         position: markerPosition
       });
+      //마커를 지도에 세팅
       marker.setMap(map);
-
     }
-
-
-
-    // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
   }
-
-  //마커를 지도에 세팅
-
-
 
 </script>
