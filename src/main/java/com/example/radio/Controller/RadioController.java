@@ -1,6 +1,8 @@
 package com.example.radio.Controller;
 
+import com.example.radio.Model.RadioData;
 import com.example.radio.Model.RadioMap;
+import com.example.radio.Repository.RadioDataRepository;
 import com.example.radio.Repository.RadioMapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,32 +20,48 @@ public class RadioController {
     @Autowired
     RadioMapRepository radioMapRepository;
 
-    @GetMapping("testy")
-    public String index(@ModelAttribute RadioMap radioMap, Model model) {
+    @Autowired
+    RadioDataRepository radioDataRepository;
 
-        return "/map/testy";
+    @GetMapping("/index")
 
+    public String index() {
+
+        return "/map/index";
     }
 
-    @PostMapping("/testy")
-    public String indexPost(@ModelAttribute RadioMap radioMap, Model model) {
+    @PostMapping("/index")
+    public String indexPost(@ModelAttribute RadioData radiodata) {
 
-        int i = radioMap.getId();
-
-        Optional<RadioMap> latlon = radioMapRepository.findById(i);
-
-        Float lat = latlon.get().getLat();
-        Float lon = latlon.get().getLon();
-
-        List<Float> l = new ArrayList<>();
-        l.add(lat);
-        l.add(lon);
-
-        model.addAttribute("latlonlist", l);
-
-        System.out.println(l);
-
-        return "redirect:/map/testy";
+        return "redirect:/mpa/index";
     }
+
+    // @GetMapping("testy")
+    // public String index(@ModelAttribute RadioMap radioMap, Model model) {
+
+    // return "/map/testy";
+
+    // }
+
+    // @PostMapping("/testy")
+    // public String indexPost(@ModelAttribute RadioMap radioMap, Model model) {
+
+    // int i = radioMap.getId();
+
+    // Optional<RadioMap> latlon = radioMapRepository.findById(i);
+
+    // Float lat = latlon.get().getLat();
+    // Float lon = latlon.get().getLon();
+
+    // List<Float> l = new ArrayList<>();
+    // l.add(lat);
+    // l.add(lon);
+
+    // model.addAttribute("latlonlist", l);
+
+    // System.out.println(l);
+
+    // return "redirect:/map/testy";
+    // }
 
 }
