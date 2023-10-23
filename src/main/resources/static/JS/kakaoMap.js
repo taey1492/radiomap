@@ -67,8 +67,7 @@ for (let i = 0; i < radioPoint.length; i++) {
 	});
 
 	// 커스텀 오버레이에 표시할 컨텐츠 입니다
-	// 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
-	// 별도의 이벤트 메소드를 제공하지 않습니다
+	// 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어 가능
 	const content =
 		'<div class="wrap">' +
 		'    <div class="info">' +
@@ -117,16 +116,20 @@ const eqYearPush = async () => {
 
 	// i 번째 json 형태에서 필요한 데이터 가져오기
 	for (let i = 0; i < json.length; i++) {
-		let jlat = json[i].lat;
-		let jlon = json[i].lon;
-		let jeqscale = json[i].eqscale; // 규모
-		let jmagnitude = json[i].magnitude; // 진도
-		let jlocation = json[i].location;
+		let eqLat = json[i].lat;
+		let eqLon = json[i].lon;
+		let eqScale = json[i].eqscale; // 규모
+		let eqMagnitude = json[i].magnitude; // 진도
+		let eqLocation = json[i].location;
 
 		// 마커를 생성
 		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 		var markerPosition = new kakao.maps.LatLng(jlat, jlon);
 		var marker = new kakao.maps.Marker({
+			map: map,
+			scale: eqScale,
+			magnitude: eqMagnitude,
+			image: markerImage, // 마커 이미지
 			position: markerPosition,
 		});
 
