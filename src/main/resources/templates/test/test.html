@@ -38,27 +38,22 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"></script>
 
 <script>
-
   var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-      level: 3 // 지도의 확대 레벨
+      center: new kakao.maps.LatLng(37.450701, 126.570667), // 지도의 중심좌표
+      level: 14// 지도의 확대 레벨
     };
 
   var map = new kakao.maps.Map(mapContainer, mapOption);
-
-  var markerPosition = new kakao.maps.LatLng(33.450701, 126.570667); // 마커를 생성합니다
-  var marker = new kakao.maps.Marker({
-    position: markerPosition
-  });//마커를 지도에 세팅
-
-  marker.setMap(map);
 
   const push = async () => {
     const id = document.querySelector("#id").value;
     const data = await fetch(`/gettest?id=${id}`);
     const res = await data.text();
-    document.querySelector("#textarea").innerText = res;
+
+    document.querySelector("#textarea").innerText = res
+
+
 
   }
 
@@ -67,10 +62,34 @@
     const year = document.querySelector("#yeartest").value;
     const data = await fetch(`/yeartest?year=${year}`);
     const res = await data.text();
-    document.querySelector("#textarea").innerText = res;
+    const json = JSON.parse(res)
+
+    document.querySelector("#textarea").innerText = json;
+
+
+    for (let i = 0; i < json.length; i++) {
+      console.log(json)
+      console.log(json[0])
+      let jlat = json[i].lat
+      let jlon = json[i].lon
+
+
+      // 마커를 생성합니다
+      var markerPosition = new kakao.maps.LatLng(jlat, jlon);
+      var marker = new kakao.maps.Marker({
+        position: markerPosition
+      });
+      marker.setMap(map);
+
+    }
+
+
 
     // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-
   }
+
+  //마커를 지도에 세팅
+
+
 
 </script>
