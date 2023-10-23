@@ -1,83 +1,85 @@
 <head>
-  <meta charset="utf-8">
-
+	<meta charset="utf-8" />
 </head>
 
 <body>
+	<div id="map" style="width: 100%; height: 350px"></div>
 
-  <div id="map" style="width:100%;height:350px;"></div>
+	<form action="/test" method="post">
+		<input type="text" name="id" id="id" />
+		<button type="button" onclick="idtest()">비동기id호출</button>
+		<button>입력</button>
+	</form>
 
-  <form action="/test" method="post">
+	<form action="/yeartest">
+		<input
+			type="text"
+			name="yeartest"
+			id="yeartest"
+			placeholder="검색년도를 입력하세요"
+		/>
 
-    <input type="text" name="id" id="id">
-    <button type="button" onclick="idtest()">비동기id호출</button>
-    <button>입력</button>
+		<button type="button" onclick="yeartest1()">비동기년도호출</button>
+		<button>입력</button>
+	</form>
+	<hr />
 
-  </form>
+	<div>
+		이곳에 적혀야 하는데
+		<textarea name="textarea" id="textarea" cols="100vw" rows="50vh"></textarea>
+		<div th:text="${earthqlist}"></div>
 
-  <form action="/yeartest">
-    <input type="text" name="yeartest" id="yeartest" placeholder="검색년도를 입력하세요">
-
-    <button type="button" onclick="yeartest1()">비동기년도호출</button>
-    <button>입력</button>
-  </form>
-  <hr>
-
-  <div>
-    이곳에 적혀야 하는데
-    <textarea name="textarea" id="textarea" cols="100vw" rows="50vh"></textarea>
-    <div th:text="${earthqlist}"></div>
-
-    <!-- <div th:text="${earthqlist[0]}"></div> -->
-    <h1>[[${earthqlist}]]</h1>
-  </div>
+		<!-- <div th:text="${earthqlist[0]}"></div> -->
+		<h1>[[${earthqlist}]]</h1>
+	</div>
 </body>
 
 <!-- 지도용 script -->
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"></script>
+<script
+	type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"
+></script>
 
 <script>
+	var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+		mapOption = {
+			center: new kakao.maps.LatLng(37.450701, 126.570667), // 지도의 중심좌표
+			level: 14, // 지도의 확대 레벨
+		};
 
-  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-      center: new kakao.maps.LatLng(37.450701, 126.570667), // 지도의 중심좌표
-      level: 14// 지도의 확대 레벨
-    };
+	var map = new kakao.maps.Map(mapContainer, mapOption);
 
-  var map = new kakao.maps.Map(mapContainer, mapOption);
+	// id 비동기 테스트 영역입니다.(실험용 부분이라 구현할 필요 없습니다)
+	const idtest = async () => {
+		const id = document.querySelector("#id").value;
+		const data = await fetch(`/gettest?id=${id}`);
+		const res = await data.text();
+		document.querySelector("#textarea").innerText = res;
+	};
 
-  //id 비동기 테스트 영역입니다.(실험용 부분이라 구현할 필요 없습니다)
-  const idtest = async () => {
-    const id = document.querySelector("#id").value;
-    const data = await fetch(`/gettest?id=${id}`);
-    const res = await data.text();
-    document.querySelector("#textarea").innerText = res
-  }
+	// year로 검색하는 테스트 영역입니다.
+	const yeartest1 = async () => {
+		const year = document.querySelector("#yeartest").value;
+		const data = await fetch(`/yeartest?year=${year}`);
+		const res = await data.text();
+		const json = JSON.parse(res); //json형식으로 읽기
+		document.querySelector("#textarea").innerText = json; //textarea영역에 출력(지도에 찍히는것과는 상관없습니다.)
 
-  //year로 검색하는 테스트 영역입니다.
-  const yeartest1 = async () => {
-    const year = document.querySelector("#yeartest").value;
-    const data = await fetch(`/yeartest?year=${year}`);
-    const res = await data.text();
-    const json = JSON.parse(res)//json형식으로 읽기
-    document.querySelector("#textarea").innerText = json;//textarea영역에 출력(지도에 찍히는것과는 상관없습니다.)
+		for (let i = 0; i < json.length; i++) {
+			// i 번째 json 형태에서 필요한 데이터 가져오기
+			let jlat = json[i].lat;
+			let jlon = json[i].lon;
 
-    for (let i = 0; i < json.length; i++) {
-      // i 번째 json 형태에서 필요한 데이터 가져오기
-      let jlat = json[i].lat
-      let jlon = json[i].lon
+			// 마커를 생성합니다(카카오)
+			// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+			var markerPosition = new kakao.maps.LatLng(jlat, jlon);
 
-      // 마커를 생성합니다(카카오)
-      // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-      var markerPosition = new kakao.maps.LatLng(jlat, jlon);
-
-      var marker = new kakao.maps.Marker({
-        position: markerPosition
-      });
-      //마커를 지도에 세팅
-      marker.setMap(map);
-    }
-  }
-
+			var marker = new kakao.maps.Marker({
+				position: markerPosition,
+			});
+			//마커를 지도에 세팅
+			marker.setMap(map);
+		}
+	};
 </script>

@@ -1,10 +1,6 @@
 package com.example.radio.Controller;
 
-
-import com.example.radio.Model.Earthquake;
-import com.example.radio.Model.RadioData;
 import com.example.radio.Model.RadioMap;
-import com.example.radio.Repository.RadioDataRepository;
 import com.example.radio.Repository.RadioMapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,24 +15,18 @@ import java.util.Optional;
 @RequestMapping("/map")
 public class RadioController {
 
-
     @Autowired
     RadioMapRepository radioMapRepository;
 
-
     @GetMapping("testy")
-    public  String index(@ModelAttribute RadioMap radioMap,Model model) {
-
-
-
+    public String index(@ModelAttribute RadioMap radioMap, Model model) {
 
         return "/map/testy";
 
     }
 
-
-     @PostMapping("/testy")
-     public String indexPost(@ModelAttribute RadioMap radioMap ,Model model) {
+    @PostMapping("/testy")
+    public String indexPost(@ModelAttribute RadioMap radioMap, Model model) {
 
         int i = radioMap.getId();
 
@@ -49,13 +39,11 @@ public class RadioController {
         l.add(lat);
         l.add(lon);
 
-
         model.addAttribute("latlonlist", l);
 
         System.out.println(l);
 
-
-         return "redirect:/map/testy";
-     }
+        return "redirect:/map/testy";
+    }
 
 }
