@@ -17,23 +17,36 @@ const clustererOptions = {
 // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
 const mapTypeControl = new kakao.maps.MapTypeControl();
 
-// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+// 지도에 컨트롤을 추가해야 지도위에 표시
 // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
 map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
-// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성
 const zoomControl = new kakao.maps.ZoomControl();
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-// 마커를 표시할 위치와 title 객체 배열입니다
+// 마커 표시하기
+
+// 마커를 표시할 위치와 title
+const radioNormalPoint = [
+	{
+		title: "카카오",
+		latlng: new kakao.maps.LatLng(35.450705, 127.070677),
+	},
+	{
+		title: "텃밭",
+		latlng: new kakao.maps.LatLng(34.490879, 127.06994),
+	},
+	{
+		title: "근린공원",
+		latlng: new kakao.maps.LatLng(36.491393, 127.070738),
+	},
+];
+
 const radioYellowPoint = [
 	{
 		title: "카카오",
 		latlng: new kakao.maps.LatLng(36.450705, 126.570677),
-	},
-	{
-		title: "생태연못",
-		latlng: new kakao.maps.LatLng(33.450936, 126.569477),
 	},
 	{
 		title: "텃밭",
@@ -45,11 +58,69 @@ const radioYellowPoint = [
 	},
 ];
 
+const radioRedPoint = [
+	{
+		title: "카카오",
+		latlng: new kakao.maps.LatLng(36.450705, 126.870677),
+	},
+	{
+		title: "텃밭",
+		latlng: new kakao.maps.LatLng(34.480879, 126.86994),
+	},
+	{
+		title: "근린공원",
+		latlng: new kakao.maps.LatLng(35.481393, 126.870738),
+	},
+];
+
 // 마커 이미지의 이미지 주소입니다
+const iconRadioNormal = "../img/icon_radioactivity_mono.png";
 const iconRadioYellow = "../img/icon_radioactivity_red.png";
 const iconRadioRed = "../img/icon_radioactivity_yellow.png";
 
-for (const i = 0; i < radioYellowPoint.length; i++) {
+// 방사능 - 정상
+
+for (let i = 0; i < radioNormalPoint.length; i++) {
+	// 마커 이미지의 이미지 크기 입니다
+	const imageSize = new kakao.maps.Size(30, 30);
+
+	// 마커 이미지를 생성합니다
+	const markerImage = new kakao.maps.MarkerImage(iconRadioNormal, imageSize);
+
+	// 마커를 생성합니다
+	const marker = new kakao.maps.Marker({
+		map: map, // 마커를 표시할 지도
+		title: radioNormalPoint[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+		position: radioNormalPoint[i].latlng, // 마커를 표시할 위치
+		image: markerImage, // 마커 이미지
+		clickable: true, // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+	});
+	// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+	const iwContent = '<div style="padding:10px;">정상입니다.</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+		iwRemoveable = true; // removeable 속성을 true 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+	// 인포윈도우를 생성합니다
+	const infowindow = new kakao.maps.InfoWindow({
+		content: iwContent,
+		removable: iwRemoveable,
+	});
+
+	// 마커에 마우스오버 이벤트를 등록합니다
+	kakao.maps.event.addListener(marker, "mouseover", function () {
+		// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+		infowindow.open(map, marker);
+	});
+
+	// 마커에 마우스아웃 이벤트를 등록합니다
+	kakao.maps.event.addListener(marker, "mouseout", function () {
+		// 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+		infowindow.close();
+	});
+}
+
+// 방사능 - 경고
+
+for (let i = 0; i < radioYellowPoint.length; i++) {
 	// 마커 이미지의 이미지 크기 입니다
 	const imageSize = new kakao.maps.Size(30, 30);
 
@@ -59,8 +130,70 @@ for (const i = 0; i < radioYellowPoint.length; i++) {
 	// 마커를 생성합니다
 	const marker = new kakao.maps.Marker({
 		map: map, // 마커를 표시할 지도
-		position: radioYellowPoint[i].latlng, // 마커를 표시할 위치
 		title: radioYellowPoint[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+		position: radioYellowPoint[i].latlng, // 마커를 표시할 위치
 		image: markerImage, // 마커 이미지
+		clickable: true, // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+	});
+	// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+	const iwContent = '<div style="padding:10px;">위험합니다.</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+		iwRemoveable = true; // removeable 속성을 true 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+	// 인포윈도우를 생성합니다
+	const infowindow = new kakao.maps.InfoWindow({
+		content: iwContent,
+		removable: iwRemoveable,
+	});
+
+	// 마커에 마우스오버 이벤트를 등록합니다
+	kakao.maps.event.addListener(marker, "mouseover", function () {
+		// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+		infowindow.open(map, marker);
+	});
+
+	// 마커에 마우스아웃 이벤트를 등록합니다
+	kakao.maps.event.addListener(marker, "mouseout", function () {
+		// 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+		infowindow.close();
+	});
+}
+
+// 방사능 - 위험
+
+for (let i = 0; i < radioRedPoint.length; i++) {
+	// 마커 이미지의 이미지 크기 입니다
+	const imageSize = new kakao.maps.Size(30, 30);
+
+	// 마커 이미지를 생성합니다
+	const markerImage = new kakao.maps.MarkerImage(iconRadioRed, imageSize);
+
+	// 마커를 생성합니다
+	const marker = new kakao.maps.Marker({
+		map: map, // 마커를 표시할 지도
+		title: radioRedPoint[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+		position: radioRedPoint[i].latlng, // 마커를 표시할 위치
+		image: markerImage, // 마커 이미지
+		clickable: true, // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+	});
+	// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+	const iwContent = '<div style="padding: 10px;">경고합니다.</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+		iwRemoveable = true; // removeable 속성을 true 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+	// 인포윈도우를 생성합니다
+	const infowindow = new kakao.maps.InfoWindow({
+		content: iwContent,
+		removable: iwRemoveable,
+	});
+
+	// 마커에 마우스오버 이벤트를 등록합니다
+	kakao.maps.event.addListener(marker, "mouseover", function () {
+		// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+		infowindow.open(map, marker);
+	});
+
+	// 마커에 마우스아웃 이벤트를 등록합니다
+	kakao.maps.event.addListener(marker, "mouseout", function () {
+		// 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+		infowindow.close();
 	});
 }
