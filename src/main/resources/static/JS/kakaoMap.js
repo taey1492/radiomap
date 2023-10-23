@@ -21,7 +21,7 @@ const mapTypeControl = new kakao.maps.MapTypeControl();
 // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
 map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
-// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성
+// 지도 확대 축소를 제어할 수 있는 줌 컨트롤을 생성
 const zoomControl = new kakao.maps.ZoomControl();
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
@@ -40,36 +40,6 @@ const radioPoint = [
 	{
 		title: "근린공원",
 		latlng: new kakao.maps.LatLng(36.491393, 127.070738),
-	},
-];
-
-const radioYellowPoint = [
-	{
-		title: "카카오",
-		latlng: new kakao.maps.LatLng(36.450705, 126.570677),
-	},
-	{
-		title: "텃밭",
-		latlng: new kakao.maps.LatLng(34.450879, 126.56994),
-	},
-	{
-		title: "근린공원",
-		latlng: new kakao.maps.LatLng(35.451393, 126.570738),
-	},
-];
-
-const radioRedPoint = [
-	{
-		title: "카카오",
-		latlng: new kakao.maps.LatLng(36.450705, 126.870677),
-	},
-	{
-		title: "텃밭",
-		latlng: new kakao.maps.LatLng(34.480879, 126.86994),
-	},
-	{
-		title: "근린공원",
-		latlng: new kakao.maps.LatLng(35.481393, 126.870738),
 	},
 ];
 
@@ -135,32 +105,32 @@ for (let i = 0; i < radioPoint.length; i++) {
 	}
 }
 
-//year로 검색하는 영역입니다.
-const eqyearpush = async () => {
-	//year로 인식할 input 구현해야 합니다.
-	//const year = document.querySelector("#yeartest").value;
+// year로 검색하는 영역입니다.
+const eqYearPush = async () => {
+	// year로 인식할 input 구현해야 합니다.
+	// const year = document.querySelector("#yeartest").value;
 	const year = "2023";
 	const data = await fetch(`/yearsearch?year=${year}`);
 	const res = await data.text();
 	const json = JSON.parse(res); //json형식으로 읽기
 	console.log(json[0]); //json데이터 확인
-	for (let i = 0; i < json.length; i++) {
-		// i 번째 json 형태에서 필요한 데이터 가져오기\
 
+	// i 번째 json 형태에서 필요한 데이터 가져오기
+	for (let i = 0; i < json.length; i++) {
 		let jlat = json[i].lat;
 		let jlon = json[i].lon;
-		let jeqscale = json[i].eqscale; //규모
-		let jmagnitude = json[i].magnitude; //진도
+		let jeqscale = json[i].eqscale; // 규모
+		let jmagnitude = json[i].magnitude; // 진도
 		let jlocation = json[i].location;
 
-		// 마커를 생성합니다(카카오)
+		// 마커를 생성
 		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 		var markerPosition = new kakao.maps.LatLng(jlat, jlon);
 		var marker = new kakao.maps.Marker({
 			position: markerPosition,
 		});
 
-		//마커를 지도에 세팅
+		// 마커를 지도에 세팅
 		marker.setMap(map);
 	}
 };
