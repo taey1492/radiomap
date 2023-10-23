@@ -90,3 +90,10 @@
 	position: absolute;
 	z-index: 2;
 }
+
+/* 방사능 마커 클릭 상세 정보 */
+/* .radioInfo {
+	padding: 10px;
+	border: 2px solid blue;
+	border-radius: 10px;
+} */
