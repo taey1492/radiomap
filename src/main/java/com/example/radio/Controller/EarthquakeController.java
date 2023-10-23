@@ -31,16 +31,21 @@ public class EarthquakeController {
   @GetMapping("/gettest")
   @ResponseBody
   public List<Float> test(@RequestParam int id) {
-    System.out.println(id);
-
-    Optional<Earthquake> earthq = earthquakeRepository.findById(id);
-    Float lat = earthq.get().getLat();
-    Float lon = earthq.get().getLon();
 
     List<Float> l = new ArrayList<>();
-    l.add(lat);
-    l.add(lon);
+
+    Optional<Earthquake> earthq = earthquakeRepository.findById(id);
+    if (earthq.isPresent()) {
+      Float lat = earthq.get().getLat();
+      Float lon = earthq.get().getLon();
+      l.add(lat);
+      l.add(lon);
+    } else {
+      System.out.println("nothing");
+    }
+
     return l;
+
   }
 
   @GetMapping("/yeartest")
@@ -48,7 +53,7 @@ public class EarthquakeController {
   public List<Earthquake> yearOut(@RequestParam int year) {
 
     List<Earthquake> eqList = earthquakeRepository.findAllByEqyear(year);
-    System.out.println(eqList);
+
     return eqList;
   }
 
