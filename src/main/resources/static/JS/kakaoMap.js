@@ -13,8 +13,8 @@ const clustererOptions = {
 	minLevel: 15,
 };
 // ----------------------------------------------------------
-// 지도 컨트롤러 생성
 
+// 지도 컨트롤러 생성
 // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
 const mapTypeControl = new kakao.maps.MapTypeControl();
 
@@ -129,6 +129,7 @@ const eqYearPush = async () => {
 	}
 };
 
+// 테스트 중인 코드
 const testEq = () => {
 	for (let i = 0; i < 3; i++) {
 		markerArray[i].setMap(map);
