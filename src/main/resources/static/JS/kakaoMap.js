@@ -27,13 +27,12 @@ const zoomControl = new kakao.maps.ZoomControl();
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
 // 마커 이미지의 이미지 주소입니다
-const marker_radioNormal = "../img/marker_radioactivity_normal.png.png";
-const marker_radioYellow = "../img/marker_radioactivity_yellow.png.png";
-const marker_radioRed = "../img/marker_radioactivity_red.png.png";
-const marker_earthquake = "../img/marker_earthquake.png.png";
-// 방사능 - 정상
+const marker_radioNormal = "../img/marker_radioactivity_normal.png.png"; // 방사능 수치 정상
+const marker_radioYellow = "../img/marker_radioactivity_yellow.png.png"; // 방사능 수치 경고
+const marker_radioRed = "../img/marker_radioactivity_red.png.png"; // 방사능 수치 위험
+const marker_earthquake = "../img/marker_earthquake.png.png"; // 지진 마커
 
-// 마커 저장 배열
+// 생성된 마커 저장 배열
 const markerArray = [];
 
 // year로 검색하는 영역입니다.
@@ -91,11 +90,11 @@ const eqYearPush = async () => {
 			'        <div class="body">' +
 			'            <div class="desc">' +
 			`                <div class="ellipsis"><span class="eqDetail">위도:</span> ${eqLat} | <span class="eqDetail">경도:</span> ${eqLon}</div>` +
-			`                <div class="ellipsis"><span class="eqDetail">발생지:</span> ${eqLocation}</div> ` +
-			`                <div class="ellipsis"><span class="eqDetail">진앙 깊이:</span> ${eqDeep}km</div> ` +
+			`                <div class="ellipsis"><span class="eqDetail">발생지:</span> ${eqLocation}</div>` +
+			`                <div class="ellipsis"><span class="eqDetail">진앙 깊이:</span> ${eqDeep}km</div>` +
 			`                <div class="ellipsis"><span class="eqDetail">시간:</span> ${eqYear}년 ${eqMonth}월 ${eqDay}일, ${eqAntemeri} ${eqTime}` +
-			`                <div class="ellipsis"><span class="eqDetail">규모:</span> ${eqScale}</div> ` +
-			`                <div class="ellipsis"><span class="eqDetail">진도:</span> ${eqMagnitude}</div> ` +
+			`                <div class="ellipsis"><span class="eqDetail">규모:</span> ${eqScale}</div>` +
+			`                <div class="ellipsis"><span class="eqDetail">진도:</span> ${eqMagnitude}</div>` +
 			"            </div>" +
 			"        </div>" +
 			"    </div>" +
