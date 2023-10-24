@@ -56,7 +56,7 @@ const eqYearPush = async () => {
 		let eqYear = eqJson[i].eqyear; // 지진 발생일(년.월.일.시간)
 		let eqMonth = eqJson[i].eqmonth;
 		let eqDay = eqJson[i].eqday;
-		let eqAntemeri = eqJson[i].eqantemeri; // AM, PM
+		let eqAntemeri = eqJson[i].eqantemeri; // AM, PM -> 오전, 오후로 변경
 		if (eqAntemeri == "AM") {
 			eqAntemeri = "오전";
 		} else {
