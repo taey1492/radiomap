@@ -1,3 +1,4 @@
+// 지도 초기 화면 설정
 const container = document.getElementById("map");
 // level이 높을수록 지도를 축소함.
 const options = {
@@ -11,7 +12,7 @@ const clustererOptions = {
 	gridSize: 50,
 	minLevel: 15,
 };
-
+// ----------------------------------------------------------
 // 지도 컨트롤러 생성
 
 // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
@@ -26,10 +27,10 @@ const zoomControl = new kakao.maps.ZoomControl();
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
 // 마커 이미지의 이미지 주소입니다
-const iconRadioNormal = "../img/icon_radioactivity_mono.png";
-const iconRadioYellow = "../img/icon_radioactivity_yellow.png";
-const iconRadioRed = "../img/icon_radioactivity_red.png";
-const iconEqNormal = "../img/icon_earthquake.png";
+const marker_radioNormal = "../img/marker_radioactivity_normal.png.png";
+const marker_radioYellow = "../img/marker_radioactivity_yellow.png.png";
+const marker_radioRed = "../img/marker_radioactivity_red.png.png";
+const marker_earthquake = "../img/marker_earthquake.png.png";
 // 방사능 - 정상
 
 // 마커 저장 배열
@@ -69,7 +70,7 @@ const eqYearPush = async () => {
 		const imageOption = { offset: new kakao.maps.Point(10, 35) };
 		// 마커 이미지
 		const markerImage = new kakao.maps.MarkerImage(
-			iconEqNormal,
+			marker_earthquake,
 			imageSize,
 			imageOption
 		);
