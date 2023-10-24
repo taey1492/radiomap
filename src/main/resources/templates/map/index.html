@@ -31,7 +31,7 @@
 						<div
 							id="radioBtn"
 							class="selectedBtn"
-							onclick="selectRadioBtn(event)"
+							onclick="selectRadioBtn(event), closeEqMarker()"
 						>
 							<img
 								src="../img/icon_radioactivity_mono.png"
@@ -77,7 +77,7 @@
 			const bar = document.querySelector(".menuBarArea");
 
 			bar.style.height = `${0.88 * parseInt(map.style.height)}px`;
-			console.log(bar.style.height);
+			console.log(`브라우저 세로 길이: ${bar.style.height}`);
 		});
 	</script>
 
