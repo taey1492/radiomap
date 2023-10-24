@@ -7,6 +7,9 @@ import javax.persistence.*;
 @Entity
 @Data
 public class RadioData {
+
+
+
     @Id @GeneratedValue
     int id;
 
@@ -18,8 +21,12 @@ public class RadioData {
     String item;
     @Column(name = "r_ecolname")
     String ecolname;
+
+
     @Column(name = "r_pinnacle")
     String pinnacle;
+
+
     @Column(name = "r_coldate")
     String coldate;
     @Column(name = "r_depth")
@@ -40,7 +47,5 @@ public class RadioData {
     Float r240pu_239pu;
 
 
-    // @ManyToOne
-    // Radiomap radiomap;
 
 }
