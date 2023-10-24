@@ -27,9 +27,10 @@ public class RadioController {
     @ResponseBody
     public List<RadioMap> index(@ModelAttribute RadioMap radioMap) {
 
-        List<RadioMap> radiomaplist = radioMapRepository.findAll();
 
-        return radiomaplist;
+        List<RadioMap> radioMapList = radioMapRepository.findAll();
+
+        return radioMapList;
 
     }
 
