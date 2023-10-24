@@ -1,17 +1,12 @@
 package com.example.radio.Controller;
 
 import com.example.radio.Model.RadioData;
-import com.example.radio.Model.RadioMap;
 import com.example.radio.Repository.RadioDataRepository;
 import com.example.radio.Repository.RadioMapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/map")

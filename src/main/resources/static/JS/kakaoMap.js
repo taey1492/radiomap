@@ -21,7 +21,7 @@ const mapTypeControl = new kakao.maps.MapTypeControl();
 // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
 map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
-// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성
+// 지도 확대 축소를 제어할 수 있는 줌 컨트롤을 생성
 const zoomControl = new kakao.maps.ZoomControl();
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
@@ -40,36 +40,6 @@ const radioPoint = [
     {
         title: "근린공원",
         latlng: new kakao.maps.LatLng(36.491393, 127.070738),
-    },
-];
-
-const radioYellowPoint = [
-    {
-        title: "카카오",
-        latlng: new kakao.maps.LatLng(36.450705, 126.570677),
-    },
-    {
-        title: "텃밭",
-        latlng: new kakao.maps.LatLng(34.450879, 126.56994),
-    },
-    {
-        title: "근린공원",
-        latlng: new kakao.maps.LatLng(35.451393, 126.570738),
-    },
-];
-
-const radioRedPoint = [
-    {
-        title: "카카오",
-        latlng: new kakao.maps.LatLng(36.450705, 126.870677),
-    },
-    {
-        title: "텃밭",
-        latlng: new kakao.maps.LatLng(34.480879, 126.86994),
-    },
-    {
-        title: "근린공원",
-        latlng: new kakao.maps.LatLng(35.481393, 126.870738),
     },
 ];
 
@@ -97,8 +67,7 @@ for (let i = 0; i < radioPoint.length; i++) {
     });
 
     // 커스텀 오버레이에 표시할 컨텐츠 입니다
-    // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
-    // 별도의 이벤트 메소드를 제공하지 않습니다
+    // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어 가능
     const content =
         '<div class="wrap">' +
         '    <div class="info">' +
@@ -135,32 +104,36 @@ for (let i = 0; i < radioPoint.length; i++) {
     }
 }
 
-//year로 검색하는 영역입니다.
-const eqyearpush = async () => {
-    //year로 인식할 input 구현해야 합니다.
-    //const year = document.querySelector("#yeartest").value;
-    const year = "2021";
+// year로 검색하는 영역입니다.
+const eqYearPush = async () => {
+    // year로 인식할 input 구현해야 합니다.
+    // const year = document.querySelector("#yeartest").value;
+    const year = "2023";
     const data = await fetch(`/yearsearch?year=${year}`);
     const res = await data.text();
     const json = JSON.parse(res); //json형식으로 읽기
     console.log(json[0]); //json데이터 확인
+
+    // i 번째 json 형태에서 필요한 데이터 가져오기
     for (let i = 0; i < json.length; i++) {
-        // i 번째 json 형태에서 필요한 데이터 가져오기\
+        let eqLat = json[i].lat;
+        let eqLon = json[i].lon;
+        let eqScale = json[i].eqscale; // 규모
+        let eqMagnitude = json[i].magnitude; // 진도
+        let eqLocation = json[i].location;
 
-        let jlat = json[i].lat;
-        let jlon = json[i].lon;
-        let jeqscale = json[i].eqscale; //규모
-        let jmagnitude = json[i].magnitude; //진도
-        let jlocation = json[i].location;
-
-        // 마커를 생성합니다(카카오)
+        // 마커를 생성
         // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
         var markerPosition = new kakao.maps.LatLng(jlat, jlon);
         var marker = new kakao.maps.Marker({
+            map: map,
+            scale: eqScale,
+            magnitude: eqMagnitude,
+            image: markerImage, // 마커 이미지
             position: markerPosition,
         });
 
-        //마커를 지도에 세팅
+        // 마커를 지도에 세팅
         marker.setMap(map);
     }
 };
