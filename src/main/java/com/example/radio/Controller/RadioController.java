@@ -25,6 +25,13 @@ public class RadioController {
     @Autowired
     RadioDataRepository radioDataRepository;
 
+    @GetMapping("index")
+
+    public String index() {
+
+        return "map/index";
+
+    }
 
     @GetMapping("testy")
     @ResponseBody
@@ -35,17 +42,17 @@ public class RadioController {
         return radiomaplist;
 
     }
+
     @GetMapping("/test")
     public String test0() {
 
         return "/map/test";
     }
 
-     @PostMapping("/testy")
-     public String indexPost(@ModelAttribute RadioMap radioMap) {
+    @PostMapping("/testy")
+    public String indexPost(@ModelAttribute RadioMap radioMap) {
 
-
-     return "redirect:/map/testy";
-     }
+        return "redirect:/map/testy";
+    }
 
 }
