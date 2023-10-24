@@ -14,7 +14,6 @@ const selectRadioBtn = (event) => {
 		boolRadioBtn = true;
 		boolEQBtn = false;
 	}
-	console.log("RadioBtn Clicked");
 };
 const selectEQBtn = (event) => {
 	if (!boolEQBtn) {
@@ -23,5 +22,4 @@ const selectEQBtn = (event) => {
 		boolRadioBtn = false;
 		boolEQBtn = true;
 	}
-	console.log("EQBtn Clicked");
 };
