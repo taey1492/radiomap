@@ -130,7 +130,7 @@ const eqYearPush = async () => {
 
 const testEq = () => {
 	for (let i = 0; i < 3; i++) {
-		marker.setMap(map);
+		markerArray[i].setMap(map);
 		overlay.setMap(null);
 	}
 };
