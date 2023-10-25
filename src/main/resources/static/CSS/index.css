@@ -90,6 +90,7 @@
 	z-index: 2;
 }
 
+/* 마커 상세 정보 */
 .wrap {
 	position: absolute;
 	left: 0;
@@ -187,7 +188,23 @@
 	font-weight: bold;
 }
 
-.markerInfoArea {
+.radioMarkerInfoArea {
+	background-color: rgb(255, 255, 255);
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	justify-content: space-evenly;
+	z-index: 3;
+	width: 400px;
+	height: 45px;
+	border: 0;
+	border-radius: 15px;
+	bottom: -92.5%;
+	right: -70.5%;
+	align-items: center;
+}
+/* 지진 마커 */
+.eqMarkerInfoArea {
 	background-color: rgb(255, 255, 255);
 	display: flex;
 	flex-direction: row;
@@ -207,13 +224,16 @@
 	flex-direction: row;
 	padding: 10px 10px 10px 10px;
 	align-items: center;
+	transition-duration: 1s;
 }
 .markerInfoImg {
 	width: 20px;
 	height: 20px;
 	margin: 3px 5px 0 0;
+	transition-duration: 1s;
 }
 .markerInfo_eqScale {
 	font-size: 14px;
 	font-weight: bold;
+	transition-duration: 1s;
 }

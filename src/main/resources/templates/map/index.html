@@ -53,8 +53,43 @@
 							<button class="menu">지진</button>
 						</div>
 					</div>
-					<!-- 마커 설명 -->
-					<div class="markerInfoArea">
+
+					<!-- 방사능 마커 설명 -->
+					<div id="radioMarkerInfo" class="radioMarkerInfoArea">
+						<div class="markerInfo">
+							<span>
+								<img
+									src="../img/marker_earthquake.png"
+									alt="noEqMarker"
+									class="markerInfoImg"
+								/>
+							</span>
+							<span class="markerInfo_eqScale">정상</span>
+						</div>
+						<div class="markerInfo">
+							<span>
+								<img
+									src="../img/marker_earthquake_yellow.png"
+									alt="noEqMarker_yellow"
+									class="markerInfoImg"
+								/>
+							</span>
+							<span class="markerInfo_eqScale">경고</span>
+						</div>
+						<div class="markerInfo">
+							<span>
+								<img
+									src="../img/marker_earthquake_red.png"
+									alt="noEqMarker_red"
+									class="markerInfoImg"
+								/>
+							</span>
+							<span class="markerInfo_eqScale">위험</span>
+						</div>
+					</div>
+
+					<!-- 지진 마커 설명 -->
+					<div id="eqMarkerInfo" class="hidden">
 						<div class="markerInfo">
 							<span>
 								<img
