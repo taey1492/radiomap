@@ -29,6 +29,7 @@ public class RadioController {
 
         List<Radiomap> radioMapList = radioMapRepository.findAll();
 
+        System.out.println(radioMapList);
         return radioMapList;
 
     }
