@@ -8,11 +8,13 @@ import javax.persistence.*;
 @Entity
 public class RadioMap {
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
 
     @Column(name = "r_code")
     String code;
+
+
 
     @Column(name = "r_address")
     String address;
@@ -38,5 +40,6 @@ public class RadioMap {
     Float lon;
     @Column(name = "r_lat")
     Float lat;
+
 
 }

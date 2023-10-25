@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Data
 public class RadioData {
 
-    @Id
-    @GeneratedValue
+
+    @Id@ GeneratedValue(strategy = GenerationType.AUTO)
     int id;
 
     @Column(name = "r_year")
@@ -20,10 +20,8 @@ public class RadioData {
     String item;
     @Column(name = "r_ecolname")
     String ecolname;
-
     @Column(name = "r_pinnacle")
     String pinnacle;
-
     @Column(name = "r_coldate")
     String coldate;
     @Column(name = "r_depth")
@@ -42,5 +40,6 @@ public class RadioData {
     Float r239_240pu;
     @Column(name = "r_240pu_239pu")
     Float r240pu_239pu;
+
 
 }

@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface RadioMapRepository extends JpaRepository<RadioMap, Integer> {
 
-    List<RadioMap> findAllById(int id);
+    List<RadioMap> findByCode(String code);
 }

@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface RadioDataRepository extends JpaRepository<RadioData, Integer> {
 
-     List<RadioData> findBypinnacle(String pinnacle);
+     List<RadioData> findByYearAndMonth(int year,int month);
 }
