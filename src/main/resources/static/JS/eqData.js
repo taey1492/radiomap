@@ -75,7 +75,7 @@ const eqDataPush = async () => {
 eqDataPush();
 
 // 미리 저장한 마커 내용 불러오기
-const actionEqYear = () => {
+const eqAction = () => {
 	for (let i = 0; i < markerArray.length; i++) {
 		// 마커 이미지의 이미지 크기
 		const imageSize = new kakao.maps.Size(13, 13);
