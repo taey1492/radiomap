@@ -12,4 +12,8 @@ public interface EarthquakeRepository extends JpaRepository<Earthquake, Integer>
 
   List<Earthquake> findAllByEqyear(int year);
 
+  List<Earthquake> findAllByEqmonth(int month);
+
+  List<Earthquake> findAllByEqday(int day);
+
 }
