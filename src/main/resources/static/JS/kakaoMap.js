@@ -12,7 +12,6 @@ const clustererOptions = {
 	gridSize: 50,
 	minLevel: 15,
 };
-// ----------------------------------------------------------
 
 // 지도 컨트롤러 생성
 // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
@@ -26,19 +25,17 @@ map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 const zoomControl = new kakao.maps.ZoomControl();
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
+// ---------------------------------------------------------------------------------
+
 // 방사능 마커
 const marker_radioNormal = "../img/marker_radioactivity_normal.png"; // 방사능 수치 정상
 const marker_radioYellow = "../img/marker_radioactivity_yellow.png"; // 방사능 수치 경고
 const marker_radioRed = "../img/marker_radioactivity_red.png"; // 방사능 수치 위험
-// 지진 마커
-const marker_earthquake = "../img/marker_earthquake.png"; // 진도 1~3
-const marker_earthquake_yellow = "../img/marker_earthquake_yellow.png"; // 진도 4~6
-const marker_earthquake_red = "../img/marker_earthquake_red.png"; // 진도 7 이상
+let marker_earthquake = "";
 
-// 생성된 마커 저장 배열
+// 생성된 마커 저장 배열(테스트 중)
 const markerArray = [];
 
-// year로 검색하는 영역입니다.
 const eqYearPush = async () => {
 	// year로 인식할 input 구현해야 합니다.
 	// const year = document.querySelector("#yeartest").value;
@@ -75,40 +72,30 @@ const eqYearPush = async () => {
 			eqTime = eqTime.substr(0, 5);
 		}
 
+		// 지진 마커 이미지(진도에 따라 마커 이미지 변경)
+		if (eqScale >= 3) {
+			marker_earthquake = "../img/marker_earthquake_red.png"; // 진도 7 이상
+		} else if (eqScale >= 2) {
+			marker_earthquake = "../img/marker_earthquake_yellow.png"; // 진도 4~6
+		} else {
+			marker_earthquake = "../img/marker_earthquake.png"; // 진도 1~3
+		}
+		console.log(`eqScale ${eqScale}, marker_earthquake ${marker_earthquake}`);
+
 		// 마커 이미지의 이미지 크기
 		const imageSize = new kakao.maps.Size(15, 15);
 		// 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 		const imageOption = { offset: new kakao.maps.Point(10, 35) };
-		const markerImage = new kakao.maps.MarkerImage(
+		let markerImage = new kakao.maps.MarkerImage(
 			marker_earthquake,
 			imageSize,
 			imageOption
 		);
-		// 마커 이미지
-		// if (eqScale >= 7) {
-		// 	const markerImage = new kakao.maps.MarkerImage(
-		// 		marker_earthquake_red,
-		// 		imageSize,
-		// 		imageOption
-		// 	);
-		// } else if (eqScale >= 4 && eqScale <= 6) {
-		// 	const markerImage = new kakao.maps.MarkerImage(
-		// 		marker_earthquake_yellow,
-		// 		imageSize,
-		// 		imageOption
-		// 	);
-		// } else {
-		// 	const markerImage = new kakao.maps.MarkerImage(
-		// 		marker_earthquake,
-		// 		imageSize,
-		// 		imageOption
-		// 	);
-		// }
 
 		// 마커를 생성
 		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-		var markerPosition = new kakao.maps.LatLng(eqLat, eqLon);
-		var marker = new kakao.maps.Marker({
+		let markerPosition = new kakao.maps.LatLng(eqLat, eqLon);
+		let marker = new kakao.maps.Marker({
 			image: markerImage, // 마커 이미지
 			position: markerPosition,
 		});
@@ -120,12 +107,18 @@ const eqYearPush = async () => {
 			'    <div class="info">' +
 			'        <div class="body">' +
 			'            <div class="desc">' +
-			`                <div class="ellipsis"><span class="eqDetail">발생 일시:</span> ${eqYear}년 ${eqMonth}월 ${eqDay}일, ${eqAntemeri} ${eqTime}` +
-			`                <div class="ellipsis"><span class="eqDetail">위도:</span> ${eqLat} | <span class="eqDetail">경도:</span> ${eqLon}</div>` +
-			`                <div class="ellipsis"><span class="eqDetail">발생지:</span> ${eqLocation}</div>` +
-			`                <div class="ellipsis"><span class="eqDetail">규모:</span> ${eqScale}, <span class="eqDetail">진도:</span> ${eqMagnitude}, <span class="eqDetail">진앙 깊이:</span> ${eqDeep}km</div>` +
-			`                <div class="ellipsis"></div>` +
-			`                <div class="ellipsis"></div>` +
+			`                <div class="ellipsis">` +
+			`							<span class="eqDetail">발생 일시: </span>${eqYear}년 ${eqMonth}월 ${eqDay}일, ${eqAntemeri} ${eqTime}` +
+			`						</div>` +
+			`		           <div class="ellipsis">` +
+			`							<span class="eqDetail">위도: </span>${eqLat} | <span class="eqDetail">경도: </span>${eqLon}` +
+			`						</div>` +
+			`                <div class="ellipsis">` +
+			`							<span class="eqDetail">발생지: </span>${eqLocation}` +
+			`						</div>` +
+			`                <div class="ellipsis">` +
+			`							<span class="eqDetail">규모: </span>${eqScale}, <span class="eqDetail">진도:</span> ${eqMagnitude}, <span class="eqDetail">진앙 깊이:</span> ${eqDeep}km	` +
+			`						</div>` +
 			"            </div>" +
 			"        </div>" +
 			"    </div>" +
