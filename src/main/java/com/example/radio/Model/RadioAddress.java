@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Radioaddress {
+public class RadioAddress {
 
    @Id
    @Column(name = "r_pinnacle")

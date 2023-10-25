@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class Radiomap {
+public class RadioMap {
 
     @Id
     int id;

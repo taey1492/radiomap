@@ -1,6 +1,6 @@
 package com.example.radio.Controller;
 
-import com.example.radio.Model.Radiomap;
+import com.example.radio.Model.RadioMap;
 import com.example.radio.Repository.RadioDataRepository;
 import com.example.radio.Repository.RadioMapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,9 @@ public class RadioController {
 
     @GetMapping("testy")
     @ResponseBody
-    public List<Radiomap> index(@ModelAttribute Radiomap radioMap) {
+    public List<RadioMap> index(@ModelAttribute RadioMap radioMap) {
 
-        List<Radiomap> radioMapList = radioMapRepository.findAll();
+        List<RadioMap> radioMapList = radioMapRepository.findAll();
 
         System.out.println(radioMapList);
         return radioMapList;
@@ -41,7 +41,7 @@ public class RadioController {
     }
 
     @PostMapping("/testy")
-    public String indexPost(@ModelAttribute Radiomap radioMap) {
+    public String indexPost(@ModelAttribute RadioMap radioMap) {
 
         return "redirect:/map/testy";
     }
