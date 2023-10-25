@@ -2,6 +2,9 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,visualstudiocode,intellij,eclipse,maven,gradle,java,react
 
 application.properties
+#테스트폴더 추가됨 나중에 지워서 확인할거 있으면 올릴게요
+templates/test/* 
+
 
 ### Eclipse ###
 .metadata
