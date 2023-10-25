@@ -6,11 +6,10 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class RadioData {
+public class Radiodata {
 
-
-
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     int id;
 
     @Column(name = "r_year")
@@ -22,10 +21,8 @@ public class RadioData {
     @Column(name = "r_ecolname")
     String ecolname;
 
-
     @Column(name = "r_pinnacle")
     String pinnacle;
-
 
     @Column(name = "r_coldate")
     String coldate;
@@ -45,7 +42,5 @@ public class RadioData {
     Float r239_240pu;
     @Column(name = "r_240pu_239pu")
     Float r240pu_239pu;
-
-
 
 }
