@@ -1,9 +1,8 @@
-// 마커 선언
-const marker_radio = "";
+// 마커 이미지 선언
 let marker_earthquake = "";
 
 // 생성된 마커 저장하는 배열
-const markerArray = [];
+const eqMarkerArray = [];
 
 // 지진 마커 정보 불러오기
 const eqDataPush = async () => {
@@ -51,7 +50,7 @@ const eqDataPush = async () => {
 			marker_earthquake = "../img/marker_earthquake.png"; // 진도 1 ~ 1.9
 		}
 
-		// markerArray에 저장할 객체
+		// eqMarkerArray에 저장할 객체
 		const eqData = {
 			eqLat,
 			eqLon,
@@ -67,7 +66,7 @@ const eqDataPush = async () => {
 			marker_earthquake,
 		};
 		// 마커 데이터 배열로 저장
-		markerArray.push(eqData);
+		eqMarkerArray.push(eqData);
 	}
 	console.log("Pushed EQ DATA");
 };
@@ -76,13 +75,13 @@ eqDataPush();
 
 // 미리 저장한 마커 내용 불러오기
 const eqAction = () => {
-	for (let i = 0; i < markerArray.length; i++) {
+	for (let i = 0; i < eqMarkerArray.length; i++) {
 		// 마커 이미지의 이미지 크기
 		const imageSize = new kakao.maps.Size(13, 13);
 		// 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 		const imageOption = { offset: new kakao.maps.Point(10, 35) };
 		let markerImage = new kakao.maps.MarkerImage(
-			markerArray[i].marker_earthquake,
+			eqMarkerArray[i].marker_earthquake,
 			imageSize,
 			imageOption
 		);
@@ -90,8 +89,8 @@ const eqAction = () => {
 		// 마커를 생성
 		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 		let markerPosition = new kakao.maps.LatLng(
-			markerArray[i].eqLat,
-			markerArray[i].eqLon
+			eqMarkerArray[i].eqLat,
+			eqMarkerArray[i].eqLon
 		);
 		let marker = new kakao.maps.Marker({
 			image: markerImage, // 마커 이미지
@@ -104,16 +103,16 @@ const eqAction = () => {
 			'        <div class="body">' +
 			'            <div class="desc">' +
 			`                <div class="ellipsis">` +
-			`							<span class="eqDetail">발생 일시: </span>${markerArray[i].eqYear}년 ${markerArray[i].eqMonth}월 ${markerArray[i].eqDay}일, ${markerArray[i].eqAntemeri} ${markerArray[i].eqTime}` +
+			`							<span class="eqDetail">발생 일시: </span>${eqMarkerArray[i].eqYear}년 ${eqMarkerArray[i].eqMonth}월 ${eqMarkerArray[i].eqDay}일, ${eqMarkerArray[i].eqAntemeri} ${eqMarkerArray[i].eqTime}` +
 			`						</div>` +
 			`		           <div class="ellipsis">` +
-			`							<span class="eqDetail">위도: </span>${markerArray[i].eqLat} | <span class="eqDetail">경도: </span>${markerArray[i].eqLon}` +
+			`							<span class="eqDetail">위도: </span>${eqMarkerArray[i].eqLat} | <span class="eqDetail">경도: </span>${eqMarkerArray[i].eqLon}` +
 			`						</div>` +
 			`                <div class="ellipsis">` +
-			`							<span class="eqDetail">발생지: </span>${markerArray[i].eqLocation}` +
+			`							<span class="eqDetail">발생지: </span>${eqMarkerArray[i].eqLocation}` +
 			`						</div>` +
 			`                <div class="ellipsis">` +
-			`							<span class="eqDetail">규모: </span>${markerArray[i].eqScale}, <span class="eqDetail">진도:</span> ${markerArray[i].eqMagnitude}, <span class="eqDetail">진앙 깊이:</span> ${markerArray[i].eqDeep}km	` +
+			`							<span class="eqDetail">규모: </span>${eqMarkerArray[i].eqScale}, <span class="eqDetail">진도:</span> ${eqMarkerArray[i].eqMagnitude}, <span class="eqDetail">진앙 깊이:</span> ${eqMarkerArray[i].eqDeep}km	` +
 			`						</div>` +
 			"            </div>" +
 			"        </div>" +
