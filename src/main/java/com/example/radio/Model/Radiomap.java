@@ -11,32 +11,32 @@ public class Radiomap {
     @Id
     int id;
 
-    @Column(name = "stnpnt_code")
+    @Column(name = "r_code")
     String code;
 
-    @Column(name = "mre_msnt_sta_korn_nm")
+    @Column(name = "r_address")
     String address;
-    @Column(name = "mre_gge_sea_cd")
+    @Column(name = "r_sea")
     String sea;
-    @Column(name = "ocean_nm")
+    @Column(name = "r_ocean")
     String ocean;
-    @Column(name = "mre_wtch_iem_knd_cd")
+    @Column(name = "r_sar")
     String sar;
-    @Column(name = "mre_wtch_iem_nm")
+    @Column(name = "r_iem")
     String iem;
-    @Column(name = "mre_msnt_new_sar_cd")
+    @Column(name = "r_newsar")
     String newsar;
-    @Column(name = "mre_new_wtch_iem_knd_cd")
+    @Column(name = "r_newiem")
     String newiem;
-    @Column(name = "stt_gu_area_cd")
+    @Column(name = "r_guarea")
     String guarea;
-    @Column(name = "ecozon_area_nm")
+    @Column(name = "r_area")
     String area;
-    @Column(name = "mre_gge_rm_cn")
+    @Column(name = "r_rm")
     String rm;
-    @Column(name = "lon")
+    @Column(name = "r_lon")
     Float lon;
-    @Column(name = "lat")
+    @Column(name = "r_lat")
     Float lat;
 
 }
