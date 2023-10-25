@@ -90,13 +90,6 @@
 	z-index: 2;
 }
 
-/* 방사능 마커 클릭 상세 정보 */
-/* .radioInfo {
-	padding: 10px;
-	border: 2px solid blue;
-	border-radius: 10px;
-} */
-
 .wrap {
 	position: absolute;
 	left: 0;
@@ -192,4 +185,24 @@
 
 .eqDetail {
 	font-weight: bold;
+}
+
+.markerInfoArea {
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	z-index: 3;
+	width: 300px;
+	height: 80px;
+	border: 3px solid black;
+	bottom: -700px;
+	right: -77%;
+	align-items: center;
+}
+.markerInfo {
+	padding: 15px;
+}
+.markerInfoImg {
+	width: 20px;
+	height: 20px;
 }

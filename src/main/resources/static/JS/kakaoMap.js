@@ -27,10 +27,8 @@ map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
 // ---------------------------------------------------------------------------------
 
-// 방사능 마커
-const marker_radioNormal = "../img/marker_radioactivity_normal.png"; // 방사능 수치 정상
-const marker_radioYellow = "../img/marker_radioactivity_yellow.png"; // 방사능 수치 경고
-const marker_radioRed = "../img/marker_radioactivity_red.png"; // 방사능 수치 위험
+// 마커 선언
+const marker_radio = "";
 let marker_earthquake = "";
 
 // 생성된 마커 저장 배열(테스트 중)
@@ -74,13 +72,12 @@ const eqYearPush = async () => {
 
 		// 지진 마커 이미지(진도에 따라 마커 이미지 변경)
 		if (eqScale >= 3) {
-			marker_earthquake = "../img/marker_earthquake_red.png"; // 진도 7 이상
+			marker_earthquake = "../img/marker_earthquake_red.png"; // 진도 3 이상
 		} else if (eqScale >= 2) {
-			marker_earthquake = "../img/marker_earthquake_yellow.png"; // 진도 4~6
+			marker_earthquake = "../img/marker_earthquake_yellow.png"; // 진도 2 ~ 2.9
 		} else {
-			marker_earthquake = "../img/marker_earthquake.png"; // 진도 1~3
+			marker_earthquake = "../img/marker_earthquake.png"; // 진도 1 ~ 1.9
 		}
-		console.log(`eqScale ${eqScale}, marker_earthquake ${marker_earthquake}`);
 
 		// 마커 이미지의 이미지 크기
 		const imageSize = new kakao.maps.Size(15, 15);
