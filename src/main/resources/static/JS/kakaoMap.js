@@ -34,6 +34,7 @@ let marker_earthquake = "";
 // 생성된 마커 저장 배열(테스트 중)
 const markerArray = [];
 
+// 마커 정보 불러오기
 const eqYearPush = async () => {
 	// year로 인식할 input 구현해야 합니다.
 	// const year = document.querySelector("#yeartest").value;
@@ -80,7 +81,7 @@ const eqYearPush = async () => {
 		}
 
 		// 마커 이미지의 이미지 크기
-		const imageSize = new kakao.maps.Size(12, 12);
+		const imageSize = new kakao.maps.Size(13, 13);
 		// 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 		const imageOption = { offset: new kakao.maps.Point(10, 35) };
 		let markerImage = new kakao.maps.MarkerImage(
@@ -99,22 +100,115 @@ const eqYearPush = async () => {
 
 		// 커스텀 오버레이에 표시할 컨텐츠
 
+		// let content =
+		// 	'<div class="wrap">' +
+		// 	'    <div class="info">' +
+		// 	'        <div class="body">' +
+		// 	'            <div class="desc">' +
+		// 	`                <div class="ellipsis">` +
+		// 	`							<span class="eqDetail">발생 일시: </span>${eqYear}년 ${eqMonth}월 ${eqDay}일, ${eqAntemeri} ${eqTime}` +
+		// 	`						</div>` +
+		// 	`		           <div class="ellipsis">` +
+		// 	`							<span class="eqDetail">위도: </span>${eqLat} | <span class="eqDetail">경도: </span>${eqLon}` +
+		// 	`						</div>` +
+		// 	`                <div class="ellipsis">` +
+		// 	`							<span class="eqDetail">발생지: </span>${eqLocation}` +
+		// 	`						</div>` +
+		// 	`                <div class="ellipsis">` +
+		// 	`							<span class="eqDetail">규모: </span>${eqScale}, <span class="eqDetail">진도:</span> ${eqMagnitude}, <span class="eqDetail">진앙 깊이:</span> ${eqDeep}km	` +
+		// 	`						</div>` +
+		// 	"            </div>" +
+		// 	"        </div>" +
+		// 	"    </div>" +
+		// 	"</div>";
+
+		// 마커 위에 커스텀 오버레이를 표시
+		// 마커를 중심으로 커스텀 오버레이를 표시하기 위한 CSS
+
+		// const overlay = new kakao.maps.CustomOverlay({
+		// 	content: content,
+		// 	map: map,
+		// 	position: marker.getPosition(),
+		// });
+
+		// 마커를 마우스를 올렸을 때 커스텀 오버레이를 표시합니다
+		// kakao.maps.event.addListener(marker, "mouseover", function (event) {
+		// 	overlay.setMap(map);
+		// });
+
+		// 마우스가 마커 밖으로 나가면 오버레이를 끕니다.
+		// kakao.maps.event.addListener(marker, "mouseout", function (event) {
+		// 	overlay.setMap(null);
+		// });
+
+		const obj = {
+			eqLat,
+			eqLon,
+			eqScale,
+			eqMagnitude,
+			eqLocation,
+			eqDeep,
+			eqYear,
+			eqMonth,
+			eqDay,
+			eqAntemeri,
+			eqTime,
+			marker_earthquake,
+		};
+		// 마커 데이터 배열로 저장
+		markerArray.push(obj);
+
+		// 마커를 지도에 세팅
+		// marker.setMap(map);
+		marker.setMap(null);
+		// overlay.setMap(null);
+	}
+};
+
+eqYearPush();
+
+// 미리 저장한 마커 내용 불러오기
+const actionEqYear = () => {
+	for (let i = 0; i < markerArray.length; i++) {
+		// 마커 이미지의 이미지 크기
+		const imageSize = new kakao.maps.Size(13, 13);
+		// 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+		const imageOption = { offset: new kakao.maps.Point(10, 35) };
+		let markerImage = new kakao.maps.MarkerImage(
+			markerArray[i].marker_earthquake,
+			// marker_earthquake,
+			imageSize,
+			imageOption
+		);
+
+		// 마커를 생성
+		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+		// let markerPosition = new kakao.maps.LatLng(eqLat, eqLon);
+		let markerPosition = new kakao.maps.LatLng(
+			markerArray[i].eqLat,
+			markerArray[i].eqLon
+		);
+		let marker = new kakao.maps.Marker({
+			image: markerImage, // 마커 이미지
+			position: markerPosition,
+		});
+
 		let content =
 			'<div class="wrap">' +
 			'    <div class="info">' +
 			'        <div class="body">' +
 			'            <div class="desc">' +
 			`                <div class="ellipsis">` +
-			`							<span class="eqDetail">발생 일시: </span>${eqYear}년 ${eqMonth}월 ${eqDay}일, ${eqAntemeri} ${eqTime}` +
+			`							<span class="eqDetail">발생 일시: </span>${markerArray[i].eqYear}년 ${markerArray[i].eqMonth}월 ${markerArray[i].eqDay}일, ${markerArray[i].eqAntemeri} ${markerArray[i].eqTime}` +
 			`						</div>` +
 			`		           <div class="ellipsis">` +
-			`							<span class="eqDetail">위도: </span>${eqLat} | <span class="eqDetail">경도: </span>${eqLon}` +
+			`							<span class="eqDetail">위도: </span>${markerArray[i].eqLat} | <span class="eqDetail">경도: </span>${markerArray[i].eqLon}` +
 			`						</div>` +
 			`                <div class="ellipsis">` +
-			`							<span class="eqDetail">발생지: </span>${eqLocation}` +
+			`							<span class="eqDetail">발생지: </span>${markerArray[i].eqLocation}` +
 			`						</div>` +
 			`                <div class="ellipsis">` +
-			`							<span class="eqDetail">규모: </span>${eqScale}, <span class="eqDetail">진도:</span> ${eqMagnitude}, <span class="eqDetail">진앙 깊이:</span> ${eqDeep}km	` +
+			`							<span class="eqDetail">규모: </span>${markerArray[i].eqScale}, <span class="eqDetail">진도:</span> ${markerArray[i].eqMagnitude}, <span class="eqDetail">진앙 깊이:</span> ${markerArray[i].eqDeep}km	` +
 			`						</div>` +
 			"            </div>" +
 			"        </div>" +
@@ -140,19 +234,10 @@ const eqYearPush = async () => {
 			overlay.setMap(null);
 		});
 
-		// 마커 데이터 배열로 저장
-		markerArray.push(marker);
-
 		// 마커를 지도에 세팅
+		// marker.setMap(map);
 		marker.setMap(map);
 		overlay.setMap(null);
 	}
-};
-
-// 테스트 중인 코드
-const testEq = () => {
-	for (let i = 0; i < 3; i++) {
-		markerArray[i].setMap(map);
-		overlay.setMap(null);
-	}
+	console.log("Eq action done!");
 };
