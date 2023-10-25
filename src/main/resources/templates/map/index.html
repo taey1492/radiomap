@@ -1,152 +1,171 @@
 <!DOCTYPE html>
 <html lang="ko">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>MARRAD</title>
-		<link rel="stylesheet" href="../CSS/settings.css" />
-		<link rel="stylesheet" href="../CSS/common.css" />
-		<link rel="stylesheet" href="../CSS/index.css" />
-	</head>
 
-	<body>
-		<!-- 전체 영역 -->
-		<div class="mainArea">
-			<!-- header 영역 -->
-			<div class="headerArea">
-				<div class="logoArea">
-					<head th:replace="common/header" />
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>MARRAD</title>
+	<link rel="stylesheet" href="../CSS/settings.css" />
+	<link rel="stylesheet" href="../CSS/common.css" />
+	<link rel="stylesheet" href="../CSS/index.css" />
+</head>
+
+<body>
+	<!-- 전체 영역 -->
+	<div class="mainArea">
+		<!-- header 영역 -->
+		<div class="headerArea">
+			<div class="logoArea">
+
+				<head th:replace="common/header" />
+			</div>
+		</div>
+
+		<!-- 지도 영역 -->
+		<section class="mapArea">
+			<div id="map" class="map">
+				<!-- 메뉴 바 영역-->
+				<div class="menuBarArea">
+					<div id="radioBtn" class="selectedBtn" onclick="selectRadioBtn(event), radioAction()">
+						<img src="../img/icon_radioactivity_mono.png" alt="noRadioBtnImg" class="radioBtnImg" />
+						<button class="menu">방사능</button>
+					</div>
+					<div id="eqBtn" class="menuBarBtn" onclick="selectEQBtn(event), eqAction()">
+						<img src="../img/icon_earthquake.png" alt="noRadioBtnImg" class="radioBtnImg" />
+						<button class="menu">지진</button>
+					</div>
+				</div>
+
+				<!-- 방사능 마커 설명 -->
+				<div id="radioMarkerInfo" class="radioMarkerInfoArea">
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_radioactivity_normal.png" alt="noEqMarker" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">정상</span>
+					</div>
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_radioactivity_yellow.png" alt="noEqMarker_yellow" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">경고</span>
+					</div>
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_radioactivity_red.png" alt="noEqMarker_red" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">위험</span>
+					</div>
+				</div>
+
+				<!-- 지진 마커 설명 -->
+				<div id="eqMarkerInfo" class="hidden">
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_earthquake.png" alt="noEqMarker" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">진도 0 ~ 1.9</span>
+					</div>
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_earthquake_yellow.png" alt="noEqMarker_yellow" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">진도 1.1 ~ 2.9</span>
+					</div>
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_earthquake_red.png" alt="noEqMarker_red" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">진도 3 이상</span>
+					</div>
 				</div>
 			</div>
+		</section>
+	</div>
+</body>
 
-			<!-- 지도 영역 -->
-			<section class="mapArea">
-				<div id="map" class="map">
-					<!-- 메뉴 바 영역-->
-					<div class="menuBarArea">
-						<div
-							id="radioBtn"
-							class="selectedBtn"
-							onclick="selectRadioBtn(event), radioAction()"
-						>
-							<img
-								src="../img/icon_radioactivity_mono.png"
-								alt="noRadioBtnImg"
-								class="radioBtnImg"
-							/>
-							<button class="menu">방사능</button>
-						</div>
-						<div
-							id="eqBtn"
-							class="menuBarBtn"
-							onclick="selectEQBtn(event), eqAction()"
-						>
-							<img
-								src="../img/icon_earthquake.png"
-								alt="noRadioBtnImg"
-								class="radioBtnImg"
-							/>
-							<button class="menu">지진</button>
-						</div>
-					</div>
+<!-- script -->
 
-					<!-- 방사능 마커 설명 -->
-					<div id="radioMarkerInfo" class="radioMarkerInfoArea">
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_radioactivity_normal.png"
-									alt="noEqMarker"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">정상</span>
-						</div>
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_radioactivity_yellow.png"
-									alt="noEqMarker_yellow"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">경고</span>
-						</div>
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_radioactivity_red.png"
-									alt="noEqMarker_red"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">위험</span>
-						</div>
-					</div>
+<!-- kakao 지도 관련 script -->
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"></script>
 
-					<!-- 지진 마커 설명 -->
-					<div id="eqMarkerInfo" class="hidden">
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_earthquake.png"
-									alt="noEqMarker"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">진도 0 ~ 1.9</span>
-						</div>
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_earthquake_yellow.png"
-									alt="noEqMarker_yellow"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">진도 1.1 ~ 2.9</span>
-						</div>
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_earthquake_red.png"
-									alt="noEqMarker_red"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">진도 3 이상</span>
-						</div>
-					</div>
-				</div>
-			</section>
-		</div>
-	</body>
+<!-- 맵 + 메뉴 바 화면 사이즈 조절 -->
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const h = window.innerHeight;
+		const map = document.querySelector("#map");
+		map.style.height = `${h}px`;
 
-	<!-- script -->
+		const bar = document.querySelector(".menuBarArea");
 
-	<!-- kakao 지도 관련 script -->
-	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-	<script
-		type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"
-	></script>
+		bar.style.height = `${0.88 * parseInt(map.style.height)}px`;
+		console.log(`브라우저 세로 길이: ${bar.style.height}`);
+	});
+</script>
 
-	<!-- 맵 + 메뉴 바 화면 사이즈 조절 -->
-	<script>
-		document.addEventListener("DOMContentLoaded", () => {
-			const h = window.innerHeight;
-			const map = document.querySelector("#map");
-			map.style.height = `${h}px`;
+<script src="../JS/kakaoMap.js"></script>
+<script src="../JS/radioData.js"></script>
+<script src="../JS/eqData.js"></script>
+<script src="../JS/button.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
 
-			const bar = document.querySelector(".menuBarArea");
 
-			bar.style.height = `${0.88 * parseInt(map.style.height)}px`;
-			console.log(`브라우저 세로 길이: ${bar.style.height}`);
-		});
-	</script>
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+		mapOption = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			level: 14 // 지도의 확대 레벨
+		};
 
-	<script src="../JS/kakaoMap.js"></script>
-	<script src="../JS/radioData.js"></script>
-	<script src="../JS/eqData.js"></script>
-	<script src="../JS/button.js"></script>
+
+
+
+	// 마커 이미지의 이미지 주소입니다
+	var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+	$.ajax({
+		url: "/map/testy", // JSON 데이터를 받아올 URL.
+		type: "GET",
+		success: function (data) {
+			const positions = data.map(function (radioMap) {
+				return {
+					title: radioMap.address,
+					latlng: new kakao.maps.LatLng(radioMap.lat, radioMap.lon)
+
+				};
+			});
+
+			for (var i = 0; i < positions.length; i++) {
+
+				// 마커 이미지의 이미지 크기 입니다
+				var imageSize = new kakao.maps.Size(24, 35);
+
+				// 마커 이미지를 생성합니다
+				var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+				// 마커를 생성합니다
+				var marker = new kakao.maps.Marker({
+					map: map, // 마커를 표시할 지도
+					position: positions[i].latlng, // 마커를 표시할 위치
+					title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+					image: markerImage, // 마커 이미지
+					clickable: true
+				});
+				addMarkerClickListener(marker);
+			}
+			function addMarkerClickListener(marker) {
+				kakao.maps.event.addListener(marker, 'click', function () {
+					document.getElementById('markerTitle').innerText = marker.getTitle();
+					modal.style.display = "inline-block";
+				});
+			}
+		}
+
+	});
+
+
+</script>
+
+
 </html>
