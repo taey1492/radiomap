@@ -50,7 +50,6 @@
 
         <input type="text" placeholder="년도" name="year">
         <br>
-        <input type="text" placeholder="월" name="month">
         <button>입력</button>
 
     </div>
@@ -113,17 +112,20 @@
             var month = $('input[name="month"]').val();
 
 
+
+
+
             $.ajax({
                 url: "/map/radio", // JSON 데이터를 받아올 URL.
                 type: "POST",
                 data: {
                     year: year,
-                    month: month
+                    month: month,
                 },
                 success: function (data) {
                     const positions = data.map(function (radioMap) {
                         return {
-                            title: radioMap.address,
+                            title: radioMap.radioData.ecolname,
                             latlng: new kakao.maps.LatLng(radioMap.lat, radioMap.lon)
 
                         };
