@@ -4,6 +4,8 @@ const SELECTEDBTN = "selectedBtn";
 const RADIOMARKERINFOAREA = "radioMarkerInfoArea";
 const EQMARKERINFOAREA = "eqMarkerInfoArea";
 
+const menuBarArea = document.querySelector("#menuBarArea");
+
 const radio = document.querySelector("#radioBtn");
 const eq = document.querySelector("#eqBtn");
 const radioMarker = document.querySelector("#radioMarkerInfo");
@@ -31,4 +33,15 @@ const selectEQBtn = (event) => {
 		boolRadioBtn = false;
 		boolEQBtn = true;
 	}
+};
+
+// 메뉴 버튼 hover 시 매뉴 바 색상 on/off
+const mouseoverMenuBar = (event) => {
+	menuBarArea.style.backgroundColor = "#5ea8c8e1";
+	menuBarArea.style.height = "88%";
+};
+let hoverCnt = 0;
+const mouseoutMenuBar = (event) => {
+	menuBarArea.style.backgroundColor = "";
+	menuBarArea.style.height = "13%";
 };
