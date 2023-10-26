@@ -4,80 +4,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-  <title>Document</title>
+  <title>Simple Contour Plot</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 
 <body>
-  <p>아래에 표기되어야 하는데</p>
 
+  <div id="myDiv" style="width: 600px; height: 600px;"></div>
 
-  <input type="file" id="fileInput">
-  <button onclick="contourStart(json)">그래프출력</button>
-
-  <div id="container"></div>
 </body>
 
-<script type="module" src="/JS/contour.js"></script>
 
+<script th:inline="none">
+  //위도와 경도를 input할 부분 임시 값 넣어져 있습니다.
+  const coordinates = [[19, 27], [21, 18], [12, 23], [28, 17], [26, 14], [17, 21], [23, 28], [22, 26], [25, 12]];
+  const zValues = [23, 78, 65, 97, 42, 13, 56, 89, 31, 100];
+
+  // coordinates에서 고유한 x,y좌표 추출 , x와 y 배열 추출 및 오름차순 정렬 
+  // coord => coord[1]: 각 좌표 쌍에서 y 좌표만 추출합니다.
+  const Xarray = Array.from(new Set(coordinates.map(coord => coord[0]))).sort((a, b) => a - b);
+  const Yarray = Array.from(new Set(coordinates.map(coord => coord[1]))).sort((a, b) => a - b);
+
+  // z 배열을 초기화하고, y배열의 크기만큼 길이산정, x배열 길이만큼 null로 채우기,(y두번써도됨)
+  const Zarray = Array.from({ length: Yarray.length }, () => Array(Xarray.length).fill(null));
+
+  // z 배열에 값을 할당
+  for (let index = 0; index < coordinates.length; index++) {
+    const [xCoord, yCoord] = coordinates[index];
+    const zValue = zValues[index];
+    const i = Yarray.indexOf(yCoord);
+    const j = Xarray.indexOf(xCoord);
+    Zarray[i][j] = zValue;
+  }
+
+
+  var trace1 = {
+    z: Zarray,
+    x: Xarray,
+    y: Yarray,
+
+
+    connectgaps: true,
+    zsmooth: 'best',
+    type: 'heatmap',
+    showscale: false,
+
+  };
+
+  var data = [trace1];
+
+  var layout = {
+    title: 'Simple Contour Plot'
+  };
+
+  Plotly.newPlot('myDiv', data, layout);
+</script>
 
 
 </html>
-<script>//파일읽는 스크립트
-  document.addEventListener('DOMContentLoaded', function () {
-    const fileInput = document.getElementById('fileInput');
-
-    fileInput.addEventListener('change', function (e) {
-      const file = e.target.files[0];
-
-      if (!file) {
-        return;
-      }
-
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
-        try {
-          //const json = JSON.parse(e.target.result);
-          const data = json.json(e); //FileAttachment("/JS/volcano.json").json();
-
-          const container = d3.select("#container");
-          const n = data.width;
-          const m = data.height;
-          const width = 928;
-          const height = Math.round((m / n) * width);
-          const path = d3.geoPath().projection(d3.geoIdentity().scale(width / n));
-          const contours = d3.contours().size([n, m]);
-          const color = d3.scaleSequential(d3.interpolateTurbo).domain(d3.extent(data.values)).nice();
-
-          const svg = d3
-            .create("svg")
-            .attr("width", width)
-            .attr("height", height)
-            .attr("viewBox", [0, 0, width, height])
-            .attr("style", "max-width: 100%; height: auto;");
-
-          svg.append("g")
-            .attr("stroke", "black")
-            .selectAll()
-            .data(color.ticks(20))
-            .join("path")
-            .attr("d", (d) => path(contours.contour(data.values, d)))
-            .attr("fill", color);
-          // Append the SVG element.
-
-          container.append(svg.node());
-          console.log(json);
-        } catch (err) {
-          console.error('파일을 JSON으로 파싱하는 데 실패했습니다:', err);
-        }
-      };
-
-      reader.onerror = function (e) {
-        console.error('파일을 읽는 데 실패했습니다:', e);
-      };
-
-      reader.readAsText(file);
-    });
-  });
-</script>
