@@ -25,13 +25,13 @@ public class TaeController {
   @GetMapping("/test2")
   public String test2() {
 
-    return "test/test2";
+    return "test/testContourmap";
   }
 
   @GetMapping("/test")
   public String test() {
 
-    return "test/test";
+    return "test/testpinmap";
   }
 
   // 비동기 통신 웹페이지 영역입니다.
@@ -70,7 +70,7 @@ public class TaeController {
     l.add(lon);
 
     model.addAttribute("earthqlist", l);
-    return "test/test";
+    return "test/testpinmap";
   }
 
 }
