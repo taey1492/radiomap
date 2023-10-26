@@ -50,8 +50,8 @@ public class RadioController {
 
     @PostMapping("/radio")
     @ResponseBody
-    public List<Map<String, Object>> test1(@RequestParam int year, int month) {
-        List<RadioData> radioDataList = radioDataRepository.findByYearAndMonth(year, month);
+    public List<Map<String, Object>> test1(@RequestParam int year) {
+        List<RadioData> radioDataList = radioDataRepository.findByYear(year);
         List<Map<String, Object>> result = new ArrayList<>();
 
         for (RadioData radioData : radioDataList) {

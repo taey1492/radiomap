@@ -1,4 +1,4 @@
-// 마커 이미지 선언
+// 마커 이미지 변수 선언
 let marker_earthquake = "";
 
 // 생성된 마커 저장하는 배열
@@ -144,4 +144,76 @@ const eqAction = () => {
 		overlay.setMap(null);
 	}
 	console.log("Eq action done!");
+};
+
+const eqClose = () => {
+	for (let i = 0; i < eqMarkerArray.length; i++) {
+		// 마커 이미지의 이미지 크기
+		const imageSize = new kakao.maps.Size(13, 13);
+		// 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+		const imageOption = { offset: new kakao.maps.Point(10, 35) };
+		let markerImage = new kakao.maps.MarkerImage(
+			eqMarkerArray[i].marker_earthquake,
+			imageSize,
+			imageOption
+		);
+
+		// 마커를 생성
+		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+		let markerPosition = new kakao.maps.LatLng(
+			eqMarkerArray[i].eqLat,
+			eqMarkerArray[i].eqLon
+		);
+		let marker = new kakao.maps.Marker({
+			image: markerImage, // 마커 이미지
+			position: markerPosition,
+		});
+
+		let content =
+			'<div class="wrap">' +
+			'    <div class="info">' +
+			'        <div class="body">' +
+			'            <div class="desc">' +
+			`                <div class="ellipsis">` +
+			`							<span class="eqDetail">발생 일시: </span>${eqMarkerArray[i].eqYear}년 ${eqMarkerArray[i].eqMonth}월 ${eqMarkerArray[i].eqDay}일, ${eqMarkerArray[i].eqAntemeri} ${eqMarkerArray[i].eqTime}` +
+			`						</div>` +
+			`		           <div class="ellipsis">` +
+			`							<span class="eqDetail">위도: </span>${eqMarkerArray[i].eqLat} | <span class="eqDetail">경도: </span>${eqMarkerArray[i].eqLon}` +
+			`						</div>` +
+			`                <div class="ellipsis">` +
+			`							<span class="eqDetail">발생지: </span>${eqMarkerArray[i].eqLocation}` +
+			`						</div>` +
+			`                <div class="ellipsis">` +
+			`							<span class="eqDetail">규모: </span>${eqMarkerArray[i].eqScale}, <span class="eqDetail">진도:</span> ${eqMarkerArray[i].eqMagnitude}, <span class="eqDetail">진앙 깊이:</span> ${eqMarkerArray[i].eqDeep}km	` +
+			`						</div>` +
+			"            </div>" +
+			"        </div>" +
+			"    </div>" +
+			"</div>";
+
+		// 마커 위에 커스텀 오버레이를 표시
+		// 마커를 중심으로 커스텀 오버레이를 표시하기 위한 CSS
+
+		const overlay = new kakao.maps.CustomOverlay({
+			content: content,
+			map: map,
+			position: marker.getPosition(),
+		});
+
+		// 마커를 마우스를 올렸을 때 커스텀 오버레이를 표시합니다
+		kakao.maps.event.addListener(marker, "mouseover", function (event) {
+			overlay.setMap(map);
+		});
+
+		// 마우스가 마커 밖으로 나가면 오버레이를 끕니다.
+		kakao.maps.event.addListener(marker, "mouseout", function (event) {
+			overlay.setMap(null);
+		});
+
+		// 마커를 지도에 세팅
+		// marker.setMap(map);
+		marker.setMap(null);
+		overlay.setMap(null);
+	}
+	console.log("eqMarker closed");
 };
