@@ -1,50 +1,60 @@
-// 마커 이미지 선언
+// 마커 이미지 변수 선언
 const marker_radio = "";
 
 // 생성된 마커 저장하는 배열
-const markerArray = [];
+const radioMarkerArray = [];
 
 // 방사능 마커 정보 불러오기
-$.ajax({
-	url: "/map/testy", // JSON 데이터를 받아올 URL.
-	type: "GET",
-	success: function (data) {
-		const positions = data.map(function (radioMap) {
-			return {
-				title: radioMap.address,
-				latlng: new kakao.maps.LatLng(radioMap.lat, radioMap.lon),
-			};
-		});
 
-		for (var i = 0; i < positions.length; i++) {
-			// 마커 이미지의 이미지 크기 입니다
-			var imageSize = new kakao.maps.Size(24, 35);
+// $.ajax({
+// 	url: "/map/radio", // JSON 데이터를 받아올 URL.
+// 	type: "POST",
+// 	data: {
+// 		year: year,
+// 		month: month,
+// 	},
+// 	success: function (data) {
+// 		const radioJson = data.map(function (radioMap) {
+// 			return {
+// 				radioLat: radioMap.radioData.lat, // 위도
+// 				radioLon: radioMap.radioData.lon, // 경도
+// 				radioDate: radioMap.radioData.coldate, // 측정일
+// 				radioDepth: radioMap.radioData.depth, // 측정 깊이(표층, 지층 등)
+// 				radioSeaName: radioMap.radioData.ecolname, // 측정 바다
+// 				radioCS134: radioMap.radioData.r134cs, // 세숨 134
+// 				radioCS137: radioMap.radioData.r137cs, // 세슘 137
+// 				radioH3: radioMap.radioData.r3h, // 삼중수소
+// 			};
+// 		});
+// 		let radioCS = radioCS134 + radioCS137; // 세슘 검출 기준: 세슘 134 + 세슘 137
 
-			// 마커 이미지를 생성합니다
-			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+// 		for (let i = 0; i < radioJson.length; i++) {
+// 			// 방사능 마커 이미지(진도에 따라 마커 이미지 변경)
+// 			if (radioCS >= 10000) {
+// 				marker_radio = "../img/marker_radioactivity_red.png"; // 안전 세슘 100 이하
+// 			} else if (eqScale >= 100) {
+// 				marker_radio = "../img/marker_radioactivity_yellow.png"; // 관심 세슘 100 초과 10,000 이하
+// 			} else {
+// 				marker_radio = "../img/marker_radioactivity_red.png"; // 위험 세슘 10,000 초과
+// 			}
+// 		}
 
-			// 마커를 생성합니다
-			var marker = new kakao.maps.Marker({
-				map: map, // 마커를 표시할 지도
-				position: positions[i].latlng, // 마커를 표시할 위치
-				title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-				image: markerImage, // 마커 이미지
-				clickable: true,
-			});
-			addMarkerClickListener(marker);
-		}
-		function addMarkerClickListener(marker) {
-			kakao.maps.event.addListener(marker, "click", function () {
-				document.getElementById("markerTitle").innerText = marker.getTitle();
-				modal.style.display = "inline-block";
-			});
-		}
-	},
-});
-const radioDataPush = async () => {
-	console.log("pushed radio DATA");
-};
-
+// 		// radioMarkerArray에 저장할 객체
+// 		const radioData = {
+// 			radioLat,
+// 			radioLon,
+// 			radioDate,
+// 			radioDepth,
+// 			radioSeaName,
+// 			radioCS,
+// 			radioH3,
+// 			marker_radio,
+// 		};
+// 		// 마커 데이터 배열 radioData에 저장
+// 		radioMarkerArray.push(radioData);
+// 	},
+// });
+const radioDataPush = () => {};
 radioDataPush();
 
 const radioAction = () => {
