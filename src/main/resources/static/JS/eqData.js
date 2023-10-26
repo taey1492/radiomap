@@ -181,7 +181,7 @@ const eqClose = () => {
 			`							<span class="eqDetail">위도: </span>${eqMarkerArray[i].eqLat} | <span class="eqDetail">경도: </span>${eqMarkerArray[i].eqLon}` +
 			`						</div>` +
 			`                <div class="ellipsis">` +
-			`							<span class="eqDetail">발생지: </span>${eqMarkerArray[i].eqLocation}` +
+			`							<span class="eqDetail">발생지: </span><span style="font-size: 9px;">${eqMarkerArray[i].eqLocation}</span>` +
 			`						</div>` +
 			`                <div class="ellipsis">` +
 			`							<span class="eqDetail">규모: </span>${eqMarkerArray[i].eqScale}, <span class="eqDetail">진도:</span> ${eqMarkerArray[i].eqMagnitude}, <span class="eqDetail">진앙 깊이:</span> ${eqMarkerArray[i].eqDeep}km	` +

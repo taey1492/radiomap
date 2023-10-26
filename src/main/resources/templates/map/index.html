@@ -16,8 +16,8 @@
 			<div class="headerArea">
 				<div
 					class="logoArea"
-					onmouseover="mouseoverMenuBar()"
-					onmouseout="mouseoutMenuBar()"
+					onmouseover="mouseoverMenuBar(), showMenuBar()"
+					onmouseout="mouseoutMenuBar(), hideMenuBar()"
 				>
 					<head th:replace="common/header" />
 				</div>
@@ -30,8 +30,8 @@
 					<div
 						id="menuBarArea"
 						class="menuBarArea"
-						onmouseover="mouseoverMenuBar()"
-						onmouseout="mouseoutMenuBar()"
+						onmouseover="mouseoverMenuBar(), showMenuBar()"
+						onmouseout="mouseoutMenuBar(), hideMenuBar()"
 					>
 						<div
 							id="radioBtn"
@@ -47,7 +47,7 @@
 						</div>
 						<div
 							id="eqBtn"
-							class="menuBarBtn"
+							class="hidden"
 							onclick="selectEQBtn(event), eqAction()"
 						>
 							<img

@@ -40,8 +40,26 @@ const mouseoverMenuBar = (event) => {
 	menuBarArea.style.backgroundColor = "#5ea8c8e1";
 	menuBarArea.style.height = "88%";
 };
-let hoverCnt = 0;
+
 const mouseoutMenuBar = (event) => {
 	menuBarArea.style.backgroundColor = "";
-	menuBarArea.style.height = "13%";
+	menuBarArea.style.height = "6.5%";
+};
+
+// 메뉴 버튼 hover 시 선택되지 않은 메뉴 보이기
+const showMenuBar = () => {
+	if (radio.className != SELECTEDBTN) {
+		radio.classList.replace("hidden", MENUBARBTN);
+	} else if (eq.className != SELECTEDBTN) {
+		eq.classList.replace("hidden", MENUBARBTN);
+	}
+};
+
+// 메뉴 버튼 hover 시 선택되지 않은 메뉴 숨기기
+const hideMenuBar = () => {
+	if (radio.className != SELECTEDBTN) {
+		radio.classList.replace(MENUBARBTN, "hidden");
+	} else if (eq.className != SELECTEDBTN) {
+		eq.classList.replace(MENUBARBTN, "hidden");
+	}
 };
