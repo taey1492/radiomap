@@ -11,7 +11,7 @@
 		<style>
 			/* The Modal (background) */
 			.modal {
-				display: none;
+				display: inline-block;
 				/* Hidden by default */
 				position: fixed;
 				/* Stay in place */
@@ -48,7 +48,6 @@
 			<div>
 				<input type="text" placeholder="년도" name="year" />
 				<br />
-				<input type="text" placeholder="월" name="month" />
 				<button>입력</button>
 			</div>
 		</form>
@@ -58,6 +57,10 @@
 			<div class="modal-content">
 				<span class="close">&times;</span>
 				<p id="markerTitle"></p>
+				<p id="markerSub"></p>
+				<p id="markerSub1"></p>
+				<p id="markerSub2"></p>
+				<p id="markerSub3"></p>
 			</div>
 		</div>
 
@@ -66,11 +69,6 @@
 		<!-- 지도를 표시할 div 입니다 -->
 		<div id="map" style="width: 40%; height: 800px"></div>
 
-<<<<<<< HEAD
-        <input type="text" placeholder="년도" name="year">
-        <br>
-        <button>입력</button>
-=======
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script
 			type="text/javascript"
@@ -78,7 +76,6 @@
 		></script>
 		<script>
 			var modal = document.getElementById("myModal");
->>>>>>> minchonang
 
 			// Get the span element that closes the modal
 			var span = document.getElementsByClassName("close")[0];
@@ -98,10 +95,11 @@
 			var map = new kakao.maps.Map(mapContainer, mapOption);
 
 			// 마커 이미지의 이미지 주소입니다
-			var imageSrc = "../img/marker_radioactivity_red.png";
+			var imageSrc =
+				"https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
 			$("form").on("submit", function (e) {
-				// e.preventDefault(); // 기본 form submit 동작을 막습니다.
+				e.preventDefault(); // 기본 form submit 동작을 막습니다.
 
 				// 폼에서 입력된 년도와 월을 가져옵니다.
 				var year = $('input[name="year"]').val();
@@ -117,7 +115,15 @@
 					success: function (data) {
 						const positions = data.map(function (radioMap) {
 							return {
-								title: radioMap.address,
+								ecolname: radioMap.radioData.ecolname,
+								depth: radioMap.radioData.pinnacle,
+								r134cs: radioMap.radioData.r134cs,
+								r137cs: radioMap.radioData.r137cs,
+								r3h: radioMap.radioData.r3h,
+								rzenbeta: radioMap.radioData.rzenbeta,
+								r90sr: radioMap.radioData.r90sr,
+								r239_240pu: radioMap.radioData.r239_240pu,
+								r240pu_239pu: radioMap.radioData.r240pu_239pu,
 								latlng: new kakao.maps.LatLng(radioMap.lat, radioMap.lon),
 							};
 						});
@@ -133,103 +139,40 @@
 							var marker = new kakao.maps.Marker({
 								map: map, // 마커를 표시할 지도
 								position: positions[i].latlng, // 마커를 표시할 위치
-								title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+								title: positions[i].ecolname, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+								depth: positions[i].depth,
+								r134cs: positions[i].r134cs,
+								r137cs: positions[i].r137cs,
+								r3h: positions[i].r3h,
+								rzenbeta: positions[i].rzenbeta,
+								r90sr: positions[i].r90sr,
+								r239_240pu: positions[i].r239_240pu,
+								r240pu_239pu: positions[i].r240pu_239pu,
 								image: markerImage, // 마커 이미지
 								clickable: true,
 							});
+
+							marker.setDepth = function (depth) {
+								// 마커 객체에 depth를 설정하는 함수를 추가합니다.
+								this.depth = depth;
+							};
+
+							marker.getDepth = function () {
+								// 마커 객체에서 depth를 가져오는 함수를 추가합니다.
+								return this.depth;
+							};
+
+							marker.setDepth(positions[i].depth); // depth를 설정합니다.
+
 							addMarkerClickListener(marker);
 						}
 
-<<<<<<< HEAD
-
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-            mapOption = {
-                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                level: 14 // 지도의 확대 레벨
-            };
-
-
-
-
-        // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-        var map = new kakao.maps.Map(mapContainer, mapOption);
-
-
-        // 마커 이미지의 이미지 주소입니다
-        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-
-
-        $('form').on('submit', function (e) {
-            e.preventDefault();  // 기본 form submit 동작을 막습니다.
-
-            // 폼에서 입력된 년도와 월을 가져옵니다.
-            var year = $('input[name="year"]').val();
-            var month = $('input[name="month"]').val();
-
-
-
-
-
-            $.ajax({
-                url: "/map/radio", // JSON 데이터를 받아올 URL.
-                type: "POST",
-                data: {
-                    year: year,
-                    month: month,
-                },
-                success: function (data) {
-                    const positions = data.map(function (radioMap) {
-                        return {
-                            title: radioMap.radioData.ecolname,
-                            latlng: new kakao.maps.LatLng(radioMap.lat, radioMap.lon)
-
-                        };
-                    });
-
-                    for (var i = 0; i < positions.length; i++) {
-
-                        // 마커 이미지의 이미지 크기 입니다
-                        var imageSize = new kakao.maps.Size(24, 35);
-
-                        // 마커 이미지를 생성합니다
-                        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-                        // 마커를 생성합니다
-                        var marker = new kakao.maps.Marker({
-                            map: map, // 마커를 표시할 지도
-                            position: positions[i].latlng, // 마커를 표시할 위치
-                            title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                            image: markerImage, // 마커 이미지
-                            clickable: true
-                        });
-                        addMarkerClickListener(marker);
-                    }
-
-                    function addMarkerClickListener(marker) {
-                        kakao.maps.event.addListener(marker, 'click', function () {
-                            document.getElementById('markerTitle').innerText = marker.getTitle();
-                            modal.style.display = "inline-block";
-                        });
-                    }
-                }
-
-            });
-        });
-
-
-
-    </script>
-
-
-</body>
-
-
-</html>
-=======
 						function addMarkerClickListener(marker) {
 							kakao.maps.event.addListener(marker, "click", function () {
 								document.getElementById("markerTitle").innerText =
 									marker.getTitle();
+								document.getElementById("markerSub").innerText =
+									marker.getDepth();
 								modal.style.display = "inline-block";
 							});
 						}
@@ -239,4 +182,3 @@
 		</script>
 	</body>
 </html>
->>>>>>> minchonang
