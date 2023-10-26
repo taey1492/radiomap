@@ -9,55 +9,104 @@
 </head>
 
 <body>
-
+  <button onclick="eqDataPush()">이곳을 누르세요</button>
   <div id="myDiv" style="width: 600px; height: 600px;"></div>
 
 </body>
 
 
 <script th:inline="none">
-  //위도와 경도를 input할 부분 임시 값 넣어져 있습니다.
-  const coordinates = [[19, 27], [21, 18], [12, 23], [28, 17], [26, 14], [17, 21], [23, 28], [22, 26], [25, 12]];
-  const zValues = [23, 78, 65, 97, 42, 13, 56, 89, 31, 100];
 
-  // coordinates에서 고유한 x,y좌표 추출 , x와 y 배열 추출 및 오름차순 정렬 
-  // coord => coord[1]: 각 좌표 쌍에서 y 좌표만 추출합니다.
-  const Xarray = Array.from(new Set(coordinates.map(coord => coord[0]))).sort((a, b) => a - b);
-  const Yarray = Array.from(new Set(coordinates.map(coord => coord[1]))).sort((a, b) => a - b);
+  const eqDataPush = async () => {
+    const year = "2023";
+    const yeardata = await fetch(`/yearsearch?year=${year}`);
+    const res = await yeardata.text();
+    const eqJson = JSON.parse(res); // json 형식으로 읽기
 
-  // z 배열을 초기화하고, y배열의 크기만큼 길이산정, x배열 길이만큼 null로 채우기,(y두번써도됨)
-  const Zarray = Array.from({ length: Yarray.length }, () => Array(Xarray.length).fill(null));
+    //초기값 좌상단 [124.20796222050159, 42.366046008446546]
+    //좌상단 1/2 [124.39396537459614 ,37.64945785060459]
+    //우하단 [130.14530720470964, 32.91305919195217]
+    let coordival = [];
+    let coordinates = [[124.20796222050159, 42.366046008446546], [130.14530720470964, 32.91305919195217]];
+    let zValues = [null, null];//좌상단,우하단,null,null값넣어줌
+    // i 번째 json 형태에서 필요한 데이터 가져오기
+    for (let i = 0; i < eqJson.length; i++) {
+      let eqLat = eqJson[i].lat;
+      let eqLon = eqJson[i].lon;
+      let eqScale = eqJson[i].eqscale; // 규모
 
-  // z 배열에 값을 할당
-  for (let index = 0; index < coordinates.length; index++) {
-    const [xCoord, yCoord] = coordinates[index];
-    const zValue = zValues[index];
-    const i = Yarray.indexOf(yCoord);
-    const j = Xarray.indexOf(xCoord);
-    Zarray[i][j] = zValue;
+      coordival = [eqLon, eqLat];
+      coordinates.push(coordival);
+      zValues.push(eqScale);
+
+    }
+
+    //위도와 경도를 input할 부분 임시 값 넣어져 있습니다.
+    //coordinates = [[0, 0], [30, 30], [19, 27], [21, 18], [12, 23], [28, 17], [26, 14], [17, 21], [23, 28], [22, 26], [25, 12], [5, 7]];
+    //zValues = [0, 0, 23, 78, 65, 97, 42, 13, 56, 89, 31, 999];
+
+    // coordinates에서 고유한 x,y좌표 추출 , x와 y 배열 추출 및 오름차순 정렬 
+    // coord => coord[1]: 각 좌표 쌍에서 y 좌표만 추출합니다.
+    const Xarray = Array.from(new Set(coordinates.map(coord => coord[0]))).sort((a, b) => a - b);
+    const Yarray = Array.from(new Set(coordinates.map(coord => coord[1]))).sort((a, b) => a - b);
+
+    // z 배열을 초기화하고, y배열의 크기만큼 길이산정, x배열 길이만큼 null로 채우기,(y두번써도됨)
+    const Zarray = Array.from({ length: Yarray.length }, () => Array(Xarray.length).fill(null));
+
+    // z 배열에 값을 할당
+    for (let index = 0; index < coordinates.length; index++) {
+      const [xCoord, yCoord] = coordinates[index];
+      const zValue = zValues[index];
+      const i = Yarray.indexOf(yCoord);
+      const j = Xarray.indexOf(xCoord);
+      Zarray[i][j] = zValue;
+    }
+    console.log(Zarray)
+
+    var trace1 = {
+      z: Zarray,
+      x: Xarray,
+      y: Yarray,
+
+      connectgaps: true,
+      zsmooth: 'best',
+      type: 'contour', //histogram2dcontour, contour, heatmap
+
+      showscale: false,
+      autocolorscale: 'hot',
+      // reversescale: true, zmax: 2.5, zmin: -2.5
+
+      //colorscale: [[0, "rgb(  0,  0,  0)"], [0.3, "rgb(90,  0,  0)"], [0.6, "rgb//(180,0,  0)"], [1, "rgb(255,0,0)"]],
+
+      //name: 'density',
+      //ncontours: 20,
+      //colorscale: 'Hot',
+      //reversescale: true,
+      //showscale: false,
+      //type: 'histogram2dcontour'
+
+    };
+
+    var data = [trace1];
+
+    var layout = {
+      autosize: false,
+
+      width: 500,
+      height: 1000,
+      margin: {
+        l: 0,
+        r: 0,
+        b: 0,
+        t: 0,
+        pad: 0
+      },
+
+      //title: 'Simple Contour Plot'
+    };
+
+    Plotly.newPlot('myDiv', data, layout);
   }
-
-
-  var trace1 = {
-    z: Zarray,
-    x: Xarray,
-    y: Yarray,
-
-
-    connectgaps: true,
-    zsmooth: 'best',
-    type: 'heatmap',
-    showscale: false,
-
-  };
-
-  var data = [trace1];
-
-  var layout = {
-    title: 'Simple Contour Plot'
-  };
-
-  Plotly.newPlot('myDiv', data, layout);
 </script>
 
 
