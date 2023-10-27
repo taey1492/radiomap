@@ -19,8 +19,6 @@ public class WeatherController {
     @GetMapping("wea")
     public String wae() {
 
-
-
         return "/weather/wea";
     }
 
