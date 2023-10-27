@@ -106,6 +106,17 @@
     };
 
     Plotly.newPlot('myDiv', data, layout);
+
+    Plotly.toImage('myDiv', {
+      format: 'png',
+      width: 300,
+      height: 600
+    }).then(function (dataUrl) {
+      var img = new Image();
+      img.src = dataUrl;
+      document.body.appendChild(img);
+    });
+
   }
 </script>
 
