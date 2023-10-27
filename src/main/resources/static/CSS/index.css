@@ -200,6 +200,7 @@
 	font-weight: bold;
 }
 
+/* 마커 아이콘 설명 */
 .radioMarkerInfoArea {
 	background-color: rgb(255, 255, 255);
 	display: flex;
