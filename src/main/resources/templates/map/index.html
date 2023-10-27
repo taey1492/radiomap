@@ -1,170 +1,206 @@
 <!DOCTYPE html>
 <html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>MARRAD</title>
+		<link rel="stylesheet" href="../CSS/settings.css" />
+		<link rel="stylesheet" href="../CSS/common.css" />
+		<link rel="stylesheet" href="../CSS/index.css" />
+	</head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>MARRAD</title>
-	<link rel="stylesheet" href="../CSS/settings.css" />
-	<link rel="stylesheet" href="../CSS/common.css" />
-	<link rel="stylesheet" href="../CSS/index.css" />
-</head>
-
-<body>
-	<!-- 전체 영역 -->
-	<div class="mainArea">
-		<!-- header 영역 -->
-		<div class="headerArea">
-			<div class="logoArea" onmouseover="mouseoverMenuBar(), showMenuBar()"
-				onmouseout="mouseoutMenuBar(), hideMenuBar()">
-
-				<head th:replace="common/header" />
+	<body>
+		<!-- 전체 영역 -->
+		<div class="mainArea">
+			<!-- header 영역 -->
+			<div class="headerArea">
+				<div
+					class="logoArea"
+					onmouseover="mouseoverMenuBar(), showMenuBar()"
+					onmouseout="mouseoutMenuBar(), hideMenuBar()"
+				>
+					<head th:replace="common/header" />
+				</div>
 			</div>
+
+			<!-- 지도 영역 -->
+			<section class="mapArea">
+				<div id="map" class="map">
+					<!-- 메뉴 바 영역-->
+					<div
+						id="menuBarArea"
+						class="menuBarArea"
+						onmouseover="mouseoverMenuBar(), showMenuBar()"
+						onmouseout="mouseoutMenuBar(), hideMenuBar()"
+					>
+						<div
+							id="radioBtn"
+							class="selectedBtn"
+							onclick="selectRadioBtn(event), eqClose()"
+						>
+							<img
+								src="../img/icon_radioactivity_mono.png"
+								alt="noRadioBtnImg"
+								class="radioBtnImg"
+							/>
+							<button class="menu" type="button" onclick="RadioBtn()">
+								방사능
+							</button>
+						</div>
+						<div
+							id="eqBtn"
+							class="hidden"
+							onclick="selectEQBtn(event), eqAction()"
+						>
+							<img
+								src="../img/icon_earthquake.png"
+								alt="noRadioBtnImg"
+								class="radioBtnImg"
+							/>
+							<button class="menu">지진</button>
+						</div>
+
+						<!-- 확장 아이콘 -->
+						<div id="iconExpandArea" class="iconExpandArea">
+							<img src="../img/icon_expand.png" alt="noIconExpand" />
+						</div>
+					</div>
+
+					<!-- 방사능 마커 설명 -->
+					<div id="radioMarkerInfo" class="radioMarkerInfoArea">
+						<div class="markerInfo">
+							<span>
+								<img
+									src="../img/marker_radioactivity_normal.png"
+									alt="noEqMarker"
+									class="markerInfoImg"
+								/>
+							</span>
+							<span class="markerInfo_eqScale">정상</span>
+						</div>
+						<div class="markerInfo">
+							<span>
+								<img
+									src="../img/marker_radioactivity_yellow.png"
+									alt="noEqMarker_yellow"
+									class="markerInfoImg"
+								/>
+							</span>
+							<span class="markerInfo_eqScale">관심</span>
+						</div>
+						<div class="markerInfo">
+							<span>
+								<img
+									src="../img/marker_radioactivity_red.png"
+									alt="noEqMarker_red"
+									class="markerInfoImg"
+								/>
+							</span>
+							<span class="markerInfo_eqScale">위험</span>
+						</div>
+					</div>
+
+					<!-- 지진 마커 설명 -->
+					<div id="eqMarkerInfo" class="hidden">
+						<div class="markerInfo">
+							<span>
+								<img
+									src="../img/marker_earthquake.png"
+									alt="noEqMarker"
+									class="markerInfoImg"
+								/>
+							</span>
+							<span class="markerInfo_eqScale">진도 0 ~ 2 미만</span>
+						</div>
+						<div class="markerInfo">
+							<span>
+								<img
+									src="../img/marker_earthquake_yellow.png"
+									alt="noEqMarker_yellow"
+									class="markerInfoImg"
+								/>
+							</span>
+							<span class="markerInfo_eqScale">진도 2.1 ~ 3 미만</span>
+						</div>
+						<div class="markerInfo">
+							<span>
+								<img
+									src="../img/marker_earthquake_red.png"
+									alt="noEqMarker_red"
+									class="markerInfoImg"
+								/>
+							</span>
+							<span class="markerInfo_eqScale">진도 3 이상</span>
+						</div>
+					</div>
+				</div>
+			</section>
 		</div>
+	</body>
 
-		<!-- 지도 영역 -->
-		<section class="mapArea">
-			<div id="map" class="map">
-				<!-- 메뉴 바 영역-->
-				<div id="menuBarArea" class="menuBarArea" onmouseover="mouseoverMenuBar(), showMenuBar()"
-					onmouseout="mouseoutMenuBar(), hideMenuBar()">
-					<div id="radioBtn" class="selectedBtn" onclick="selectRadioBtn(event), eqClose()">
-						<img src="../img/icon_radioactivity_mono.png" alt="noRadioBtnImg" class="radioBtnImg" />
-						<button class="menu" type="button" onclick="RadioBtn()">방사능</button>
-					</div>
-					<div id="eqBtn" class="hidden" onclick="selectEQBtn(event), eqAction()">
-						<img src="../img/icon_earthquake.png" alt="noRadioBtnImg" class="radioBtnImg" />
-						<button class="menu">지진</button>
-					</div>
+	<!-- script -->
 
-					<!-- 확장 아이콘 -->
-					<div id="iconExpandArea" class="iconExpandArea">
-						<img src="../img/icon_expand.png" alt="noIconExpand" />
-					</div>
-				</div>
+	<!-- kakao 지도 관련 script -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<!-- ajax script -->
+	<script
+		type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"
+	></script>
 
-				<!-- 방사능 마커 설명 -->
-				<div id="radioMarkerInfo" class="radioMarkerInfoArea">
-					<div class="markerInfo">
-						<span>
-							<img src="../img/marker_radioactivity_normal.png" alt="noEqMarker" class="markerInfoImg" />
-						</span>
-						<span class="markerInfo_eqScale">정상</span>
-					</div>
-					<div class="markerInfo">
-						<span>
-							<img src="../img/marker_radioactivity_yellow.png" alt="noEqMarker_yellow" class="markerInfoImg" />
-						</span>
-						<span class="markerInfo_eqScale">관심</span>
-					</div>
-					<div class="markerInfo">
-						<span>
-							<img src="../img/marker_radioactivity_red.png" alt="noEqMarker_red" class="markerInfoImg" />
-						</span>
-						<span class="markerInfo_eqScale">위험</span>
-					</div>
-				</div>
+	<!-- 맵 + 메뉴 바 화면 사이즈 조절 -->
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const h = window.innerHeight;
+			const map = document.querySelector("#map");
+			map.style.height = `${h}px`;
 
-				<!-- 지진 마커 설명 -->
-				<div id="eqMarkerInfo" class="hidden">
-					<div class="markerInfo">
-						<span>
-							<img src="../img/marker_earthquake.png" alt="noEqMarker" class="markerInfoImg" />
-						</span>
-						<span class="markerInfo_eqScale">진도 0 ~ 2 미만</span>
-					</div>
-					<div class="markerInfo">
-						<span>
-							<img src="../img/marker_earthquake_yellow.png" alt="noEqMarker_yellow" class="markerInfoImg" />
-						</span>
-						<span class="markerInfo_eqScale">진도 2.1 ~ 3 미만</span>
-					</div>
-					<div class="markerInfo">
-						<span>
-							<img src="../img/marker_earthquake_red.png" alt="noEqMarker_red" class="markerInfoImg" />
-						</span>
-						<span class="markerInfo_eqScale">진도 3 이상</span>
-					</div>
-				</div>
-			</div>
-		</section>
-	</div>
-</body>
+			const bar = document.querySelector(".menuBarArea");
 
-<!-- script -->
-
-<!-- kakao 지도 관련 script -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-<!-- ajax script -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"></script>
-
-<!-- 맵 + 메뉴 바 화면 사이즈 조절 -->
-<script>
-	document.addEventListener("DOMContentLoaded", () => {
-		const h = window.innerHeight;
-		const map = document.querySelector("#map");
-		map.style.height = `${h}px`;
-
-		const bar = document.querySelector(".menuBarArea");
-
-		bar.style.height = `${0.095 * parseInt(map.style.height)}px`;
-		console.log(`브라우저 세로 길이: ${bar.style.height}`);
-	});
-</script>
-
-<script src="../JS/kakaoMap.js"></script>
-<script th:inline="none" src="../JS/radioData.js"></script>
-<script src="../JS/eqData.js"></script>
-<script src="../JS/button.js"></script>
-
-<script>
-
-
-<<<<<<< HEAD
-	// year & month로 검색하는 테스트 영역입니다.
-	const RadioBtn = async () => {
-=======
 			bar.style.height = `${0.095 * parseInt(map.style.height)}px`;
-			// console.log(`브라우저 세로 길이: ${bar.style.height}`);
+			console.log(`브라우저 세로 길이: ${bar.style.height}`);
 		});
 	</script>
->>>>>>> minchonang
 
+	<script src="../JS/kakaoMap.js"></script>
+	<script th:inline="none" src="../JS/radioData.js"></script>
+	<script src="../JS/eqData.js"></script>
+	<script src="../JS/button.js"></script>
 
+	<script>
+		// year & month로 검색하는 테스트 영역입니다.
+		const RadioBtn = async () => {
+			//input data검색을 추가할 예정
+			//const year = document.querySelector("#yearinput").value;
+			//const month = document.querySelector("#monthinput").value;
+			const year = "2023"; //인풋검색 year month추가해야
+			const month = "";
+			const data = await fetch(`/map/radiosearch?year=${year}`, {
+				method: "POST",
+			}); //&month=${month}
+			const res = await data.text();
+			const json = JSON.parse(res); //json형식으로 읽기
 
-		//input data검색을 추가할 예정
-		//const year = document.querySelector("#yearinput").value;
-		//const month = document.querySelector("#monthinput").value;
-		const year = "2023"//인풋검색 year month추가해야
-		const month = ""
-		const data = await fetch(`/map/radiosearch?year=${year}`, { method: "POST" });//&month=${month}
-		const res = await data.text();
-		const json = JSON.parse(res); //json형식으로 읽기
+			for (let i = 0; i < json.length; i++) {
+				// i 번째 json 형태에서 필요한 데이터 가져오기
+				let jlat = json[i].radioAddress?.radioMap?.lat;
+				let jlon = json[i].radioAddress?.radioMap?.lon;
 
+				if (jlat !== null && jlon !== null) {
+					console.log(jlat);
 
-		for (let i = 0; i < json.length; i++) {
-			// i 번째 json 형태에서 필요한 데이터 가져오기
-			let jlat = json[i].radioAddress?.radioMap?.lat;
-			let jlon = json[i].radioAddress?.radioMap?.lon;
+					// 마커를 생성합니다
+					// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+					var markerPosition = new kakao.maps.LatLng(jlat, jlon);
 
-			if (jlat !== null && jlon !== null) {
-
-				console.log(jlat)
-
-				// 마커를 생성합니다
-				// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-				var markerPosition = new kakao.maps.LatLng(jlat, jlon);
-
-				var marker = new kakao.maps.Marker({
-					position: markerPosition,
-				});
-				//마커를 지도에 세팅
-				marker.setMap(map);
-
+					var marker = new kakao.maps.Marker({
+						position: markerPosition,
+					});
+					//마커를 지도에 세팅
+					marker.setMap(map);
+				}
 			}
-		}
-	};
-</script>
-
+		};
+	</script>
 </html>
