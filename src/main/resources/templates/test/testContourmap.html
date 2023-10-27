@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <div id="myDiv" style="width: 600px; height: 600px;"></div>
+  <div id="myDiv" style="display: none;"></div>
 
 </body>
 
@@ -114,6 +114,8 @@
     }).then(function (dataUrl) {
       var img = new Image();
       img.src = dataUrl;
+
+
       document.body.appendChild(img);
     });
 
