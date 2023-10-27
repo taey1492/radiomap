@@ -6,21 +6,38 @@ const EQMARKERINFOAREA = "eqMarkerInfoArea";
 
 const menuBarArea = document.querySelector("#menuBarArea");
 
+const weather = document.querySelector("#weatherBtn");
 const radio = document.querySelector("#radioBtn");
 const eq = document.querySelector("#eqBtn");
+
 const radioMarker = document.querySelector("#radioMarkerInfo");
 const eqMarker = document.querySelector("#eqMarkerInfo");
 const expand = document.querySelector("#iconExpandArea");
 
-let boolRadioBtn = true;
+let boolWeatherBtn = true;
+let boolRadioBtn = false;
 let boolEQBtn = false;
 
+const selectWeatherBtn = (event) => {
+	if (!boolWeatherBtn) {
+		weather.classList.replace(MENUBARBTN, SELECTEDBTN);
+		radioMarker.classList.replace(RADIOMARKERINFOAREA, "hidden");
+		eqMarker.classList.replace(EQMARKERINFOAREA, "hidden");
+		radio.className = MENUBARBTN;
+		eq.classList = MENUBARBTN;
+		boolWeatherBtn = true;
+		boolRadioBtn = false;
+		boolEQBtn = false;
+	}
+};
 const selectRadioBtn = (event) => {
 	if (!boolRadioBtn) {
 		radio.classList.replace(MENUBARBTN, SELECTEDBTN);
 		radioMarker.classList.replace("hidden", RADIOMARKERINFOAREA);
 		eqMarker.classList.replace(EQMARKERINFOAREA, "hidden");
+		weather.classList = MENUBARBTN;
 		eq.classList = MENUBARBTN;
+		boolWeatherBtn = false;
 		boolRadioBtn = true;
 		boolEQBtn = false;
 	}
@@ -30,39 +47,49 @@ const selectEQBtn = (event) => {
 		eq.classList.replace(MENUBARBTN, SELECTEDBTN);
 		eqMarker.classList.replace("hidden", EQMARKERINFOAREA);
 		radioMarker.classList.replace(RADIOMARKERINFOAREA, "hidden");
+		weather.classList = MENUBARBTN;
 		radio.classList = MENUBARBTN;
+		boolWeatherBtn = false;
 		boolRadioBtn = false;
 		boolEQBtn = true;
 	}
 };
 
-// 메뉴 버튼 hover 시 매뉴 바 색상 on/off
+// 메뉴 버튼 hover 시 매뉴 바 커짐/작아짐
 const mouseoverMenuBar = (event) => {
-	menuBarArea.style.backgroundColor = "#5ea8c8e1";
 	expand.classList.replace("iconExpandArea", "hidden");
 	menuBarArea.style.height = "88%";
 };
 
 const mouseoutMenuBar = (event) => {
-	menuBarArea.style.backgroundColor = "";
 	expand.classList.replace("hidden", "iconExpandArea");
 	menuBarArea.style.height = "9.5%";
 };
 
 // 메뉴 버튼 hover 시 선택되지 않은 메뉴 보이기
 const showMenuBar = () => {
-	if (radio.className != SELECTEDBTN) {
+	if (weather.className == SELECTEDBTN) {
 		radio.classList.replace("hidden", MENUBARBTN);
-	} else if (eq.className != SELECTEDBTN) {
 		eq.classList.replace("hidden", MENUBARBTN);
+	} else if (radio.className == SELECTEDBTN) {
+		weather.classList.replace("hidden", MENUBARBTN);
+		eq.classList.replace("hidden", MENUBARBTN);
+	} else {
+		weather.classList.replace("hidden", MENUBARBTN);
+		radio.classList.replace("hidden", MENUBARBTN);
 	}
 };
 
 // 메뉴 버튼 hover 시 선택되지 않은 메뉴 숨기기
 const hideMenuBar = () => {
-	if (radio.className != SELECTEDBTN) {
+	if (weather.className == SELECTEDBTN) {
 		radio.classList.replace(MENUBARBTN, "hidden");
-	} else if (eq.className != SELECTEDBTN) {
 		eq.classList.replace(MENUBARBTN, "hidden");
+	} else if (radio.className == SELECTEDBTN) {
+		weather.classList.replace(MENUBARBTN, "hidden");
+		eq.classList.replace(MENUBARBTN, "hidden");
+	} else {
+		weather.classList.replace(MENUBARBTN, "hidden");
+		radio.classList.replace(MENUBARBTN, "hidden");
 	}
 };
