@@ -10,6 +10,7 @@ const radio = document.querySelector("#radioBtn");
 const eq = document.querySelector("#eqBtn");
 const radioMarker = document.querySelector("#radioMarkerInfo");
 const eqMarker = document.querySelector("#eqMarkerInfo");
+const expand = document.querySelector("#iconExpandArea");
 
 let boolRadioBtn = true;
 let boolEQBtn = false;
@@ -38,12 +39,14 @@ const selectEQBtn = (event) => {
 // 메뉴 버튼 hover 시 매뉴 바 색상 on/off
 const mouseoverMenuBar = (event) => {
 	menuBarArea.style.backgroundColor = "#5ea8c8e1";
+	expand.classList.replace("iconExpandArea", "hidden");
 	menuBarArea.style.height = "88%";
 };
 
 const mouseoutMenuBar = (event) => {
 	menuBarArea.style.backgroundColor = "";
-	menuBarArea.style.height = "6.5%";
+	expand.classList.replace("hidden", "iconExpandArea");
+	menuBarArea.style.height = "9.5%";
 };
 
 // 메뉴 버튼 hover 시 선택되지 않은 메뉴 보이기

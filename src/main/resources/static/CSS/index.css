@@ -14,7 +14,7 @@
 /* 메뉴 바 영역 */
 .menuBarArea {
 	width: 185px;
-	height: 6.5%;
+	height: 9.5%;
 	background-color: #5ea8c8e1;
 	/* #5ea8c8e1 */
 	border-radius: 10px;
@@ -80,6 +80,12 @@
 .radioBtnImg {
 	width: 30px;
 	height: 30px;
+}
+
+.iconExpandArea {
+	justify-content: center;
+	margin-left: 40%;
+	margin-right: 60%;
 }
 
 /* 지도 영역 및 지도 */

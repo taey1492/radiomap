@@ -57,6 +57,11 @@
 							/>
 							<button class="menu">지진</button>
 						</div>
+
+						<!-- 확장 아이콘 -->
+						<div id="iconExpandArea" class="iconExpandArea">
+							<img src="../img/icon_expand.png" alt="noIconExpand" />
+						</div>
 					</div>
 
 					<!-- 방사능 마커 설명 -->
@@ -136,6 +141,7 @@
 	<!-- kakao 지도 관련 script -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<!-- ajax script -->
 	<script
 		type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"
@@ -150,7 +156,7 @@
 
 			const bar = document.querySelector(".menuBarArea");
 
-			bar.style.height = `${0.13 * parseInt(map.style.height)}px`;
+			bar.style.height = `${0.095 * parseInt(map.style.height)}px`;
 			console.log(`브라우저 세로 길이: ${bar.style.height}`);
 		});
 	</script>
@@ -159,52 +165,4 @@
 	<script th:inline="none" src="../JS/radioData.js"></script>
 	<script src="../JS/eqData.js"></script>
 	<script src="../JS/button.js"></script>
-	<!-- <script>
-		var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-			mapOption = {
-				center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-				level: 14, // 지도의 확대 레벨
-			};
-
-		// 마커 이미지의 이미지 주소입니다
-		var imageSrc = "../img/marker_radioactivity_normal.png";
-
-		$.ajax({
-			url: "/map/testy", // JSON 데이터를 받아올 URL.
-			type: "GET",
-			success: function (data) {
-				const positions = data.map(function (radioMap) {
-					return {
-						title: radioMap.address,
-						latlng: new kakao.maps.LatLng(radioMap.lat, radioMap.lon),
-					};
-				});
-
-				for (var i = 0; i < positions.length; i++) {
-					// 마커 이미지의 이미지 크기 입니다
-					var imageSize = new kakao.maps.Size(13, 13);
-
-					// 마커 이미지를 생성합니다
-					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-					// 마커를 생성합니다
-					var marker = new kakao.maps.Marker({
-						map: map, // 마커를 표시할 지도
-						position: positions[i].latlng, // 마커를 표시할 위치
-						title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-						image: markerImage, // 마커 이미지
-						clickable: true,
-					});
-					addMarkerClickListener(marker);
-				}
-				function addMarkerClickListener(marker) {
-					kakao.maps.event.addListener(marker, "click", function () {
-						document.getElementById("markerTitle").innerText =
-							marker.getTitle();
-						modal.style.display = "inline-block";
-					});
-				}
-			},
-		});
-	</script> -->
 </html>
