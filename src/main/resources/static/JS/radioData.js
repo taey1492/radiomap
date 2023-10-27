@@ -13,24 +13,22 @@ const radioDataPush = async () => {
     //const month = document.querySelector("#monthinput").value;
     const year = "2023"; //인풋검색 year month추가해야
     const month = "";
-    const data = await fetch(`/map/radiosearch2?year=${year}`, {
-        method: "POST",
-    }); //&month=${month}
+    const data = await fetch(`/map/radiosearch2?year=${year}`, {}); //&month=${month} method: "POST",
     const res = await data.text();
     const radioJson = JSON.parse(res); //json형식으로 읽기
 
     // i 번째 json 형태에서 필요한 데이터 가져오기
     for (let i = 0; i < radioJson.length; i++) {
         // radio.map에서 가져오는 데이터
-        let radioLat = radioJson[i].radioAddress?.radioMap?.lat;
-        let radioLon = radioJson[i].radioAddress?.radioMap?.lon;
-        let radioRm = radioJson[i].radioAddress?.radioMap?.rm; // 측정 주소
+        let radioLat = radioJson[i].r_lat;
+        let radioLon = radioJson[i].r_lon;
+        let radioRm = radioJson[i].r_rm; // 측정 주소
         // radio.data에서 가져오는 데이터
-        let radioDate = radioJson[i].coldate; // 측정 날짜
-        let radioDepth = radioJson[i].depth; // 측정 깊이(표층, 지층 등)
-        let radioCS134 = radioJson[i].r134cs; // 세슘 134
-        let radioCS137 = radioJson[i].r137cs; // 세슘 137
-        let radioH3 = radioJson[i].r3h; // 삼중수소
+        let radioDate = radioJson[i].r_coldate; // 측정 날짜
+        let radioDepth = radioJson[i].r_depth; // 측정 깊이(표층, 지층 등)
+        let radioCS134 = radioJson[i].r_134cs; // 세슘 134
+        let radioCS137 = radioJson[i].r_137cs; // 세슘 137
+        let radioH3 = radioJson[i].r_3h; // 삼중수소
 
         // 날짜 연/월/일로 쪼개기
         let radioYear = radioDate.substring(0, 4); // 2023
