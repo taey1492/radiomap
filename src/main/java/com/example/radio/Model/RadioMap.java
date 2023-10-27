@@ -2,19 +2,21 @@ package com.example.radio.Model;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
-@Data
 @Entity
-public class RadioMap {
+@Data
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+public class RadioMap implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
 
-    @Column(name = "r_code")
+    @Column(name = "r_code", unique = true)
     String code;
-
-
 
     @Column(name = "r_address")
     String address;
@@ -40,6 +42,5 @@ public class RadioMap {
     Float lon;
     @Column(name = "r_lat")
     Float lat;
-
 
 }

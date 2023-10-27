@@ -2,14 +2,16 @@ package com.example.radio.Model;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Data
-public class RadioData {
+public class RadioData implements Serializable {
 
-
-    @Id@ GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
     @Column(name = "r_year")
@@ -20,8 +22,7 @@ public class RadioData {
     String item;
     @Column(name = "r_ecolname")
     String ecolname;
-    @Column(name = "r_pinnacle")
-    String pinnacle;
+
     @Column(name = "r_coldate")
     String coldate;
     @Column(name = "r_depth")
@@ -41,5 +42,8 @@ public class RadioData {
     @Column(name = "r_240pu_239pu")
     Float r240pu_239pu;
 
+    @ManyToOne
+    @JoinColumn(name = "r_pinnacle")
+    RadioAddress radioAddress;
 
 }

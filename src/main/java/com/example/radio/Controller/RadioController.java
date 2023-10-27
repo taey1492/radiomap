@@ -1,6 +1,5 @@
 package com.example.radio.Controller;
 
-import com.example.radio.Model.RadioAddress;
 import com.example.radio.Model.RadioData;
 import com.example.radio.Model.RadioMap;
 import com.example.radio.Repository.RadioAddressRepository;
@@ -10,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/map")
@@ -37,52 +33,21 @@ public class RadioController {
 
         List<RadioMap> radioMapList = radioMapRepository.findAll();
 
-        System.out.println(radioMapList);
         return radioMapList;
 
     }
 
-
     @GetMapping("test")
-    public String test () {
+    public String test() {
         return "/map/test";
     }
 
-    @PostMapping("/radio")
+    @PostMapping("/radiosearch")
     @ResponseBody
-    public List<Map<String, Object>> test1(@RequestParam int year) {
-        List<RadioData> radioDataList = radioDataRepository.findByYear(year);
-        List<Map<String, Object>> result = new ArrayList<>();
+    public List<RadioData> yearSearch(@RequestParam int year) {
 
-        for (RadioData radioData : radioDataList) {
-            String radiolist = radioData.getPinnacle();
-            List<RadioAddress> radioAddressesData = radioAddressRepository.findByPinnacle(radiolist);
-
-            for(RadioAddress radioAddress : radioAddressesData ) {
-                String addressCode = radioAddress.getCode();
-                List<RadioMap> radioMapList = radioMapRepository.findByCode(addressCode);
-
-                for(RadioMap radioMap : radioMapList) {
-                    Float maplat = radioMap.getLat();
-                    Float maplon = radioMap.getLon();
-
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("radioData", radioData);
-                    map.put("lat", maplat);
-                    map.put("lon", maplon);
-
-                    result.add(map);
-                }
-            }
-
-
-        }
-        return result;
-
-
-
-
-
-
+        List<RadioData> radiolist = radioDataRepository.findByYear(year);
+        System.out.println(radiolist);
+        return radiolist;
     }
 }

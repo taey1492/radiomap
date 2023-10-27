@@ -1,242 +1,145 @@
 <!DOCTYPE html>
 <html lang="kr">
-	<head>
-		<meta charset="UTF-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-		/>
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>Document</title>
-		<style>
-			/* The Modal (background) */
-			.modal {
-				display: none;
-				/* Hidden by default */
-				position: fixed;
-				/* Stay in place */
-				z-index: 9999;
-				/* Sit on top */
-				padding-top: 100px;
-				/* Location of the box */
-				right: auto;
-				top: 0;
-				width: 100%;
-				/* Full width */
-				height: 100%;
-				/* Full height */
-			}
 
-			/* Modal Content */
-			.modal-content {
-				background-color: #fefefe;
-				margin: auto;
-				padding: 20px;
-				border: solid thin #888;
-				width: 80%;
-			}
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+	<style>
+		/* The Modal (background) */
+		.modal {
+			display: none;
+			/* Hidden by default */
+			position: fixed;
+			/* Stay in place */
+			z-index: 9999;
+			/* Sit on top */
+			padding-top: 100px;
+			/* Location of the box */
+			right: auto;
+			top: 0;
+			width: 100%;
+			/* Full width */
+			height: 100%;
+			/* Full height */
+		}
 
-			.close {
-				color: #aaa;
-				float: right;
-			}
-		</style>
-	</head>
+		/* Modal Content */
+		.modal-content {
+			background-color: #fefefe;
+			margin: auto;
+			padding: 20px;
+			border: solid thin #888;
+			width: 80%;
+		}
 
-	<body>
-		<form action="/map/radio" method="post">
-			<div>
-				<input type="text" placeholder="년도" name="year" />
-				<br />
-				<input type="text" placeholder="월" name="month" />
-				<button>입력</button>
-			</div>
-		</form>
+		.close {
+			color: #aaa;
+			float: right;
+		}
+	</style>
+</head>
 
-		<div id="myModal" class="modal">
-			<!-- Modal content -->
-			<div class="modal-content">
-				<span class="close">&times;</span>
-				<p id="markerTitle"></p>
-			</div>
+<body>
+	<form action="/map/radio" method="post">
+		<div>
+			<input type="text" placeholder="년도" name="year" id="yearinput" />
+			<br />
+			<input type="text" placeholder="월" name="month" id="monthinput" />
+
+			<textarea name="" id="textarea" cols="30" rows="10"></textarea>
+
+			<button type="button" onclick="yearsearch()">입력</button>
+
 		</div>
+	</form>
 
-		<p id="result"></p>
+	<div id="myModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<p id="markerTitle"></p>
+		</div>
+	</div>
 
-		<!-- 지도를 표시할 div 입니다 -->
-		<div id="map" style="width: 40%; height: 800px"></div>
+	<p id="result"></p>
 
-<<<<<<< HEAD
-        <input type="text" placeholder="년도" name="year">
-        <br>
-        <button>입력</button>
-=======
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script
-			type="text/javascript"
-			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"
-		></script>
-		<script>
-			var modal = document.getElementById("myModal");
->>>>>>> minchonang
+	<!-- 지도를 표시할 div 입니다 -->
+	<div id="map" style="width: 40%; height: 800px"></div>
 
-			// Get the span element that closes the modal
-			var span = document.getElementsByClassName("close")[0];
+	<input type="text" placeholder="년도" name="year">
+	<br>
+	<button>입력</button>
 
-			// When the user clicks on span (x), close the modal
-			span.onclick = function () {
-				modal.style.display = "none";
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"></script>
+	<script>
+		var modal = document.getElementById("myModal");
+
+		// Get the span element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+
+		// When the user clicks on span (x), close the modal
+		span.onclick = function () {
+			modal.style.display = "none";
+		};
+
+		var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+			mapOption = {
+				center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+				level: 14, // 지도의 확대 레벨
 			};
 
-			var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-				mapOption = {
-					center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-					level: 14, // 지도의 확대 레벨
-				};
+		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+		var map = new kakao.maps.Map(mapContainer, mapOption);
 
-			// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-			var map = new kakao.maps.Map(mapContainer, mapOption);
+		// 마커 이미지의 이미지 주소입니다
+		var imageSrc = "../img/marker_radioactivity_red.png";
 
-			// 마커 이미지의 이미지 주소입니다
-			var imageSrc = "../img/marker_radioactivity_red.png";
+		// year & month로 검색하는 테스트 영역입니다.
+		const yearsearch = async () => {
+			//input data검색을 추가할 예정
+			//const year = document.querySelector("#yearinput").value;
+			//const month = document.querySelector("#monthinput").value;
+			const year = "2023"
+			const month = ""
+			const data = await fetch(`/map/radiosearch?year=${year}`, { method: "POST" });//&month=${month}
+			const res = await data.text();
+			const json = JSON.parse(res); //json형식으로 읽기
 
-			$("form").on("submit", function (e) {
-				// e.preventDefault(); // 기본 form submit 동작을 막습니다.
+			document.querySelector("#textarea").innerText = json; //textarea영역에 출력(지도에 찍히는것과는 상관없습니다.)
 
-				// 폼에서 입력된 년도와 월을 가져옵니다.
-				var year = $('input[name="year"]').val();
-				var month = $('input[name="month"]').val();
 
-				$.ajax({
-					url: "/map/radio", // JSON 데이터를 받아올 URL.
-					type: "POST",
-					data: {
-						year: year,
-						month: month,
-					},
-					success: function (data) {
-						const positions = data.map(function (radioMap) {
-							return {
-								title: radioMap.address,
-								latlng: new kakao.maps.LatLng(radioMap.lat, radioMap.lon),
-							};
-						});
+			for (let i = 0; i < json.length; i++) {
+				// i 번째 json 형태에서 필요한 데이터 가져오기
+				let jlat = json[i].radioAddress?.radioMap?.lat;
+				let jlon = json[i].radioAddress?.radioMap?.lon;
 
-						for (var i = 0; i < positions.length; i++) {
-							// 마커 이미지의 이미지 크기 입니다
-							var imageSize = new kakao.maps.Size(24, 35);
+				if (jlat !== null && jlon !== null) {
 
-							// 마커 이미지를 생성합니다
-							var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+					console.log(jlat)
 
-							// 마커를 생성합니다
-							var marker = new kakao.maps.Marker({
-								map: map, // 마커를 표시할 지도
-								position: positions[i].latlng, // 마커를 표시할 위치
-								title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-								image: markerImage, // 마커 이미지
-								clickable: true,
-							});
-							addMarkerClickListener(marker);
-						}
 
-<<<<<<< HEAD
+					// 마커를 생성합니다
+					// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+					var markerPosition = new kakao.maps.LatLng(jlat, jlon);
 
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-            mapOption = {
-                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                level: 14 // 지도의 확대 레벨
-            };
+					var marker = new kakao.maps.Marker({
+						position: markerPosition,
+					});
+					//마커를 지도에 세팅
+					marker.setMap(map);
+
+				}
 
 
 
+			}
+		};
 
-        // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-        var map = new kakao.maps.Map(mapContainer, mapOption);
-
-
-        // 마커 이미지의 이미지 주소입니다
-        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-
-
-        $('form').on('submit', function (e) {
-            e.preventDefault();  // 기본 form submit 동작을 막습니다.
-
-            // 폼에서 입력된 년도와 월을 가져옵니다.
-            var year = $('input[name="year"]').val();
-            var month = $('input[name="month"]').val();
-
-
-
-
-
-            $.ajax({
-                url: "/map/radio", // JSON 데이터를 받아올 URL.
-                type: "POST",
-                data: {
-                    year: year,
-                    month: month,
-                },
-                success: function (data) {
-                    const positions = data.map(function (radioMap) {
-                        return {
-                            title: radioMap.radioData.ecolname,
-                            latlng: new kakao.maps.LatLng(radioMap.lat, radioMap.lon)
-
-                        };
-                    });
-
-                    for (var i = 0; i < positions.length; i++) {
-
-                        // 마커 이미지의 이미지 크기 입니다
-                        var imageSize = new kakao.maps.Size(24, 35);
-
-                        // 마커 이미지를 생성합니다
-                        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-                        // 마커를 생성합니다
-                        var marker = new kakao.maps.Marker({
-                            map: map, // 마커를 표시할 지도
-                            position: positions[i].latlng, // 마커를 표시할 위치
-                            title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                            image: markerImage, // 마커 이미지
-                            clickable: true
-                        });
-                        addMarkerClickListener(marker);
-                    }
-
-                    function addMarkerClickListener(marker) {
-                        kakao.maps.event.addListener(marker, 'click', function () {
-                            document.getElementById('markerTitle').innerText = marker.getTitle();
-                            modal.style.display = "inline-block";
-                        });
-                    }
-                }
-
-            });
-        });
-
-
-
-    </script>
-
-
+	</script>
 </body>
 
-
 </html>
-=======
-						function addMarkerClickListener(marker) {
-							kakao.maps.event.addListener(marker, "click", function () {
-								document.getElementById("markerTitle").innerText =
-									marker.getTitle();
-								modal.style.display = "inline-block";
-							});
-						}
-					},
-				});
-			});
-		</script>
-	</body>
-</html>
->>>>>>> minchonang
