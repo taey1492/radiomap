@@ -82,7 +82,7 @@ radioDataPush();
 const radioAction = () => {
 	for (let i = 0; i < radioMarkerArray.length; i++) {
 		// 마커 이미지의 이미지 크기
-		const imageSize = new kakao.maps.Size(13, 13);
+		const imageSize = new kakao.maps.Size(18, 18);
 		// 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 		const imageOption = { offset: new kakao.maps.Point(10, 35) };
 		let markerImage = new kakao.maps.MarkerImage(
