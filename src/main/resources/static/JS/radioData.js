@@ -6,7 +6,7 @@ const radioMarkerArray = [];
 // api 마커 배열
 const radioMarkers = [];
 
-// year & month로 검색하는 테스트 영역입니다.
+// 방사능 마커 정보 불러오기
 const radioDataPush = async () => {
 	//input data검색을 추가할 예정
 	//const year = document.querySelector("#yearinput").value;
@@ -41,7 +41,7 @@ const radioDataPush = async () => {
 		}
 		let radioDay = radioDate.substring(8, 10); // 00(일)
 
-		let radioCS = radioCS134 + radioCS137; // 세슘 검출 기준: 세슘 134 + 세슘 137
+		let radioCS = Math.round((radioCS134 + radioCS137) * 100) / 100; // 세슘 검출 기준: 세슘 134 + 세슘 137 -> 소숫점 두 자리까지 반올림
 
 		for (let i = 0; i < radioJson.length; i++) {
 			// 방사능 마커 이미지(진도에 따라 마커 이미지 변경)
@@ -76,71 +76,9 @@ const radioDataPush = async () => {
 	console.log("Pushed Radio DATA");
 };
 
-// // 방사능 마커 정보 불러오기
-// $.ajax({
-// 	url: "/map/radio", // JSON 데이터를 받아올 URL.
-// 	type: "POST",
-// 	data: {
-// 		year: year,
-// 		month: month,
-// 	},
-// 	success: function (data) {
-// 		const radioJson = data.map(function (radioMap) {
-// 			return {
-// 				radioLat: radioMap.radioData.lat, // 위도
-// 				radioLon: radioMap.radioData.lon, // 경도
-// 				radioDate: radioMap.radioData.coldate, // 측정일
-// 				radioDepth: radioMap.radioData.depth, // 측정 깊이(표층, 지층 등)
-// 				radioSeaName: radioMap.radioData.ecolname, // 측정 바다
-// 				radioPoint: radioMap.radioData.rm,
-// 				radioCS134: radioMap.radioData.r134cs, // 세숨 134
-// 				radioCS137: radioMap.radioData.r137cs, // 세슘 137
-// 				radioH3: radioMap.radioData.r3h, // 삼중수소
-// 			};
-// 		});
-// 		// 날짜 연/월/일로 쪼개기
-// 		let radioYear = radioDate.substring(0, 4); // 2023
-// 		let radioMonth = radioDate.substring(5, 7); // 00(월)
-
-// 		if (radioMonth.substr(0, 1) == "0") {
-// 			// 01 -> 1(월)로 앞 '0' 삭제
-// 			radioMonth = radioMonth.substr(1, 1);
-// 		}
-// 		let radioDay = radioDate.substring(8, 10); // 00(일)
-
-// 		let radioCS = radioCS134 + radioCS137; // 세슘 검출 기준: 세슘 134 + 세슘 137
-
-// 		for (let i = 0; i < radioJson.length; i++) {
-// 			// 방사능 마커 이미지(진도에 따라 마커 이미지 변경)
-// 			if (radioCS > 10000) {
-// 				marker_radio = "../img/marker_radioactivity_red.png"; // 위험: 세슘 10,000 초과
-// 			} else if (eqScale > 100) {
-// 				marker_radio = "../img/marker_radioactivity_yellow.png"; // 관심: 세슘 100 초과 10,000 이하
-// 			} else {
-// 				marker_radio = "../img/marker_radioactivity_red.png"; // 안전: 세슘 100 이하
-// 			}
-// 		}
-
-// 		// radioMarkerArray에 저장할 객체
-// 		const radioData = {
-// 			radioLat,
-// 			radioLon,
-// 			radioYear,
-// 			radioMonth,
-// 			radioDay,
-// 			radioDepth,
-// 			radioSeaName,
-// 			radioCS,
-// 			radioH3,
-// 			marker_radio,
-// 		};
-// 		// 마커 데이터 배열 radioData에 저장
-// 		radioMarkerArray.push(radioData);
-// 	},
-// });
-
 radioDataPush();
 
+// 저장한 방사능 마커 지도에 표시하기
 const radioAction = () => {
 	for (let i = 0; i < radioMarkerArray.length; i++) {
 		// 마커 이미지의 이미지 크기

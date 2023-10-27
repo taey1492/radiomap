@@ -75,7 +75,7 @@ const eqDataPush = async () => {
 
 eqDataPush();
 
-// 미리 저장한 마커 내용 불러오기
+// 미리 저장한 마커 지도에 표시하기
 const eqAction = () => {
 	for (let i = 0; i < eqMarkerArray.length; i++) {
 		// 마커 이미지의 이미지 크기
@@ -154,4 +154,5 @@ const eqClose = (map) => {
 	for (let i = 0; i < eqMarkers.length; i++) {
 		eqMarkers[i].setMap(null);
 	}
+	console.log("closed EQ Marker");
 };

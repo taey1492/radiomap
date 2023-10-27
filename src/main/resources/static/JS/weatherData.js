@@ -9,7 +9,7 @@ $.ajax({
 	url: "/weather/weather", // JSON 데이터를 받아올 URL.
 	type: "GET",
 	success: function (data) {
-		const positions = data.map(function (weahter) {
+		const weatherJson = data.map(function (weahter) {
 			return {
 				addr: weahter.addr,
 				obs_nm: weahter.obs_nm,
@@ -17,7 +17,7 @@ $.ajax({
 			};
 		});
 
-		for (let i = 0; i < positions.length; i++) {
+		for (let i = 0; i < weatherJson.length; i++) {
 			// 마커 이미지의 이미지 크기 입니다
 			const imageSize = new kakao.maps.Size(24, 35);
 
@@ -27,9 +27,9 @@ $.ajax({
 			// 마커를 생성합니다
 			const marker = new kakao.maps.Marker({
 				map: map, // 마커를 표시할 지도
-				position: positions[i].latlng, // 마커를 표시할 위치
-				title: positions[i].addr, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-				sub: positions[i].obs_nm,
+				position: weatherJson[i].latlng, // 마커를 표시할 위치
+				title: weatherJson[i].addr, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+				sub: weatherJson[i].obs_nm,
 				image: markerImage, // 마커 이미지
 			});
 
@@ -43,7 +43,7 @@ $.ajax({
 				return this.obs_nm;
 			};
 
-			marker.setSub(positions[i].obs_nm); // depth를 설정합니다.
+			marker.setSub(weatherJson[i].obs_nm); // depth를 설정합니다.
 
 			addMarkerClickListener(marker);
 		}
