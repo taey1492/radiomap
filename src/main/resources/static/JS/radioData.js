@@ -117,7 +117,7 @@ const radioAction = () => {
 			`							<span class="eqDetail">측정 위치: </span>${radioMarkerArray[i].radioRm}, ${radioMarkerArray[i].radioDepth}` +
 			`						</div>` +
 			`                <div class="ellipsis">` +
-			`							<span class="eqDetail">세슘: </span>${radioMarkerArray[i].radioCS}mBq/kg, <span class="eqDetail">삼중수소:</span> ${radioMarkerArray[i].radioH3}mBq/L, <span class="eqDetail">` +
+			`							<span class="eqDetail">세슘: </span>${radioMarkerArray[i].radioCS}mBq/kg, <span class="eqDetail">삼중수소:</span> ${radioMarkerArray[i].radioH3}mBq/L` +
 			`						</div>` +
 			"            </div>" +
 			"        </div>" +

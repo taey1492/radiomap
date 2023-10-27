@@ -86,7 +86,7 @@
 					</div>
 
 					<!-- 방사능 마커 설명 -->
-					<div id="radioMarkerInfo" class="radioMarkerInfoArea">
+					<div id="radioMarkerInfo" class="hidden">
 						<div class="markerInfo">
 							<span>
 								<img
@@ -95,7 +95,7 @@
 									class="markerInfoImg"
 								/>
 							</span>
-							<span class="markerInfo_eqScale">정상</span>
+							<span class="markerInfo_eqScale">안전</span>
 						</div>
 						<div class="markerInfo">
 							<span>
@@ -183,43 +183,7 @@
 	</script>
 
 	<script src="../JS/kakaoMap.js"></script>
-	<script th:inline="none" src="../JS/radioData.js"></script>
+	<script src="../JS/radioData.js"></script>
 	<script src="../JS/eqData.js"></script>
 	<script src="../JS/button.js"></script>
-
-	<!-- <script>
-		// year & month로 검색하는 테스트 영역입니다.
-		const RadioBtn = async () => {
-			//input data검색을 추가할 예정
-			//const year = document.querySelector("#yearinput").value;
-			//const month = document.querySelector("#monthinput").value;
-			const year = "2023"; //인풋검색 year month추가해야
-			const month = "";
-			const data = await fetch(`/map/radiosearch?year=${year}`, {
-				method: "POST",
-			}); //&month=${month}
-			const res = await data.text();
-			const json = JSON.parse(res); //json형식으로 읽기
-
-			for (let i = 0; i < json.length; i++) {
-				// i 번째 json 형태에서 필요한 데이터 가져오기
-				let jlat = json[i].radioAddress?.radioMap?.lat;
-				let jlon = json[i].radioAddress?.radioMap?.lon;
-
-				if (jlat !== null && jlon !== null) {
-					console.log(jlat);
-
-					// 마커를 생성합니다
-					// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-					var markerPosition = new kakao.maps.LatLng(jlat, jlon);
-
-					var marker = new kakao.maps.Marker({
-						position: markerPosition,
-					});
-					//마커를 지도에 세팅
-					marker.setMap(map);
-				}
-			}
-		};
-	</script> -->
 </html>
