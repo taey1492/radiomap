@@ -6,10 +6,12 @@ import com.example.radio.Repository.RadioAddressRepository;
 import com.example.radio.Repository.RadioDataRepository;
 import com.example.radio.Repository.RadioMapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/map")
@@ -47,7 +49,24 @@ public class RadioController {
     public List<RadioData> yearSearch(@RequestParam int year) {
 
         List<RadioData> radiolist = radioDataRepository.findByYear(year);
-        System.out.println(radiolist);
+        // System.out.println(radiolist);
         return radiolist;
+    }
+
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
+    @GetMapping("/radiosearch2")
+    @ResponseBody
+    public List<Map<String, Object>> yearSearch2(@RequestParam int year) {
+        String sql = "select * " +
+                "from radio_data rd  " +
+                "left join radio_address ra  " +
+                "  on rd.r_pinnacle = ra.r_pinnacle " +
+                "left join radio_map rm  " +
+                "  on ra.r_code = rm.r_code  " +
+                "where rd.r_year = ?";
+        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, year);
+        return list;
     }
 }
