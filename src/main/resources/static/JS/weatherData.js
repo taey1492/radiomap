@@ -1,3 +1,10 @@
+// 마커 이지 변수
+const marker_weather = "";
+
+// 생성된 마커 저장하는 배열
+const weatherMarkerArray = [];
+const weatherMarkers = [];
+
 $.ajax({
 	url: "/weather/weather", // JSON 데이터를 받아올 URL.
 	type: "GET",

@@ -37,7 +37,7 @@
 						<div
 							id="weatherBtn"
 							class="selectedBtn"
-							onclick="selectWeatherBtn(event), eqClose()"
+							onclick="selectWeatherBtn(event), radioClose(),eqClose()"
 						>
 							<img
 								src="../img/icon_radioactivity_mono.png"
@@ -53,14 +53,14 @@
 						<div
 							id="radioBtn"
 							class="hidden"
-							onclick="selectRadioBtn(event), eqClose()"
+							onclick="selectRadioBtn(event), radioAction(),eqClose()"
 						>
 							<img
 								src="../img/icon_radioactivity_mono.png"
 								alt="noRadioBtnImg"
 								class="radioBtnImg"
 							/>
-							<button class="menu" type="button" onclick="RadioBtn()">
+							<button class="menu" type="button" onclick="radioAction()">
 								방사능
 							</button>
 						</div>
@@ -69,7 +69,7 @@
 						<div
 							id="eqBtn"
 							class="hidden"
-							onclick="selectEQBtn(event), eqAction()"
+							onclick="selectEQBtn(event), eqAction(), radioClose()"
 						>
 							<img
 								src="../img/icon_earthquake.png"
@@ -187,7 +187,7 @@
 	<script src="../JS/eqData.js"></script>
 	<script src="../JS/button.js"></script>
 
-	<script>
+	<!-- <script>
 		// year & month로 검색하는 테스트 영역입니다.
 		const RadioBtn = async () => {
 			//input data검색을 추가할 예정
@@ -221,5 +221,5 @@
 				}
 			}
 		};
-	</script>
+	</script> -->
 </html>
