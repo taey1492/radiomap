@@ -30,7 +30,9 @@
 					onmouseout="mouseoutMenuBar(), hideMenuBar()">
 					<div id="radioBtn" class="selectedBtn" onclick="selectRadioBtn(event), eqClose()">
 						<img src="../img/icon_radioactivity_mono.png" alt="noRadioBtnImg" class="radioBtnImg" />
-						<button class="menu" type="button" onclick="RadioBtn()">방사능</button>
+						<button class="menu" type="button" onclick="RadioBtn()">
+							방사능
+						</button>
 					</div>
 					<div id="eqBtn" class="hidden" onclick="selectEQBtn(event), eqAction()">
 						<img src="../img/icon_earthquake.png" alt="noRadioBtnImg" class="radioBtnImg" />
@@ -108,6 +110,7 @@
 
 		const bar = document.querySelector(".menuBarArea");
 
+
 		bar.style.height = `${0.095 * parseInt(map.style.height)}px`;
 		console.log(`브라우저 세로 길이: ${bar.style.height}`);
 	});
@@ -118,23 +121,20 @@
 <script src="../JS/eqData.js"></script>
 <script src="../JS/button.js"></script>
 
+
 <script>
-
-
 	// year & month로 검색하는 테스트 영역입니다.
 	const RadioBtn = async () => {
-
-
-
 		//input data검색을 추가할 예정
 		//const year = document.querySelector("#yearinput").value;
 		//const month = document.querySelector("#monthinput").value;
-		const year = "2023"//인풋검색 year month추가해야
-		const month = ""
-		const data = await fetch(`/map/radiosearch?year=${year}`, { method: "POST" });//&month=${month}
+		const year = "2023"; //인풋검색 year month추가해야
+		const month = "";
+		const data = await fetch(`/map/radiosearch?year=${year}`, {
+			method: "POST",
+		}); //&month=${month}
 		const res = await data.text();
 		const json = JSON.parse(res); //json형식으로 읽기
-
 
 		for (let i = 0; i < json.length; i++) {
 			// i 번째 json 형태에서 필요한 데이터 가져오기
@@ -142,8 +142,7 @@
 			let jlon = json[i].radioAddress?.radioMap?.lon;
 
 			if (jlat !== null && jlon !== null) {
-
-				console.log(jlat)
+				console.log(jlat);
 
 				// 마커를 생성합니다
 				// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
@@ -154,7 +153,6 @@
 				});
 				//마커를 지도에 세팅
 				marker.setMap(map);
-
 			}
 		}
 	};
