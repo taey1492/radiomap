@@ -2,17 +2,20 @@ package com.example.radio.Model;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Data
-public class RadioAddress {
+public class RadioAddress implements Serializable {
 
    @Id
    @Column(name = "r_pinnacle")
    String pinnacle;
 
-   @Column(name = "r_code")
-   String code;
+   @ManyToOne
+   @JoinColumn(name = "r_code", referencedColumnName = "r_code")
+   RadioMap radioMap;
 
 }
