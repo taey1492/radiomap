@@ -20,6 +20,8 @@
 		<button type="button" onclick="yeartest1()">비동기년도호출</button>
 		<button>입력</button>
 	</form>
+
+	<button type="button" onclick="mesetest()"></button>
 	<hr />
 
 	<div>
@@ -33,6 +35,8 @@
 	<div id="container"></div>
 
 	<img src="test2" alt="">
+
+
 </body>
 
 <!-- 지도용 script -->
@@ -127,13 +131,36 @@
 
 	var bounds = new kakao.maps.LatLngBounds(sw, ne);
 
-	var overlay = new GroundOverlay(bounds, 'C:/Users/user/Downloads/다운로드.png');
-	overlay.setMap(map);
+	//var overlay = new GroundOverlay(bounds, 'C:/Users/user/Downloads/다운로드.png');
+	//overlay.setMap(map);
 
 </script>
 
 
+<script>
+	const mesetest = async () => {
+		//const year = document.querySelector("#yeartest").value;//현재 미세정보 가져와서 필요 x
+		const data = await fetch(`https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=YyVdtivuQmwFOj1yZVtSmLQmIbuLGIBYB3xuDJajCAFnz%2F%2BdBdgrPstXhVdn1HfaoA01mXG5kcKx%2BsTMGLii0Q%3D%3D&returnType=json&numOfRows=648&pageNo=1&sidoName=전국&ver=1.4`); //설정 옵션이 있으나 전부 가져오는 옵션으로 씀
+		const res = await data.text();
+		const json = JSON.parse(res); //json형식으로 읽기
+		document.querySelector("#textarea").innerText = json; //textarea영역에 출력(지도에 찍히는것과는 상관없습니다.)
+		console.log(json)
 
+		for (let i = 0; i < json.response.body.items.length; i++) {
+			// i 번째 json 형태에서 필요한 데이터 가져오기
 
+			//전국, 서울, 부산, 대구, 인천, 광주, 대전, 울산, 경기, 강원, 충북, 충남, 전북, 전남, 경북, 경남, 제주, 세종
+			let sidoName = json.response.body.items[i].sidoName;//시도이름
+			let stationName = json.response.body.items[i].stationName;//장소이름
+			console.log(stationName)
+			let no2Grade = json.response.body.items[i].no2Grade; //질소 등급
+			let pm10Grade = json.response.body.items[i].pm10Grade; //pm10 등급
+			let pm25Grade = json.response.body.items[i].pm25Grade; //pm25 등급
+			let o3Grade = json.response.body.items[i].o3Grade; //오존 등급
+			console.log(i)//647개 출력됩니다.
 
-<script type="module" src="/JS/contour.js"></script>
+			document.querySelector("#textarea").innerText = stationName;
+		}
+	}
+
+</script>

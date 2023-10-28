@@ -1,189 +1,171 @@
 <!DOCTYPE html>
 <html lang="ko">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>MARRAD</title>
-		<link rel="stylesheet" href="../CSS/settings.css" />
-		<link rel="stylesheet" href="../CSS/common.css" />
-		<link rel="stylesheet" href="../CSS/index.css" />
-	</head>
 
-	<body>
-		<!-- 전체 영역 -->
-		<div class="mainArea">
-			<!-- header 영역 -->
-			<div class="headerArea">
-				<div
-					class="logoArea"
-					onmouseover="mouseoverMenuBar(), showMenuBar()"
-					onmouseout="mouseoutMenuBar(), hideMenuBar()"
-				>
-					<head th:replace="common/header" />
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>MARRAD</title>
+	<link rel="stylesheet" href="../CSS/settings.css" />
+	<link rel="stylesheet" href="../CSS/common.css" />
+	<link rel="stylesheet" href="../CSS/index.css" />
+</head>
+
+<body>
+	<!-- 전체 영역 -->
+	<div class="mainArea">
+		<!-- header 영역 -->
+		<div class="headerArea">
+			<div class="logoArea" onmouseover="mouseoverMenuBar(), showMenuBar()"
+				onmouseout="mouseoutMenuBar(), hideMenuBar()">
+
+				<head th:replace="common/header" />
+			</div>
+		</div>
+
+		<!-- 지도 영역 -->
+		<section class="mapArea">
+			<div id="map" class="map">
+				<!-- 메뉴 바 영역-->
+				<div id="menuBarArea" class="menuBarArea" onmouseover="mouseoverMenuBar(), showMenuBar()"
+					onmouseout="mouseoutMenuBar(), hideMenuBar()">
+					<!-- 날씨 버튼 -->
+					<div id="weatherBtn" class="selectedBtn" onclick="selectWeatherBtn(event), radioClose(),eqClose()">
+						<img src="../img/icon_weather2.png" alt="noRadioBtnImg" class="radioBtnImg" />
+						<button class="menu" type="button" onclick="weatherBtn()">
+							날씨
+						</button>
+					</div>
+
+					<!-- 방사능 버튼 -->
+					<div id="radioBtn" class="hidden" onclick="selectRadioBtn(event), radioAction(),eqClose()">
+						<img src="../img/icon_radioactivity_mono.png" alt="noRadioBtnImg" class="radioBtnImg" />
+						<button class="menu" type="button" onclick="radioAction()">
+							방사능
+						</button>
+					</div>
+
+					<!-- 지진 버튼 -->
+					<div id="eqBtn" class="hidden" onclick="selectEQBtn(event), eqAction(), radioClose()">
+						<img src="../img/icon_earthquake.png" alt="noRadioBtnImg" class="radioBtnImg" />
+						<button class="menu">지진</button>
+					</div>
+
+					<!-- 확장 아이콘 -->
+					<div id="iconExpandArea" class="iconExpandArea">
+						<img src="../img/icon_expand.png" alt="noIconExpand" />
+					</div>
+				</div>
+
+				<!-- 방사능 마커 설명 -->
+				<div id="radioMarkerInfo" class="hidden">
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_radioactivity_normal.png" alt="noEqMarker" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">안전</span>
+					</div>
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_radioactivity_yellow.png" alt="noEqMarker_yellow" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">관심</span>
+					</div>
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_radioactivity_red.png" alt="noEqMarker_red" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">위험</span>
+					</div>
+				</div>
+
+				<!-- 지진 마커 설명 -->
+				<div id="eqMarkerInfo" class="hidden">
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_earthquake.png" alt="noEqMarker" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">진도 0 ~ 2 미만</span>
+					</div>
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_earthquake_yellow.png" alt="noEqMarker_yellow" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">진도 2.1 ~ 3 미만</span>
+					</div>
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_earthquake_red.png" alt="noEqMarker_red" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">진도 3 이상</span>
+					</div>
 				</div>
 			</div>
+		</section>
+	</div>
+</body>
 
-			<!-- 지도 영역 -->
-			<section class="mapArea">
-				<div id="map" class="map">
-					<!-- 메뉴 바 영역-->
-					<div
-						id="menuBarArea"
-						class="menuBarArea"
-						onmouseover="mouseoverMenuBar(), showMenuBar()"
-						onmouseout="mouseoutMenuBar(), hideMenuBar()"
-					>
-						<!-- 날씨 버튼 -->
-						<div
-							id="weatherBtn"
-							class="selectedBtn"
-							onclick="selectWeatherBtn(event), radioClose(),eqClose()"
-						>
-							<img
-								src="../img/icon_weather2.png"
-								alt="noRadioBtnImg"
-								class="radioBtnImg"
-							/>
-							<button class="menu" type="button" onclick="weatherBtn()">
-								날씨
-							</button>
-						</div>
+<!-- script -->
 
-						<!-- 방사능 버튼 -->
-						<div
-							id="radioBtn"
-							class="hidden"
-							onclick="selectRadioBtn(event), radioAction(),eqClose()"
-						>
-							<img
-								src="../img/icon_radioactivity_mono.png"
-								alt="noRadioBtnImg"
-								class="radioBtnImg"
-							/>
-							<button class="menu" type="button" onclick="radioAction()">
-								방사능
-							</button>
-						</div>
+<!-- kakao 지도 관련 script -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<!-- ajax script -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"></script>
 
-						<!-- 지진 버튼 -->
-						<div
-							id="eqBtn"
-							class="hidden"
-							onclick="selectEQBtn(event), eqAction(), radioClose()"
-						>
-							<img
-								src="../img/icon_earthquake.png"
-								alt="noRadioBtnImg"
-								class="radioBtnImg"
-							/>
-							<button class="menu">지진</button>
-						</div>
+<!-- 맵 + 메뉴 바 화면 사이즈 조절 -->
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const h = window.innerHeight;
+		const map = document.querySelector("#map");
+		map.style.height = `${h}px`;
 
-						<!-- 확장 아이콘 -->
-						<div id="iconExpandArea" class="iconExpandArea">
-							<img src="../img/icon_expand.png" alt="noIconExpand" />
-						</div>
-					</div>
+		const bar = document.querySelector(".menuBarArea");
 
-					<!-- 방사능 마커 설명 -->
-					<div id="radioMarkerInfo" class="hidden">
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_radioactivity_normal.png"
-									alt="noEqMarker"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">안전</span>
-						</div>
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_radioactivity_yellow.png"
-									alt="noEqMarker_yellow"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">관심</span>
-						</div>
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_radioactivity_red.png"
-									alt="noEqMarker_red"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">위험</span>
-						</div>
-					</div>
+		bar.style.height = `${0.085 * parseInt(map.style.height)}px`;
+		console.log(`브라우저 세로 길이: ${bar.style.height}`);
+	});
+</script>
 
-					<!-- 지진 마커 설명 -->
-					<div id="eqMarkerInfo" class="hidden">
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_earthquake.png"
-									alt="noEqMarker"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">진도 0 ~ 2 미만</span>
-						</div>
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_earthquake_yellow.png"
-									alt="noEqMarker_yellow"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">진도 2.1 ~ 3 미만</span>
-						</div>
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_earthquake_red.png"
-									alt="noEqMarker_red"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">진도 3 이상</span>
-						</div>
-					</div>
-				</div>
-			</section>
-		</div>
-	</body>
+<script src="../JS/kakaoMap.js"></script>
+<script src="../JS/radioData.js"></script>
+<script src="../JS/eqData.js"></script>
+<script src="../JS/button.js"></script>
+4
 
-	<!-- script -->
+<!--
+	1. 현재 비동기 시작 버튼이 없습니다.
+	2. 	 날씨 api출력 부분입니다 현재 마커가 없습니다. 마커 대신에
+ 서울, 부산, 대구, 인천, 광주, 대전, 울산, 경기, 강원, 충북, 충남, 전북, 전남, 경북, 경남, 제주, 세종
+선택해서 적당한 위치에 직접 연결하면 편할것같습니다.
+3. 이름이 같은 지역은 측정소별로 다른거니 평균내서 값 넣으면 됩니다.
+(인접지역 합쳐서 평균내버려도 됩니다. 편할대로 )
+-->
+<script>
+	const mesetest = async () => {
+		//const year = document.querySelector("#yeartest").value;//현재 미세정보 가져와서 필요 x
+		const data = await fetch(`https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=YyVdtivuQmwFOj1yZVtSmLQmIbuLGIBYB3xuDJajCAFnz%2F%2BdBdgrPstXhVdn1HfaoA01mXG5kcKx%2BsTMGLii0Q%3D%3D&returnType=json&numOfRows=648&pageNo=1&sidoName=전국&ver=1.4`); //설정 옵션이 있으나 전부 가져오는 옵션으로 씀
+		const res = await data.text();
+		const json = JSON.parse(res); //json형식으로 읽기
+		document.querySelector("#textarea").innerText = json; //textarea영역에 출력(지도에 찍히는것과는 상관없습니다.)
+		console.log(json)
 
-	<!-- kakao 지도 관련 script -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-	<!-- ajax script -->
-	<script
-		type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"
-	></script>
+		for (let i = 0; i < json.response.body.items.length; i++) {
+			// i 번째 json 형태에서 필요한 데이터 가져오기
 
-	<!-- 맵 + 메뉴 바 화면 사이즈 조절 -->
-	<script>
-		document.addEventListener("DOMContentLoaded", () => {
-			const h = window.innerHeight;
-			const map = document.querySelector("#map");
-			map.style.height = `${h}px`;
+			//전국, 서울, 부산, 대구, 인천, 광주, 대전, 울산, 경기, 강원, 충북, 충남, 전북, 전남, 경북, 경남, 제주, 세종
+			let sidoName = json.response.body.items[i].sidoName;//시도이름
+			let stationName = json.response.body.items[i].stationName;//장소이름
+			console.log(stationName)
+			let no2Grade = json.response.body.items[i].no2Grade; //질소 등급
+			let pm10Grade = json.response.body.items[i].pm10Grade; //pm10 등급
+			let pm25Grade = json.response.body.items[i].pm25Grade; //pm25 등급
+			let o3Grade = json.response.body.items[i].o3Grade; //오존 등급
+			console.log(i)//647개 출력됩니다.
 
-			const bar = document.querySelector(".menuBarArea");
+			document.querySelector("#textarea").innerText = stationName;
+		}
+	}
 
-			bar.style.height = `${0.085 * parseInt(map.style.height)}px`;
-			console.log(`브라우저 세로 길이: ${bar.style.height}`);
-		});
-	</script>
+</script>
 
-	<script src="../JS/kakaoMap.js"></script>
-	<script src="../JS/radioData.js"></script>
-	<script src="../JS/eqData.js"></script>
-	<script src="../JS/button.js"></script>
 </html>
