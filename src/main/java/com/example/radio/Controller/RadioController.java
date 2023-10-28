@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -35,13 +36,27 @@ public class RadioController {
 
         List<Post> posts = postRepository.findAll();
         Post post;
+        LocalDate today = LocalDate.now(); // 현재 날짜
+
         if (posts.isEmpty()) { // Post 객체가 없는 경우
             post = new Post(); // 새로운 Post 객체 생성
             post.setPost(1); // 처음 방문자 수는 1
+            post.setDailyPost(1); // 일일 방문자도 1
+            post.setLastUpdated(today);// 마지막 업데이트 날짜를 오늘로 설정
             postRepository.save(post); // 새로운 Post 객체 저장
         } else { // Post 객체가 있는 경우
             post = posts.get(0); // 첫 번째 Post 객체를 가져옵니다.
+            // 마지막 업데이트 날짜와 오늘 날짜를 비교
+
+            if (!post.getLastUpdated().isEqual(today)) {
+                // 날짜가 바뀌었다면 일일 방문자 수를 초기화
+                post.setDailyPost(0);
+                post.setLastUpdated(today);  // 마지막 업데이트 날짜를 오늘로 설정
+            }
+
+
             post.setPost(post.getPost() + 1); // Post 값 증가
+            post.setDailyPost(post.getDailyPost() + 1);
             postRepository.save(post); // 변경된 Post 객체 저장
         }
 
