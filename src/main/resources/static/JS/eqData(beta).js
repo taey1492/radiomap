@@ -4,7 +4,7 @@ let marker_earthquake = "";
 // api 마커 배열
 const eqMarkers = [];
 
-// 지진 마커 정보 불러오기
+// 지진 마커 정보 불러옴과 동시에 마커들을 eqMarkers에 저장.
 const eqDataPush = async () => {
 	// year로 인식할 input 구현해야 합니다.
 	// const year = document.querySelector("#yeartest").value;
@@ -129,7 +129,7 @@ const eqAction = () => {
 	console.log("action EQ DATA");
 };
 
-// 마커 지우기
+// 다른 메뉴를 눌렀을 때 지진 마커 지우기
 const eqClose = (map) => {
 	for (let i = 0; i < eqMarkers.length; i++) {
 		eqMarkers[i].setMap(null);

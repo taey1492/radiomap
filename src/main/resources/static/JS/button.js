@@ -1,3 +1,4 @@
+// 자동완성 편의성을 위한 string을 변수로 변환.
 const MENUBARBTN = "menuBarBtn";
 const SELECTEDBTN = "selectedBtn";
 
@@ -14,10 +15,13 @@ const radioMarker = document.querySelector("#radioMarkerInfo");
 const eqMarker = document.querySelector("#eqMarkerInfo");
 const expand = document.querySelector("#iconExpandArea");
 
+// ----------------------------------------------------------------
+
 let boolWeatherBtn = true;
 let boolRadioBtn = false;
 let boolEQBtn = false;
 
+// 선택된 메뉴 CSS 변경
 const selectWeatherBtn = (event) => {
 	if (!boolWeatherBtn) {
 		weather.classList.replace(MENUBARBTN, SELECTEDBTN);
@@ -55,12 +59,11 @@ const selectEQBtn = (event) => {
 	}
 };
 
-// 메뉴 버튼 hover 시 매뉴 바 커짐/작아짐
+// 메뉴 버튼 hover 시 메뉴 바 커짐/작아짐
 const mouseoverMenuBar = (event) => {
 	expand.classList.replace("iconExpandArea", "hidden");
 	menuBarArea.style.height = "88%";
 };
-
 const mouseoutMenuBar = (event) => {
 	expand.classList.replace("hidden", "iconExpandArea");
 	menuBarArea.style.height = "8.5%";
