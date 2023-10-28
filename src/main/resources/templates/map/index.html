@@ -88,11 +88,13 @@
 						<!-- 방문자 수 -->
 						<!-- 코드 완성 후 class를 'visitCountArea'로 바꿀 예정. -->
 						<div class="visitCount">
-							<span class="totalVisit"
-								>누적 방문자: <span th:text="${post.post}"></span>명</span
-							>
+							<div class="totalVisit">
+								누적 방문자: <span th:text="${post.post}"></span>명
+							</div>
 							<!-- 오늘 방문자 수 완성 됐을 시 작성 -->
-							 <span class="todayVisit">오늘 방문자: <span th:text="${post.dailyPost}"></span>명</span>
+							<div class="todayVisit">
+								오늘 방문자: <span th:text="${post.dailyPost}"></span>명
+							</div>
 						</div>
 					</div>
 
