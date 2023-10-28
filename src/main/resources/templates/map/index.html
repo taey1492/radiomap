@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="../CSS/settings.css" />
 		<link rel="stylesheet" href="../CSS/common.css" />
 		<link rel="stylesheet" href="../CSS/index.css" />
+		<link rel="stylesheet" href="../CSS/marker.css" />
 	</head>
 
 	<body>
@@ -21,12 +22,6 @@
 				>
 					<head th:replace="common/header" />
 				</div>
-
-				<!--			방문자수 표시-->
-				<div class="visitCount">
-					방문자 수: <span th:text="${post.post}"></span>
-				</div>
-
 			</div>
 
 			<!-- 지도 영역 -->
@@ -88,6 +83,16 @@
 						<!-- 확장 아이콘 -->
 						<div id="iconExpandArea" class="iconExpandArea">
 							<img src="../img/icon_expand.png" alt="noIconExpand" />
+						</div>
+
+						<!-- 방문자 수 -->
+						<!-- 코드 완성 후 class를 'visitCountArea'로 바꿀 예정. -->
+						<div class="visitCount">
+							<span class="totalVisit"
+								>누적 방문자: <span th:text="${post.post}"></span>명</span
+							>
+							<!-- 오늘 방문자 수 완성 됐을 시 작성 -->
+							<!-- <span class="todayVisit">오늘 방문자: <span th:text="${}"></span>명</span> -->
 						</div>
 					</div>
 
