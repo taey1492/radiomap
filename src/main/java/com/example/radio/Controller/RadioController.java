@@ -1,13 +1,16 @@
 package com.example.radio.Controller;
 
+import com.example.radio.Model.Post;
 import com.example.radio.Model.RadioData;
 import com.example.radio.Model.RadioMap;
+import com.example.radio.Repository.PostRepository;
 import com.example.radio.Repository.RadioAddressRepository;
 import com.example.radio.Repository.RadioDataRepository;
 import com.example.radio.Repository.RadioMapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,9 +26,28 @@ public class RadioController {
     RadioMapRepository radioMapRepository;
     @Autowired
     RadioAddressRepository radioAddressRepository;
+    @Autowired
+    PostRepository postRepository;
+
 
     @GetMapping("index")
-    public String index() {
+    public String index(Model model) {
+
+        List<Post> posts = postRepository.findAll();
+        Post post;
+        if (posts.isEmpty()) { // Post 객체가 없는 경우
+            post = new Post(); // 새로운 Post 객체 생성
+            post.setPost(1); // 처음 방문자 수는 1
+            postRepository.save(post); // 새로운 Post 객체 저장
+        } else { // Post 객체가 있는 경우
+            post = posts.get(0); // 첫 번째 Post 객체를 가져옵니다.
+            post.setPost(post.getPost() + 1); // Post 값 증가
+            postRepository.save(post); // 변경된 Post 객체 저장
+        }
+
+        model.addAttribute("post", post);
+
+
         return "map/index";
     }
 
