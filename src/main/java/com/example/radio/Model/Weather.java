@@ -1,11 +1,9 @@
 package com.example.radio.Model;
 
-
 import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Date;
 
 @Data
 @Entity
@@ -25,7 +23,5 @@ public class Weather {
     Float mx_tmr;
     Float mn_tmr;
     Float snsn_sum;
-
-
 
 }
