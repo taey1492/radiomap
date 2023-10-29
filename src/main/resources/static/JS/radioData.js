@@ -61,12 +61,13 @@ const radioDataPush = async () => {
 
 			// 마커를 생성
 			// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-			let markerPosition = new kakao.maps.LatLng(radioLat, radioLon);
+			let markerPosition = new kakao.maps.LatLng(radioLat, radioLon); // 마커를 찍을 위치(위도, 경도)
 			let marker = new kakao.maps.Marker({
 				image: markerImage, // 마커 이미지
 				position: markerPosition,
 			});
 
+			// 마커 위 오버레이 내용
 			let content =
 				'<div class="wrap">' +
 				'    <div class="info">' +
@@ -123,7 +124,7 @@ const radioAction = () => {
 	for (let i = 0; i < radioMarkers.length; i++) {
 		radioMarkers[i].setMap(map);
 	}
-	console.log("action radio DATA");
+	console.log("Action radio Marker");
 };
 
 // 다른 메뉴 눌렀을 때 마커 지우기
@@ -131,5 +132,5 @@ const radioClose = (map) => {
 	for (let i = 0; i < radioMarkers.length; i++) {
 		radioMarkers[i].setMap(null);
 	}
-	console.log("closed radio Marker");
+	console.log("Closed radio Marker");
 };

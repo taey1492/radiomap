@@ -56,17 +56,107 @@ const weatherDataPush = async () => {
 
 		let weatherLat = weatherLocation[i].lat;
 		let weatherLon = weatherLocation[i].lon;
-		// let weatherState = weatherJson[i][0]; // 날씨
-		// let weatherTemp = weatherJson[i]; // 기온
-		// let weatherHumi = weatherJson[i][1]; // 습도
-		// let weatherWind = weatherJson[i][6]; // 풍향
-		// let weatherWindSp = weatherJson[i][7]; // 풍속
+		let weatherState = weatherJson.response.body.items.item[0].obsrValue; // 날씨
+		let weatherTemp = weatherJson.response.body.items.item[3].obsrValue; // 기온
+		let weatherHumi = weatherJson.response.body.items.item[1].obsrValue; // 습도
+		let weatherWind = weatherJson.response.body.items.item[5].obsrValue; // 풍향
+		let weatherWindSp = weatherJson.response.body.items.item[7].obsrValue; // 풍속
+		// let wetherCity = weatherLocation[i].city; // 지역
 
-		console.log(weatherJson, weatherLat, weatherLon);
+		// 지역에 따른 마커 배정
+		marker_weather = "../img/marker_weather_Seoul";
+		// if (weatherCity == "서울") {
+		// 	marker_weather = '../img/marker_weather_Seoul'
+		// }
+
+		// 날씨 코드 0 ~ 7에 따른 날씨 텍스트 표현
+		if (weatherState == 0) weatherState = "맑음";
+		else if (weatherState == 1) weatherState = "비";
+		else if (weatherState == 2) weatherState = "비/눈";
+		else if (weatherState == 3) weatherState = "눈";
+		else if (weatherState == 4) weatherState = "소나기";
+		else if (weatherState == 5) weatherState = "빗방울";
+		else if (weatherState == 6) weatherState = "빗방울/눈날림";
+		else weatherState = "눈날림";
+
+		const imageSize = new kakao.maps.Size(100, 100);
+		// 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+		const imageOption = { offset: new kakao.maps.Point(5, 10) };
+		let markerImage = new kakao.maps.MarkerImage(
+			marker_radio,
+			imageSize,
+			imageOption
+		);
+
+		// 마커를 생성
+		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+		let markerPosition = new kakao.maps.LatLng(weatherLat, weatherLon); // 마커를 찍을 위치(위도, 경도)
+		let marker = new kakao.maps.Marker({
+			image: markerImage, // 마커 이미지
+			position: markerPosition,
+		});
+
+		// 마커 오버레이 내용
+		let content =
+			'<div class="wrap">' +
+			'    <div class="info">' +
+			'        <div class="body">' +
+			'            <div class="desc">' +
+			`                <div class="ellipsis">` +
+			`							<span class="eqDetail">날씨: </span>${weatherState}` +
+			`						</div>` +
+			`		           <div class="ellipsis">` +
+			`							<span class="eqDetail">기온: </span>${weatherTemp}도, | <span class="eqDetail">습도: </span>${weatherHumi}%` +
+			`						</div>` +
+			`                <div class="ellipsis">` +
+			`							<span class="eqDetail">풍향: </span>${weatherWind}, ${weatherWindSp}m/s` +
+			`						</div>` +
+			"            </div>" +
+			"        </div>" +
+			"    </div>" +
+			"</div>";
+
+		// 마커 위에 커스텀 오버레이를 표시
+		const overlay = new kakao.maps.CustomOverlay({
+			content: content,
+			map: map,
+			position: marker.getPosition(),
+		});
+
+		// 마커를 마우스를 올렸을 때 커스텀 오버레이를 표시합니다.
+		kakao.maps.event.addListener(marker, "mouseover", function (event) {
+			overlay.setMap(map);
+		});
+
+		// 마우스가 마커 밖으로 나가면 오버레이를 끕니다.
+		kakao.maps.event.addListener(marker, "mouseout", function (event) {
+			overlay.setMap(null);
+		});
+
+		// 마커 데이터 배열로 저장
+		radioMarkers.push(marker);
+		// 마커를 지도에 세팅
+		marker.setMap(null);
+		overlay.setMap(null);
 	}
+	console.log("Pushed Weather DATA");
 };
 
 weatherDataPush();
+
+const weatherAction = () => {
+	for (let i = 0; i < weatherMarkers.length; i++) {
+		weatherMarkers[i].setMap(map);
+	}
+	console.log("Action Weather Marker");
+};
+
+const weatherClose = () => {
+	for (let i = 0; i < weatherMarkers.length; i++) {
+		weatherMarkers[i].setMap(null);
+	}
+	console.log("Closed Weather Marker");
+};
 // ------------------------------------
 
 // $.ajax({
