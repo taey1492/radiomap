@@ -6,17 +6,48 @@ const weatherMarkers = [];
 
 // 날씨 api json으로 불러오기
 const weatherDataPush = async () => {
-	let base_date = "20231029";
-	let base_time = "1600";
-	let nx = "60"; // 서울특별시
-	let ny = "127"; // 서울특별시
-	const data = await fetch(
-		`https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=YyVdtivuQmwFOj1yZVtSmLQmIbuLGIBYB3xuDJajCAFnz%2F%2BdBdgrPstXhVdn1HfaoA01mXG5kcKx%2BsTMGLii0Q%3D%3D&pageNo=1&numOfRows=1000&dataType=json&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}
-`
-	);
-	const weatherJson = await data.json();
+	const now = new Date();
+	let year = now.getFullYear();
+	let month = now.getMonth() + 1;
+	let date = now.getUTCDate();
+	let hours = now.getHours();
+	let min = now.getMinutes();
+	if (min >= 45) min = "30";
+	else if (min >= 15) min = "00";
+	else min = "30";
 
-	console.log(weatherJson);
+	let base_date = String(year) + String(month) + String(date);
+	let base_time = String(hours) + min;
+
+	const location = [
+		[60, 127, "서울"],
+		[98, 76, "부산"],
+		[89, 90, "대구"],
+		[55, 124, "인천"],
+		[58, 74, "광주"],
+		[67, 100, "대전"],
+		[102, 84, "울산"],
+		[60, 120, "경기"],
+		[69, 107, "충북"],
+		[68, 100, "충남"],
+		[63, 89, "전북"],
+		[51, 67, "전남"],
+		[89, 91, "경북"],
+		[91, 77, "경남"],
+		[52, 38, "제주"],
+		[73, 134, "강원"],
+	];
+
+	for (let i = 0; i < location.length; i++) {
+		let nx = location[i][0]; // 서울특별시
+		let ny = location[i][1];
+
+		const data = await fetch(
+			`https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=YyVdtivuQmwFOj1yZVtSmLQmIbuLGIBYB3xuDJajCAFnz%2F%2BdBdgrPstXhVdn1HfaoA01mXG5kcKx%2BsTMGLii0Q%3D%3D&pageNo=1&numOfRows=1000&dataType=json&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`
+		);
+
+		const weatherJson = await data.json();
+	}
 };
 
 weatherDataPush();
@@ -26,11 +57,11 @@ weatherDataPush();
 // 	url: "/weather/weather", // JSON 데이터를 받아올 URL.
 // 	type: "GET",
 // 	success: function (data) {
-// 		const weatherJson = data.map(function (weahter) {
+// 		const weatherJson = data.map(function (weather) {
 // 			return {
-// 				addr: weahter.addr,
-// 				obs_nm: weahter.obs_nm,
-// 				latlng: new kakao.maps.LatLng(weahter.lat, weahter.lon),
+// 				addr: weather.addr,
+// 				obs_nm: weather.obs_nm,
+// 				latlng: new kakao.maps.LatLng(weather.lat, weather.lon),
 // 			};
 // 		});
 
