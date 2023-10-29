@@ -52,6 +52,20 @@ button {
 	display: none;
 }
 
+.hiddenAni {
+	display: none;
+	animation-name: hiddenAnimation;
+	animation-duration: 1s;
+}
+@keyframes hiddenAnimation {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
 /* 전체 영역 */
 .mainArea {
 	display: flex;

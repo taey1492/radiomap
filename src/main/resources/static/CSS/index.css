@@ -31,7 +31,19 @@
 	cursor: pointer;
 	text-align: center;
 	transition-duration: 0.3s;
+
+	animation-name: menuBarBtnShow;
+	animation-duration: 1s;
 }
+@keyframes menuBarBtnShow {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
 .menuBarBtn:hover {
 	background-color: #f6f6f67e;
 }
@@ -70,9 +82,36 @@
 	height: 30px;
 }
 
+/* 메뉴바 확장 표시 아이콘 */
 .iconExpandArea {
-	justify-content: center;
-	margin: 1% 0 0 42%;
+	position: absolute;
+	top: 120px;
+	left: 85px;
+}
+
+/* 방문자 수 */
+.visitCountArea {
+	color: rgb(92, 92, 92);
+	font-size: 13px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	position: absolute;
+	left: 45px;
+	bottom: 10px;
+	height: 40px;
+	border-radius: 10px;
+	transition-duration: 2s;
+	animation-name: visitorAnimation;
+	animation-duration: 1.5s;
+}
+@keyframes visitorAnimation {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 /* 지도 영역 및 지도 */
@@ -90,22 +129,8 @@
 }
 
 /* 방사능 마커 아이콘 설명 */
-.radioMarkerInfoArea {
-	background-color: rgb(255, 255, 255);
-	display: flex;
-	flex-direction: row;
-	position: absolute;
-	justify-content: space-evenly;
-	z-index: 3;
-	width: 400px;
-	height: 45px;
-	border: 0;
-	border-radius: 15px;
-	bottom: 1%;
-	right: 0.7%;
-	align-items: center;
-}
 /* 지진 마커 아이콘 설명 */
+.radioMarkerInfoArea,
 .eqMarkerInfoArea {
 	background-color: rgb(255, 255, 255);
 	display: flex;
@@ -121,6 +146,7 @@
 	right: 0.7%;
 	align-items: center;
 }
+
 .markerInfo {
 	display: flex;
 	flex-direction: row;
@@ -132,6 +158,7 @@
 	height: 18px;
 	margin: 3px 5px 0 0;
 }
+.markerInfo_radioScale,
 .markerInfo_eqScale {
 	font-size: 13px;
 	font-weight: bold;
