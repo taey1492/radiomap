@@ -61,9 +61,13 @@ const weatherDataPush = async () => {
 		let weatherHumi = weatherJson.response.body.items.item[1].obsrValue; // 습도
 		let weatherWind = weatherJson.response.body.items.item[5].obsrValue; // 풍향
 		let weatherWindSp = weatherJson.response.body.items.item[7].obsrValue; // 풍속
-		let wetherCity = weatherLocation[i].city; // 지역
+		// let wetherCity = weatherLocation[i].city; // 지역
 
-		marker_weather = "../img/sample_cat.jpg";
+		// 지역에 따른 마커 배정
+		marker_weather = "../img/marker_weather_Seoul";
+		// if (weatherCity == "서울") {
+		// 	marker_weather = '../img/marker_weather_Seoul'
+		// }
 
 		// 날씨 코드 0 ~ 7에 따른 날씨 텍스트 표현
 		if (weatherState == 0) weatherState = "맑음";
@@ -75,7 +79,7 @@ const weatherDataPush = async () => {
 		else if (weatherState == 6) weatherState = "빗방울/눈날림";
 		else weatherState = "눈날림";
 
-		const imageSize = new kakao.maps.Size(30, 30);
+		const imageSize = new kakao.maps.Size(100, 100);
 		// 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 		const imageOption = { offset: new kakao.maps.Point(5, 10) };
 		let markerImage = new kakao.maps.MarkerImage(
@@ -86,7 +90,7 @@ const weatherDataPush = async () => {
 
 		// 마커를 생성
 		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-		let markerPosition = new kakao.maps.LatLng(radioLat, radioLon);
+		let markerPosition = new kakao.maps.LatLng(weatherLat, weatherLon); // 마커를 찍을 위치(위도, 경도)
 		let marker = new kakao.maps.Marker({
 			image: markerImage, // 마커 이미지
 			position: markerPosition,
@@ -99,16 +103,13 @@ const weatherDataPush = async () => {
 			'        <div class="body">' +
 			'            <div class="desc">' +
 			`                <div class="ellipsis">` +
-			`							<span class="eqDetail">날씨: </span>${weatherState}, <span class="eqDetail">기온</span>` +
+			`							<span class="eqDetail">날씨: </span>${weatherState}` +
 			`						</div>` +
 			`		           <div class="ellipsis">` +
-			`							<span class="eqDetail">위도: </span>${radioLat} | <span class="eqDetail">경도: </span>${radioLon}` +
+			`							<span class="eqDetail">기온: </span>${weatherTemp}도, | <span class="eqDetail">습도: </span>${weatherHumi}%` +
 			`						</div>` +
 			`                <div class="ellipsis">` +
-			`							<span class="eqDetail">측정 위치: </span>${radioRm}, ${radioDepth}` +
-			`						</div>` +
-			`                <div class="ellipsis">` +
-			`							<span class="eqDetail">세슘: </span>${radioCS}mBq/kg, <span class="eqDetail">삼중수소: </span>${radioH3}mBq/L` +
+			`							<span class="eqDetail">풍향: </span>${weatherWind}, ${weatherWindSp}m/s` +
 			`						</div>` +
 			"            </div>" +
 			"        </div>" +

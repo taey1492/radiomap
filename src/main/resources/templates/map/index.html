@@ -40,7 +40,7 @@
 						<div
 							id="weatherBtn"
 							class="selectedBtn"
-							onclick="selectWeatherBtn(event), radioClose(),eqClose()"
+							onclick="selectWeatherBtn(event), weatherAction(), radioClose(),eqClose()"
 						>
 							<img
 								src="../img/icon_weather2.png"
@@ -56,7 +56,7 @@
 						<div
 							id="radioBtn"
 							class="hiddenAni"
-							onclick="selectRadioBtn(event), radioAction(),eqClose()"
+							onclick="selectRadioBtn(event), radioAction(),weatherAction(), eqClose()"
 						>
 							<img
 								src="../img/icon_radioactivity_mono.png"
@@ -72,7 +72,7 @@
 						<div
 							id="eqBtn"
 							class="hiddenAni"
-							onclick="selectEQBtn(event), eqAction(), radioClose()"
+							onclick="selectEQBtn(event), eqAction(),weatherAction(), radioClose()"
 						>
 							<img
 								src="../img/icon_earthquake.png"
@@ -202,6 +202,4 @@
 	<script src="../JS/radioData.js"></script>
 	<script src="../JS/eqData.js"></script>
 	<script src="../JS/button.js"></script>
-
-	<!-- <script th:inline="none"></script> -->
 </html>
