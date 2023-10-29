@@ -1,3 +1,5 @@
+// 메뉴 바 & 버튼 관련 코드
+
 // 자동완성 편의성을 위한 string을 변수로 변환.
 const MENUBARBTN = "menuBarBtn";
 const SELECTEDBTN = "selectedBtn";
@@ -6,6 +8,7 @@ const RADIOMARKERINFOAREA = "radioMarkerInfoArea";
 const EQMARKERINFOAREA = "eqMarkerInfoArea";
 
 const menuBarArea = document.querySelector("#menuBarArea");
+const visitCountArea = document.querySelector("#visitCountArea");
 
 const weather = document.querySelector("#weatherBtn");
 const radio = document.querySelector("#radioBtn");
@@ -72,27 +75,35 @@ const mouseoutMenuBar = (event) => {
 // 메뉴 버튼 hover 시 선택되지 않은 메뉴 보이기
 const showMenuBar = () => {
 	if (weather.className == SELECTEDBTN) {
-		radio.classList.replace("hidden", MENUBARBTN);
-		eq.classList.replace("hidden", MENUBARBTN);
+		radio.classList.replace("hiddenAni", MENUBARBTN);
+		eq.classList.replace("hiddenAni", MENUBARBTN);
 	} else if (radio.className == SELECTEDBTN) {
-		weather.classList.replace("hidden", MENUBARBTN);
-		eq.classList.replace("hidden", MENUBARBTN);
+		weather.classList.replace("hiddenAni", MENUBARBTN);
+		eq.classList.replace("hiddenAni", MENUBARBTN);
 	} else {
-		weather.classList.replace("hidden", MENUBARBTN);
-		radio.classList.replace("hidden", MENUBARBTN);
+		weather.classList.replace("hiddenAni", MENUBARBTN);
+		radio.classList.replace("hiddenAni", MENUBARBTN);
 	}
 };
 
 // 메뉴 버튼 hover 시 선택되지 않은 메뉴 숨기기
 const hideMenuBar = () => {
 	if (weather.className == SELECTEDBTN) {
-		radio.classList.replace(MENUBARBTN, "hidden");
-		eq.classList.replace(MENUBARBTN, "hidden");
+		radio.classList.replace(MENUBARBTN, "hiddenAni");
+		eq.classList.replace(MENUBARBTN, "hiddenAni");
 	} else if (radio.className == SELECTEDBTN) {
-		weather.classList.replace(MENUBARBTN, "hidden");
-		eq.classList.replace(MENUBARBTN, "hidden");
+		weather.classList.replace(MENUBARBTN, "hiddenAni");
+		eq.classList.replace(MENUBARBTN, "hiddenAni");
 	} else {
-		weather.classList.replace(MENUBARBTN, "hidden");
-		radio.classList.replace(MENUBARBTN, "hidden");
+		weather.classList.replace(MENUBARBTN, "hiddenAni");
+		radio.classList.replace(MENUBARBTN, "hiddenAni");
+	}
+};
+
+const showVisitor = () => {
+	if (menuBarArea.style.height == "88%") {
+		visitCountArea.classList.replace("hidden", "visitCountArea");
+	} else {
+		visitCountArea.classList.replace("visitCountArea", "hidden");
 	}
 };

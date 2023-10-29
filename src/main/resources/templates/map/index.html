@@ -120,6 +120,7 @@
 	</div>
 </body>
 
+<<<<<<< HEAD
 <!-- script -->
 
 <!-- kakao 지도 관련 script -->
@@ -134,9 +135,67 @@
 		const h = window.innerHeight;
 		const map = document.querySelector("#map");
 		map.style.height = `${h}px`;
+=======
+			<!-- 지도 영역 -->
+			<section class="mapArea">
+				<div id="map" class="map">
+					<!-- 메뉴 바 영역-->
+					<div
+						id="menuBarArea"
+						class="menuBarArea"
+						onmouseover="mouseoverMenuBar(), showMenuBar(),showVisitor()"
+						onmouseout="mouseoutMenuBar(), hideMenuBar(),showVisitor()"
+					>
+						<!-- 날씨 버튼 -->
+						<div
+							id="weatherBtn"
+							class="selectedBtn"
+							onclick="selectWeatherBtn(event), radioClose(),eqClose()"
+						>
+							<img
+								src="../img/icon_weather2.png"
+								alt="noRadioBtnImg"
+								class="radioBtnImg"
+							/>
+							<button class="menu" type="button" onclick="weatherBtn()">
+								날씨
+							</button>
+						</div>
+
+						<!-- 방사능 버튼 -->
+						<div
+							id="radioBtn"
+							class="hiddenAni"
+							onclick="selectRadioBtn(event), radioAction(),eqClose()"
+						>
+							<img
+								src="../img/icon_radioactivity_mono.png"
+								alt="noRadioBtnImg"
+								class="radioBtnImg"
+							/>
+							<button class="menu" type="button" onclick="radioAction()">
+								방사능
+							</button>
+						</div>
+
+						<!-- 지진 버튼 -->
+						<div
+							id="eqBtn"
+							class="hiddenAni"
+							onclick="selectEQBtn(event), eqAction(), radioClose()"
+						>
+							<img
+								src="../img/icon_earthquake.png"
+								alt="noRadioBtnImg"
+								class="radioBtnImg"
+							/>
+							<button class="menu">지진</button>
+						</div>
+>>>>>>> minchonang
 
 		const bar = document.querySelector(".menuBarArea");
 
+<<<<<<< HEAD
 		bar.style.height = `${0.085 * parseInt(map.style.height)}px`;
 		console.log(`브라우저 세로 길이: ${bar.style.height}`);
 	});
@@ -147,6 +206,54 @@
 <script src="../JS/eqData.js"></script>
 <script src="../JS/button.js"></script>
 4
+=======
+						<!-- 방문자 수 -->
+						<div id="visitCountArea" class="hidden">
+							<!-- 누적 방문자 수 -->
+							<div class="totalVisit">
+								누적 방문자: <span th:text="${post.post}"></span>명
+							</div>
+							<!-- 오늘 방문자 수 -->
+							<div class="todayVisit">
+								오늘 방문자: <span th:text="${post.dailyPost}"></span>명
+							</div>
+						</div>
+					</div>
+
+					<!-- 방사능 마커 설명 -->
+					<div id="radioMarkerInfo" class="hidden">
+						<div class="markerInfo">
+							<span>
+								<img
+									src="../img/marker_radioactivity_normal.png"
+									alt="noEqMarker"
+									class="markerInfoImg"
+								/>
+							</span>
+							<span class="markerInfo_radioScale">안전</span>
+						</div>
+						<div class="markerInfo">
+							<span>
+								<img
+									src="../img/marker_radioactivity_yellow.png"
+									alt="noEqMarker_yellow"
+									class="markerInfoImg"
+								/>
+							</span>
+							<span class="markerInfo_radioScale">관심</span>
+						</div>
+						<div class="markerInfo">
+							<span>
+								<img
+									src="../img/marker_radioactivity_red.png"
+									alt="noEqMarker_red"
+									class="markerInfoImg"
+								/>
+							</span>
+							<span class="markerInfo_radioScale">위험</span>
+						</div>
+					</div>
+>>>>>>> minchonang
 
 <!--
 	1. 현재 비동기 시작 버튼이 없습니다.
