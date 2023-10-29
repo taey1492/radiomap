@@ -5,21 +5,21 @@ const marker_weather = "";
 const weatherMarkers = [];
 
 // 날씨 api json으로 불러오기
-const weatherDataPush = () => {
-	const url =
-		"https://discord.com/channels/1150318126383243374/1150318128446853152/1168087267022225499";
-	fetch(url)
-		.then((response) => response.json()) // 데이터를 JSON 형식으로 불러오기
-		.then(weatherJson); // JSON을 'data'로 명명
-
-	// for(let i = 0; i < weatherJson.length; i++) {
-	// 	let weatherLat = weatherJson[i].lat;
-	// 	let weatherLon = weatherJson[i].lon;
-	// }
+const weatherDataPush = async () => {
+	let base_date = "20231029";
+	let base_time = "1600";
+	let nx = "60"; // 서울특별시
+	let ny = "127"; // 서울특별시
+	const data = await fetch(
+		`https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=YyVdtivuQmwFOj1yZVtSmLQmIbuLGIBYB3xuDJajCAFnz%2F%2BdBdgrPstXhVdn1HfaoA01mXG5kcKx%2BsTMGLii0Q%3D%3D&pageNo=1&numOfRows=1000&dataType=json&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}
+`
+	);
+	const weatherJson = await data.json();
 
 	console.log(weatherJson);
 };
 
+weatherDataPush();
 // ------------------------------------
 
 // $.ajax({

@@ -12,8 +12,7 @@ const radioDataPush = async () => {
 	const year = "2023"; //인풋검색 year month추가해야
 	const month = "";
 	const data = await fetch(`/map/radiosearch2?year=${year}`, {}); //&month=${month} method: "POST",
-	const res = await data.text();
-	const radioJson = JSON.parse(res); //json형식으로 읽기
+	const radioJson = await data.json(); // JSON을 radioJson으로 명명.
 
 	// i 번째 json 형태에서 필요한 데이터 가져오기
 	for (let i = 0; i < radioJson.length; i++) {

@@ -10,8 +10,7 @@ const eqDataPush = async () => {
 	// const year = document.querySelector("#yeartest").value;
 	const year = "2023";
 	const data = await fetch(`/yearsearch?year=${year}`);
-	const res = await data.text();
-	const eqJson = JSON.parse(res); // json 형식으로 읽기
+	const eqJson = await data.json(); // JSON 데이터를 eqJson으로 명명.
 
 	// i 번째 json 형태에서 필요한 데이터 가져오기
 	for (let i = 0; i < eqJson.length; i++) {
