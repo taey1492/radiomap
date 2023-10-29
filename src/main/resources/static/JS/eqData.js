@@ -61,7 +61,7 @@ const eqDataPush = async () => {
 
 		// 마커를 생성
 		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-		let markerPosition = new kakao.maps.LatLng(eqLat, eqLon);
+		let markerPosition = new kakao.maps.LatLng(eqLat, eqLon); // 마커를 표시할 위치(위도, 경도)
 		let marker = new kakao.maps.Marker({
 			image: markerImage, // 마커 이미지
 			position: markerPosition,
