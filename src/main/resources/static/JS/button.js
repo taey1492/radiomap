@@ -100,6 +100,7 @@ const hideMenuBar = () => {
 	}
 };
 
+// 메뉴 hover 시 방문자 보여줌
 const showVisitor = () => {
 	if (menuBarArea.style.height == "88%") {
 		visitCountArea.classList.replace("hidden", "visitCountArea");
