@@ -8,7 +8,7 @@
 <body>
 	<div id="contourMap" style="display: none;"></div>
 	<div id="map" style="width: 100%; height: 350px"></div>
-
+	<button type="button" onclick="weather()">ㅁㄴㅇㄹ</button>
 	<form action="/test" method="post">
 		<input type="text" name="id" id="id" />
 		<button type="button" onclick="idtest()">비동기id호출</button>
@@ -94,7 +94,22 @@
 
 
 
+<script>
+	const weather = async () => {
 
+		let base_date = '20231029';
+		let base_time = '1600'
+		let nx = '60'//서울특별시
+		let ny = '127'//서울특별시
+		const data = await fetch(`https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=YyVdtivuQmwFOj1yZVtSmLQmIbuLGIBYB3xuDJajCAFnz%2F%2BdBdgrPstXhVdn1HfaoA01mXG5kcKx%2BsTMGLii0Q%3D%3D&pageNo=1&numOfRows=1000&dataType=json&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}
+`);
+		const weatherJson = await data.json();
+
+		console.log(weatherJson)
+
+	}
+
+</script>
 
 
 
@@ -228,7 +243,7 @@
 
 
 	///Contourmap 제작 함수 부분입니다. 
-	window.onload = eqDataPush = async () => {
+	eqDataPush = async () => {//window.onload =
 		const year = "2023";
 		const yeardata = await fetch(`/yearsearch?year=${year}`);
 
