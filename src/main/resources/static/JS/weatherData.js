@@ -10,7 +10,7 @@ const weatherDataPush = async () => {
 	let year = now.getFullYear();
 	let month = now.getMonth() + 1;
 	let date = now.getUTCDate();
-	let hours = now.getHours();
+	let hours = now.getHours() - 1;
 	let min = now.getMinutes();
 	if (min >= 45) min = "30";
 	else if (min >= 15) min = "00";
@@ -20,33 +20,49 @@ const weatherDataPush = async () => {
 	let base_time = String(hours) + min;
 
 	const location = [
-		[60, 127, "서울"],
-		[98, 76, "부산"],
-		[89, 90, "대구"],
-		[55, 124, "인천"],
-		[58, 74, "광주"],
-		[67, 100, "대전"],
-		[102, 84, "울산"],
-		[60, 120, "경기"],
-		[69, 107, "충북"],
-		[68, 100, "충남"],
-		[63, 89, "전북"],
-		[51, 67, "전남"],
-		[89, 91, "경북"],
-		[91, 77, "경남"],
-		[52, 38, "제주"],
-		[73, 134, "강원"],
+		[60, 127, "서울", 126.980008333333, 37.5635694444444],
+		[98, 76, "부산", 129.076952777777, 35.1770194444444],
+		[89, 90, "대구", 128.603552777777, 35.8685416666666],
+		[55, 124, "인천", 126.707352777777, 37.4532333333333],
+		[58, 74, "광주", 126.853363888888, 35.1569749999999],
+		[67, 100, "대전", 127.386566666666, 36.3471194444444],
+		[102, 84, "울산", 129.313688888888, 35.5354083333333],
+		[60, 120, "경기", 127.011688888888, 37.2718444444444],
+		[69, 107, "충북", 127.493586111111, 36.6325],
+		[68, 100, "충남", 127.422955555555, 36.3238722222222],
+		[63, 89, "전북", 127.111052777777, 35.817275],
+		[51, 67, "전남", 126.465, 34.8130444444444],
+		[89, 91, "경북", 128.602766666666, 35.8896055555555],
+		[91, 77, "경남", 128.694166666666, 35.2347361111111],
+		[52, 38, "제주", 126.500333333333, 33.4856944444444],
+		[73, 134, "강원", 127.731975, 37.8826916666666],
 	];
+	const weatherLocation = location.map(([x, y, city, lon, lat]) => ({
+		x,
+		y,
+		city,
+		lon,
+		lat,
+	})); // location을 객체 형식으로 변환
 
-	for (let i = 0; i < location.length; i++) {
-		let nx = location[i][0]; // 서울특별시
-		let ny = location[i][1];
+	for (let i = 0; i < weatherLocation.length; i++) {
+		let nx = weatherLocation[i].x;
+		let ny = weatherLocation[i].y;
 
 		const data = await fetch(
 			`https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=YyVdtivuQmwFOj1yZVtSmLQmIbuLGIBYB3xuDJajCAFnz%2F%2BdBdgrPstXhVdn1HfaoA01mXG5kcKx%2BsTMGLii0Q%3D%3D&pageNo=1&numOfRows=1000&dataType=json&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`
-		);
+		); // 각 도시의 날씨 정보를 불러옴(기상청에서 한 번에 전국 데이터를 가져올 수 없게 막아둠.)
+		let weatherJson = await data.json();
 
-		const weatherJson = await data.json();
+		let weatherLat = weatherLocation[i].lat;
+		let weatherLon = weatherLocation[i].lon;
+		// let weatherState = weatherJson[i][0]; // 날씨
+		// let weatherTemp = weatherJson[i]; // 기온
+		// let weatherHumi = weatherJson[i][1]; // 습도
+		// let weatherWind = weatherJson[i][6]; // 풍향
+		// let weatherWindSp = weatherJson[i][7]; // 풍속
+
+		console.log(weatherJson, weatherLat, weatherLon);
 	}
 };
 
