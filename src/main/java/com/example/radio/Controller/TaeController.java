@@ -22,6 +22,11 @@ public class TaeController {
   @Autowired
   EarthquakeRepository earthquakeRepository;
 
+  @GetMapping("/testgroundOverlay")
+  public String groundOverlaytest() {
+    return "test/testgroundOverlay";
+  }
+
   @GetMapping("/test2")
   public String test2() {
 
