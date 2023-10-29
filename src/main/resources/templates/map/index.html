@@ -14,13 +14,13 @@
 		<!-- 전체 영역 -->
 		<div class="mainArea">
 			<!-- ContourMap출력영역(안보임) -->
-			<div id="contourMap" style="display: none"></div>
+			<!-- <div id="contourMap" style="display: none"></div> -->
 			<!-- header 영역 -->
 			<div class="headerArea">
 				<div
 					class="logoArea"
-					onmouseover="mouseoverMenuBar(), showMenuBar()"
-					onmouseout="mouseoutMenuBar(), hideMenuBar()"
+					onmouseover="mouseoverMenuBar(), showMenuBar(),showVisitor()"
+					onmouseout="mouseoutMenuBar(), hideMenuBar(), showVisitor()"
 				>
 					<head th:replace="common/header" />
 				</div>
@@ -72,7 +72,7 @@
 						<div
 							id="eqBtn"
 							class="hiddenAni"
-							onclick="selectEQBtn(event), eqAction(), radioClose(),eqContourPush()"
+							onclick="selectEQBtn(event), eqAction(), radioClose()"
 						>
 							<img
 								src="../img/icon_earthquake.png"

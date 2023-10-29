@@ -1,8 +1,7 @@
-// 마커 이지 변수
+// 마커 이미지 변수
 const marker_weather = "";
 
 // 생성된 마커 저장하는 배열
-const weatherMarkerArray = [];
 const weatherMarkers = [];
 
 $.ajax({
