@@ -1,239 +1,371 @@
 <!DOCTYPE html>
 <html lang="ko">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>MARRAD</title>
-		<link rel="stylesheet" href="../CSS/settings.css" />
-		<link rel="stylesheet" href="../CSS/common.css" />
-		<link rel="stylesheet" href="../CSS/index.css" />
-		<link rel="stylesheet" href="../CSS/marker.css" />
-	</head>
 
-	<body>
-		<!-- 전체 영역 -->
-		<div class="mainArea">
-			<!-- header 영역 -->
-			<div class="headerArea">
-				<div
-					class="logoArea"
-					onmouseover="mouseoverMenuBar(), showMenuBar()"
-					onmouseout="mouseoutMenuBar(), hideMenuBar()"
-				>
-					<head th:replace="common/header" />
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>MARRAD</title>
+	<link rel="stylesheet" href="../CSS/settings.css" />
+	<link rel="stylesheet" href="../CSS/common.css" />
+	<link rel="stylesheet" href="../CSS/index.css" />
+	<link rel="stylesheet" href="../CSS/marker.css" />
+
+</head>
+
+<body>
+	<!-- 전체 영역 -->
+	<div class="mainArea">
+		<!-- ContourMap출력영역(안보임) -->
+		<div id="contourMap" style="display: none;"></div>
+		<!-- header 영역 -->
+		<div class="headerArea">
+			<div class="logoArea" onmouseover="mouseoverMenuBar(), showMenuBar()"
+				onmouseout="mouseoutMenuBar(), hideMenuBar()">
+
+				<head th:replace="common/header" />
+			</div>
+		</div>
+
+		<!-- 지도 영역 -->
+		<section class="mapArea">
+			<div id="map" class="map">
+				<!-- 메뉴 바 영역-->
+				<div id="menuBarArea" class="menuBarArea" onmouseover="mouseoverMenuBar(), showMenuBar()"
+					onmouseout="mouseoutMenuBar(), hideMenuBar()">
+					<!-- 날씨 버튼 -->
+					<div id="weatherBtn" class="selectedBtn" onclick="selectWeatherBtn(event), radioClose(),eqClose()">
+						<img src="../img/icon_weather2.png" alt="noRadioBtnImg" class="radioBtnImg" />
+						<button class="menu" type="button" onclick="weatherBtn()">
+							날씨
+						</button>
+					</div>
+
+					<!-- 방사능 버튼 -->
+					<div id="radioBtn" class="hidden" onclick="selectRadioBtn(event), radioAction(),eqClose()">
+						<img src="../img/icon_radioactivity_mono.png" alt="noRadioBtnImg" class="radioBtnImg" />
+						<button class="menu" type="button" onclick="radioAction()">
+							방사능
+						</button>
+					</div>
+
+					<!-- 지진 버튼 -->
+					<div id="eqBtn" class="hidden" onclick="selectEQBtn(event), eqAction(), radioClose(),eqContourPush()">
+						<img src="../img/icon_earthquake.png" alt="noRadioBtnImg" class="radioBtnImg" />
+						<button class="menu">지진</button>
+					</div>
+
+					<!-- 확장 아이콘 -->
+					<div id="iconExpandArea" class="iconExpandArea">
+						<img src="../img/icon_expand.png" alt="noIconExpand" />
+					</div>
+
+					<!-- 방문자 수 -->
+					<!-- 코드 완성 후 class를 'visitCountArea'로 바꿀 예정. -->
+					<div class="visitCount">
+						<div class="totalVisit">
+							누적 방문자: <span th:text="${post.post}"></span>명
+						</div>
+						<!-- 오늘 방문자 수 완성 됐을 시 작성 -->
+						<div class="todayVisit">
+							오늘 방문자: <span th:text="${post.dailyPost}"></span>명
+						</div>
+					</div>
+				</div>
+
+				<!-- 방사능 마커 설명 -->
+				<div id="radioMarkerInfo" class="hidden">
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_radioactivity_normal.png" alt="noEqMarker" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">안전</span>
+					</div>
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_radioactivity_yellow.png" alt="noEqMarker_yellow" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">관심</span>
+					</div>
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_radioactivity_red.png" alt="noEqMarker_red" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">위험</span>
+					</div>
+				</div>
+
+				<!-- 지진 마커 설명 -->
+				<div id="eqMarkerInfo" class="hidden">
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_earthquake.png" alt="noEqMarker" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">진도 0 ~ 2 미만</span>
+					</div>
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_earthquake_yellow.png" alt="noEqMarker_yellow" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">진도 2.1 ~ 3 미만</span>
+					</div>
+					<div class="markerInfo">
+						<span>
+							<img src="../img/marker_earthquake_red.png" alt="noEqMarker_red" class="markerInfoImg" />
+						</span>
+						<span class="markerInfo_eqScale">진도 3 이상</span>
+					</div>
 				</div>
 			</div>
+		</section>
+	</div>
+</body>
 
-			<!-- 지도 영역 -->
-			<section class="mapArea">
-				<div id="map" class="map">
-					<!-- 메뉴 바 영역-->
-					<div
-						id="menuBarArea"
-						class="menuBarArea"
-						onmouseover="mouseoverMenuBar(), showMenuBar()"
-						onmouseout="mouseoutMenuBar(), hideMenuBar()"
-					>
-						<!-- 날씨 버튼 -->
-						<div
-							id="weatherBtn"
-							class="selectedBtn"
-							onclick="selectWeatherBtn(event), radioClose(),eqClose()"
-						>
-							<img
-								src="../img/icon_weather2.png"
-								alt="noRadioBtnImg"
-								class="radioBtnImg"
-							/>
-							<button class="menu" type="button" onclick="weatherBtn()">
-								날씨
-							</button>
-						</div>
+<!-- script -->
 
-						<!-- 방사능 버튼 -->
-						<div
-							id="radioBtn"
-							class="hidden"
-							onclick="selectRadioBtn(event), radioAction(),eqClose()"
-						>
-							<img
-								src="../img/icon_radioactivity_mono.png"
-								alt="noRadioBtnImg"
-								class="radioBtnImg"
-							/>
-							<button class="menu" type="button" onclick="radioAction()">
-								방사능
-							</button>
-						</div>
+<!-- kakao 지도 관련 script -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<!-- ajax script -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"></script>
 
-						<!-- 지진 버튼 -->
-						<div
-							id="eqBtn"
-							class="hidden"
-							onclick="selectEQBtn(event), eqAction(), radioClose()"
-						>
-							<img
-								src="../img/icon_earthquake.png"
-								alt="noRadioBtnImg"
-								class="radioBtnImg"
-							/>
-							<button class="menu">지진</button>
-						</div>
+<!-- 맵 + 메뉴 바 화면 사이즈 조절 -->
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const h = window.innerHeight;
+		const map = document.querySelector("#map");
+		map.style.height = `${h}px`;
 
-						<!-- 확장 아이콘 -->
-						<div id="iconExpandArea" class="iconExpandArea">
-							<img src="../img/icon_expand.png" alt="noIconExpand" />
-						</div>
+		const bar = document.querySelector(".menuBarArea");
 
-						<!-- 방문자 수 -->
-						<!-- 코드 완성 후 class를 'visitCountArea'로 바꿀 예정. -->
-						<div class="visitCount">
-							<div class="totalVisit">
-								누적 방문자: <span th:text="${post.post}"></span>명
-							</div>
-							<!-- 오늘 방문자 수 완성 됐을 시 작성 -->
-							<div class="todayVisit">
-								오늘 방문자: <span th:text="${post.dailyPost}"></span>명
-							</div>
-						</div>
-					</div>
+		bar.style.height = `${0.085 * parseInt(map.style.height)}px`;
+		console.log(`브라우저 세로 길이: ${bar.style.height}`);
+	});
+</script>
 
-					<!-- 방사능 마커 설명 -->
-					<div id="radioMarkerInfo" class="hidden">
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_radioactivity_normal.png"
-									alt="noEqMarker"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">안전</span>
-						</div>
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_radioactivity_yellow.png"
-									alt="noEqMarker_yellow"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">관심</span>
-						</div>
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_radioactivity_red.png"
-									alt="noEqMarker_red"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">위험</span>
-						</div>
-					</div>
+<script src="../JS/kakaoMap.js"></script>
+<script src="../JS/radioData.js"></script>
+<script src="../JS/eqData.js"></script>
+<script src="../JS/button.js"></script>
+4
 
-					<!-- 지진 마커 설명 -->
-					<div id="eqMarkerInfo" class="hidden">
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_earthquake.png"
-									alt="noEqMarker"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">진도 0 ~ 2 미만</span>
-						</div>
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_earthquake_yellow.png"
-									alt="noEqMarker_yellow"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">진도 2.1 ~ 3 미만</span>
-						</div>
-						<div class="markerInfo">
-							<span>
-								<img
-									src="../img/marker_earthquake_red.png"
-									alt="noEqMarker_red"
-									class="markerInfoImg"
-								/>
-							</span>
-							<span class="markerInfo_eqScale">진도 3 이상</span>
-						</div>
-					</div>
-				</div>
-			</section>
-		</div>
-	</body>
-
-	<!-- script -->
-
-	<!-- kakao 지도 관련 script -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-	<!-- ajax script -->
-	<script
-		type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"
-	></script>
-
-	<!-- 맵 + 메뉴 바 화면 사이즈 조절 -->
-	<script>
-		document.addEventListener("DOMContentLoaded", () => {
-			const h = window.innerHeight;
-			const map = document.querySelector("#map");
-			map.style.height = `${h}px`;
-
-			const bar = document.querySelector(".menuBarArea");
-
-			bar.style.height = `${0.085 * parseInt(map.style.height)}px`;
-			console.log(`브라우저 세로 길이: ${bar.style.height}`);
-		});
-	</script>
-
-	<script src="../JS/kakaoMap.js"></script>
-	<script src="../JS/radioData.js"></script>
-	<script src="../JS/eqData.js"></script>
-	<script src="../JS/button.js"></script>
-	4
-
-	<!--
+<!--
 	1. 현재 비동기 시작 버튼이 없습니다.
 	2. 	 날씨 api출력 부분입니다 현재 마커가 없습니다. 마커 대신에 서울, 부산, 대구, 인천, 광주, 대전, 울산, 경기, 강원, 충북, 충남, 전북, 전남, 경북, 경남, 제주, 세종
 선택해서 적당한 위치에 직접 연결하면 편할것같습니다.
 3. 이름이 같은 지역은 측정소별로 다른거니 평균내서 값 넣으면 됩니다.
 (인접지역 합쳐서 평균내버려도 됩니다. 편할대로 )
 -->
-	<script>
-		const mesetest = async () => {
-			//const year = document.querySelector("#yeartest").value;//현재 미세정보 가져와서 필요 x
-			const data = await fetch(
-				`https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=YyVdtivuQmwFOj1yZVtSmLQmIbuLGIBYB3xuDJajCAFnz%2F%2BdBdgrPstXhVdn1HfaoA01mXG5kcKx%2BsTMGLii0Q%3D%3D&returnType=json&numOfRows=648&pageNo=1&sidoName=전국&ver=1.4`
-			); //설정 옵션이 있으나 전부 가져오는 옵션으로 씀
-			const res = await data.text();
-			const json = JSON.parse(res); //json형식으로 읽기
-			document.querySelector("#textarea").innerText = json; //textarea영역에 출력(지도에 찍히는것과는 상관없습니다.)
-			console.log(json);
+<script>
+	const mesetest = async () => {
+		//const year = document.querySelector("#yeartest").value;//현재 미세정보 가져와서 필요 x
+		const data = await fetch(
+			`https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=YyVdtivuQmwFOj1yZVtSmLQmIbuLGIBYB3xuDJajCAFnz%2F%2BdBdgrPstXhVdn1HfaoA01mXG5kcKx%2BsTMGLii0Q%3D%3D&returnType=json&numOfRows=648&pageNo=1&sidoName=전국&ver=1.4`
+		); //설정 옵션이 있으나 전부 가져오는 옵션으로 씀
+		const res = await data.text();
+		const json = JSON.parse(res); //json형식으로 읽기
+		document.querySelector("#textarea").innerText = json; //textarea영역에 출력(지도에 찍히는것과는 상관없습니다.)
+		console.log(json);
 
-			for (let i = 0; i < json.response.body.items.length; i++) {
-				// i 번째 json 형태에서 필요한 데이터 가져오기
+		for (let i = 0; i < json.response.body.items.length; i++) {
+			// i 번째 json 형태에서 필요한 데이터 가져오기
 
-				//전국, 서울, 부산, 대구, 인천, 광주, 대전, 울산, 경기, 강원, 충북, 충남, 전북, 전남, 경북, 경남, 제주, 세종
-				let sidoName = json.response.body.items[i].sidoName; //시도이름
-				let stationName = json.response.body.items[i].stationName; //장소이름
-				console.log(stationName);
-				let no2Grade = json.response.body.items[i].no2Grade; //질소 등급
-				let pm10Grade = json.response.body.items[i].pm10Grade; //pm10 등급
-				let pm25Grade = json.response.body.items[i].pm25Grade; //pm25 등급
-				let o3Grade = json.response.body.items[i].o3Grade; //오존 등급
-				console.log(i); //647개 출력됩니다.
+			//전국, 서울, 부산, 대구, 인천, 광주, 대전, 울산, 경기, 강원, 충북, 충남, 전북, 전남, 경북, 경남, 제주, 세종
+			let sidoName = json.response.body.items[i].sidoName; //시도이름
+			let stationName = json.response.body.items[i].stationName; //장소이름
+			console.log(stationName);
+			let no2Grade = json.response.body.items[i].no2Grade; //질소 등급
+			let pm10Grade = json.response.body.items[i].pm10Grade; //pm10 등급
+			let pm25Grade = json.response.body.items[i].pm25Grade; //pm25 등급
+			let o3Grade = json.response.body.items[i].o3Grade; //오존 등급
+			console.log(i); //647개 출력됩니다.
 
-				document.querySelector("#textarea").innerText = stationName;
-			}
+			document.querySelector("#textarea").innerText = stationName;
+		}
+	};
+</script>
+
+
+
+
+<!-- ContourMap 영역입니다. -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script th:inline="none">
+	function GroundOverlay(bounds, imgSrc) {
+		this.bounds = bounds;
+		//div 생성
+		var node = this.node = document.createElement('div');
+		node.className = 'node';//클래스명 부여
+		//div 생성
+		var gradientDiv = this.div = document.createElement('div');
+		gradientDiv.style.position = 'unset';//포지션없음 
+		gradientDiv.style.opacity = 0.6; //투명도 부여
+		//img태그 생성 
+		var img = this.img = document.createElement('img');
+		img.style.position = 'absolute';//style= 'position :absolute'
+		img.src = imgSrc;
+		img.className = 'contourMap' // contourMap클래스명 부여
+
+		node.appendChild(gradientDiv);
+		gradientDiv.appendChild(img);
+	}
+	// "AbstractOverlay":#AbstractOverlay 상속. 프로토타입 체인을 연결한다..
+	GroundOverlay.prototype = new kakao.maps.AbstractOverlay;
+
+	// 필수 구현 메소드.
+	// AbstractOverlay의 getPanels() 메소드로 MapPanel 객체를 가져오고
+	// 거기에서 오버레이 레이어를 얻어 생성자에서 만든 엘리먼트를 자식 노드로 넣어준다.
+	GroundOverlay.prototype.onAdd = function () {
+		var panel = this.getPanels().overlayLayer;
+		panel.appendChild(this.node);
+	};
+
+	// 필수 구현 메소드.
+	// 생성자에서 만든 엘리먼트를 오버레이 레이어에서 제거한다.
+	GroundOverlay.prototype.onRemove = function () {
+		this.node.parentNode.removeChild(this.node);
+	};
+
+	// 필수 구현 메소드.
+	// 지도의 속성 값들이 변화할 때마다 호출된다. (zoom, center, mapType)
+	// 엘리먼트의 위치를 재조정 해 주어야 한다.
+	GroundOverlay.prototype.draw = function () {
+		var projection = this.getProjection();
+		var ne = projection.pointFromCoords(this.bounds.getNorthEast());
+		var sw = projection.pointFromCoords(this.bounds.getSouthWest());
+		//그림의 범위, 영역지정입니다 (수학식이니 깊게 생각할 필요 없음)
+		var width = ne.x - sw.x;
+		var height = sw.y - ne.y;
+
+		this.img.style.top = ne.y + 'px';
+		this.img.style.left = sw.x + 'px';
+		this.img.style.width = width + 'px';
+		this.img.style.height = height + 'px';
+	}
+
+	//초기값 좌상단 [124.20796222050159, 42.366046008446546]
+	//좌상단 1/2 [124.39396537459614 ,37.64945785060459]
+	//우하단 [130.14530720470964, 32.91305919195217]
+	// LatLng, LatLngBounds 를 사용하는 코드로 변경해야 함.
+	var sw = new kakao.maps.LatLng(42.366046008446546, 124.20796222050159); //37.450701, 126.570667
+	ne = new kakao.maps.LatLng(32.91305919195217, 130.14530720470964);
+
+	var bounds = new kakao.maps.LatLngBounds(sw, ne);
+
+	var overlay = new GroundOverlay(bounds,
+		'');
+	overlay.setMap(map);
+
+
+	///Contourmap 제작 함수 부분입니다. 
+	eqContourPush = async () => {
+		const year = "2023";//year 별로 조회하는기능입니다. 
+		//이곳에 연결해서 연도별 조회가 가능합니다.
+		console.log("눌림")
+		const yeardata = await fetch(`/yearsearch?year=${year}`);
+		const res = await yeardata.text();
+		const eqJson = JSON.parse(res); // json 형식으로 읽기
+
+		//초기값 좌상단 [124.20796222050159, 42.366046008446546]
+		//우상단 [130.57113958661236,42.34440918488924]
+		//좌상단 1/2 [124.39396537459614 ,37.64945785060459]
+		//우상단 1/2[130.33345363097027, 37.631128711264275]
+
+		//우하단 [130.14530720470964, 32.91305919195217]
+		let coordival = [];
+		let coordinates = [[124.20796222050159, 42.366046008446546], [130.14530720470964, 32.91305919195217]];
+
+		let zValues = [null, null];//좌상단,우하단,null,null값넣어줌
+		// i 번째 json 형태에서 필요한 데이터 가져오기
+		for (let i = 0; i < eqJson.length; i++) {
+			let eqLat = eqJson[i].lat;
+			let eqLon = eqJson[i].lon;
+			let eqScale = eqJson[i].eqscale; // 규모
+
+			coordival = [eqLon, eqLat];
+			coordinates.push(coordival);
+			zValues.push(eqScale);
+
+		}
+
+		// coordinates에서 고유한 x,y좌표 추출 , x와 y 배열 추출 및 오름차순 정렬 
+		// coord => coord[1]: 각 좌표 쌍에서 y 좌표만 추출합니다.
+		const Xarray = Array.from(new Set(coordinates.map(coord => coord[0]))).sort((a, b) => a - b);
+		const Yarray = Array.from(new Set(coordinates.map(coord => coord[1]))).sort((a, b) => a - b);
+
+		// z 배열을 초기화하고, y배열의 크기만큼 길이산정, x배열 길이만큼 null로 채우기,(y두번써도됨)
+		const Zarray = Array.from({ length: Yarray.length }, () => Array(Xarray.length).fill(null));
+
+		// z 배열에 값을 할당
+		for (let index = 0; index < coordinates.length; index++) {
+			const [xCoord, yCoord] = coordinates[index];
+			const zValue = zValues[index];
+			const i = Yarray.indexOf(yCoord);
+			const j = Xarray.indexOf(xCoord);
+			Zarray[i][j] = zValue;
+		}
+		console.log(Zarray)
+
+		//배열 생성하는 부분입니다. 하단부터는 plotly 라이브러리 생성 영역입니다.
+		var trace1 = {
+			z: Zarray,
+			x: Xarray,
+			y: Yarray,
+
+			connectgaps: true,
+			zsmooth: 'best',
+			type: 'heatmap', //옵션 histogram2dcontour, contour, heatmap
+
+			showscale: false,
+			autocolorscale: 'hot',
+			// reversescale: true, zmax: 2.5, zmin: -2.5
+			// 바꿀수 있는 옵션들
+			//colorscale: [[0, "rgb(  0,  0,  0)"], [0.3, "rgb(90,  0,  0)"], [0.6, "rgb//(180,0,  0)"], [1, "rgb(255,0,0)"]],
+			//name: 'density',
+			//ncontours: 20,
+			//colorscale: 'Hot',
+			//reversescale: true,
+			//showscale: false,
+			//type: 'histogram2dcontour'
+
 		};
-	</script>
+
+		var data = [trace1];
+
+		var layout = {
+			autosize: false,
+
+			width: 500,
+			height: 1000,
+			margin: {
+				l: 0,
+				r: 0,
+				b: 0,
+				t: 0,
+				pad: 0
+			},
+
+			//title: 'Simple Contour Plot'
+		};
+
+		Plotly.newPlot('contourMap', data, layout);
+
+		Plotly.toImage('contourMap', {
+			format: 'png',
+			width: 500,
+			height: 1000
+		}).then(function (dataUrl) {
+			var img = new Image();
+			img.src = dataUrl;
+
+			var overlay = new GroundOverlay(bounds,
+				dataUrl);
+			overlay.setMap(map);
+			//console.log(dataUrl)
+			console.log('출력되었습니다')
+			//document.querySelector('.contourMap').src = img;
+		});
+	}
+
+</script>
+
 </html>
