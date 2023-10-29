@@ -1,19 +1,19 @@
 // 마커 이미지 변수
-const marker_weather = "";
+let marker_weather = "";
 
 // 생성된 마커 저장하는 배열
 const weatherMarkers = [];
 
 // 날씨 api json으로 불러오기
 const weatherDataPush = async () => {
-	const now = new Date();
+	let now = new Date();
 	let year = now.getFullYear();
 	let month = now.getMonth() + 1;
-	let date = now.getUTCDate();
-	let hours = now.getHours() - 1;
+	let date = now.getDate();
 	let min = now.getMinutes();
-	if (min >= 45) min = "30";
-	else if (min >= 15) min = "00";
+	let hours = now.getHours() - 1;
+	if (min >= 55) min = "30";
+	else if (min >= 25) min = "00";
 	else min = "30";
 
 	let base_date = String(year) + String(month) + String(date);
@@ -37,6 +37,7 @@ const weatherDataPush = async () => {
 		[52, 38, "제주", 126.500333333333, 33.4856944444444],
 		[73, 134, "강원", 127.731975, 37.8826916666666],
 	];
+	// location을 객체 형식으로 변환
 	const weatherLocation = location.map(([x, y, city, lon, lat]) => ({
 		x,
 		y,
@@ -64,10 +65,19 @@ const weatherDataPush = async () => {
 		// let wetherCity = weatherLocation[i].city; // 지역
 
 		// 지역에 따른 마커 배정
-		marker_weather = "../img/marker_weather_Seoul";
+		marker_weather = "../img/marker_weather_Seoul.png";
 		// if (weatherCity == "서울") {
 		// 	marker_weather = '../img/marker_weather_Seoul'
 		// }
+
+		if (weatherWind >= 315) weatherWind = "북서북";
+		else if (weatherWind >= 270) weatherWind = "서북서";
+		else if (weatherWind >= 225) weatherWind = "남서서";
+		else if (weatherWind >= 180) weatherWind = "남남서";
+		else if (weatherWind >= 135) weatherWind = "남동남";
+		else if (weatherWind >= 90) weatherWind = "동남동";
+		else if (weatherWind >= 45) weatherWind = "북동동";
+		else weatherWind = "북북동";
 
 		// 날씨 코드 0 ~ 7에 따른 날씨 텍스트 표현
 		if (weatherState == 0) weatherState = "맑음";
@@ -79,11 +89,11 @@ const weatherDataPush = async () => {
 		else if (weatherState == 6) weatherState = "빗방울/눈날림";
 		else weatherState = "눈날림";
 
-		const imageSize = new kakao.maps.Size(100, 100);
+		const imageSize = new kakao.maps.Size(50, 50);
 		// 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-		const imageOption = { offset: new kakao.maps.Point(5, 10) };
+		const imageOption = { offset: new kakao.maps.Point(25, 35) };
 		let markerImage = new kakao.maps.MarkerImage(
-			marker_radio,
+			marker_weather,
 			imageSize,
 			imageOption
 		);
@@ -106,7 +116,10 @@ const weatherDataPush = async () => {
 			`							<span class="eqDetail">날씨: </span>${weatherState}` +
 			`						</div>` +
 			`		           <div class="ellipsis">` +
-			`							<span class="eqDetail">기온: </span>${weatherTemp}도, | <span class="eqDetail">습도: </span>${weatherHumi}%` +
+			`							<span class="eqDetail">기온: </span>${weatherTemp}도` +
+			`						</div>` +
+			`						<div>` +
+			`							<span class="eqDetail">습도: </span>${weatherHumi}%` +
 			`						</div>` +
 			`                <div class="ellipsis">` +
 			`							<span class="eqDetail">풍향: </span>${weatherWind}, ${weatherWindSp}m/s` +
@@ -134,9 +147,9 @@ const weatherDataPush = async () => {
 		});
 
 		// 마커 데이터 배열로 저장
-		radioMarkers.push(marker);
+		weatherMarkers.push(marker);
 		// 마커를 지도에 세팅
-		marker.setMap(null);
+		marker.setMap(map);
 		overlay.setMap(null);
 	}
 	console.log("Pushed Weather DATA");
