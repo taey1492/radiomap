@@ -9,6 +9,7 @@ const EQMARKERINFOAREA = "eqMarkerInfoArea";
 
 const menuBarArea = document.querySelector("#menuBarArea");
 const visitCountArea = document.querySelector("#visitCountArea");
+const eqYearArea = document.querySelector("#eqYearArea");
 
 const weather = document.querySelector("#weatherBtn");
 const radio = document.querySelector("#radioBtn");
