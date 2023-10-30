@@ -33,14 +33,24 @@
 					<div
 						id="menuBarArea"
 						class="menuBarArea"
-						onmouseover="mouseoverMenuBar(), showMenuBar(), showVisitor()"
-						onmouseout="mouseoutMenuBar(), hideMenuBar(), showVisitor()"
+						onmouseover="
+						mouseoverMenuBar(), 
+						showMenuBar(), 
+						showVisitor()"
+						onmouseout="
+						mouseoutMenuBar(), 
+						hideMenuBar(), 
+						showVisitor()"
 					>
 						<!-- 날씨 버튼 -->
 						<div
 							id="weatherBtn"
 							class="selectedBtn"
-							onclick="selectWeatherBtn(event), weatherAction(), eqClose()"
+							onclick="
+							selectWeatherBtn(event), 
+							weatherAction(), 
+							radioClose(),
+							eqClose()"
 						>
 							<img
 								src="../img/icon_weather2.png"
@@ -56,7 +66,11 @@
 						<div
 							id="radioBtn"
 							class="hiddenAni"
-							onclick="selectRadioBtn(event), radioAction(),weatherClose(), eqClose()"
+							onclick="
+							selectRadioBtn(event), 
+							radioAction(), 
+							weatherClose(), 
+							eqClose()"
 						>
 							<img
 								src="../img/icon_radioactivity_mono.png"
@@ -72,7 +86,11 @@
 						<div
 							id="eqBtn"
 							class="hiddenAni"
-							onclick="selectEQBtn(event), eqAction(),weatherClose(), radioClose()"
+							onclick="
+							selectEQBtn(event), 
+							eqAction(),
+							weatherClose(), 
+							radioClose()"
 						>
 							<img
 								src="../img/icon_earthquake.png"
