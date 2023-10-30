@@ -65,10 +65,10 @@ ne = new kakao.maps.LatLng(32.91305919195217, 130.14530720470964);
 var bounds = new kakao.maps.LatLngBounds(sw, ne);
 
 var overlay = new eqGraMake(bounds, "");
-overlay.setMap(null);
+overlay.setMap(map);
 
 ///Contourmap 제작 함수 부분입니다.
-const eqGraPng = async () => {
+const eqGraAction = async () => {
 	const year = "2023"; //year 별로 조회하는기능입니다.
 	//이곳에 연결해서 연도별 조회가 가능합니다.
 	console.log("눌림");
@@ -178,7 +178,7 @@ const eqGraPng = async () => {
 		img.src = dataUrl;
 
 		var overlay = new eqGraMake(bounds, dataUrl);
-		overlay.setMap(null);
+		overlay.setMap(map);
 
 		eqGraph.push(overlay);
 		//console.log(dataUrl)
@@ -186,12 +186,12 @@ const eqGraPng = async () => {
 	});
 	console.log("Pushed eqGraph Img");
 };
-eqGraMake();
-eqGraPng();
+// eqGraMake();
+// eqGraPng();
 
-const eqGraAction = () => {
-	overlay.setMap(map);
-};
-const eqGraClose = () => {
-	overlay.setMap(null);
-};
+// const eqGraAction = () => {
+// 	overlay.setMap(map);
+// };
+// const eqGraClose = () => {
+// 	overlay.setMap(null);
+// };
