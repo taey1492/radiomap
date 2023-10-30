@@ -7,8 +7,9 @@ const eqMarkers = [];
 // 지진 마커 정보 불러옴과 동시에 마커들을 eqMarkers에 저장.
 const eqDataPush = async () => {
 	// year로 인식할 input 구현해야 합니다.
-	// const year = document.querySelector("#yeartest").value;
-	const year = "2023";
+	const year = document.querySelector("#eqYearMenu").value;
+	console.log(year);
+	// const year = "2023";
 	const data = await fetch(`/yearsearch?year=${year}`);
 	const eqJson = await data.json(); // JSON 데이터를 eqJson으로 명명.
 
