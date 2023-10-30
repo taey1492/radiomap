@@ -13,7 +13,7 @@ const visitCountArea = document.querySelector("#visitCountArea");
 const weather = document.querySelector("#weatherBtn");
 const radio = document.querySelector("#radioBtn");
 const eq = document.querySelector("#eqBtn");
-const eqGra = document.querySelector("#eqGraBtn");
+// const eqGra = document.querySelector("#eqGraBtn");
 
 const radioMarker = document.querySelector("#radioMarkerInfo");
 const eqMarker = document.querySelector("#eqMarkerInfo");
@@ -34,7 +34,7 @@ const selectWeatherBtn = (event) => {
 		eqMarker.classList.replace(EQMARKERINFOAREA, "hidden");
 		radio.className = MENUBARBTN;
 		eq.classList = MENUBARBTN;
-		eqGra.classList = MENUBARBTN;
+		// eqGra.classList = MENUBARBTN;
 		boolWeatherBtn = true;
 		boolRadioBtn = false;
 		boolEQBtn = false;
@@ -48,7 +48,7 @@ const selectRadioBtn = (event) => {
 		eqMarker.classList.replace(EQMARKERINFOAREA, "hidden");
 		weather.classList = MENUBARBTN;
 		eq.classList = MENUBARBTN;
-		eqGra.classList = MENUBARBTN;
+		// eqGra.classList = MENUBARBTN;
 		boolWeatherBtn = false;
 		boolRadioBtn = true;
 		boolEQBtn = false;
@@ -62,7 +62,7 @@ const selectEQBtn = (event) => {
 		radioMarker.classList.replace(RADIOMARKERINFOAREA, "hidden");
 		weather.classList = MENUBARBTN;
 		radio.classList = MENUBARBTN;
-		eqGra.classList = MENUBARBTN;
+		// eqGra.classList = MENUBARBTN;
 		boolWeatherBtn = false;
 		boolRadioBtn = false;
 		boolEQBtn = true;
@@ -70,20 +70,20 @@ const selectEQBtn = (event) => {
 	}
 };
 
-const selectEQGraBtn = (event) => {
-	if (!boolEQGraBtn) {
-		eqGra.classList.replace(MENUBARBTN, SELECTEDBTN);
-		eqMarker.classList.replace(EQMARKERINFOAREA, "hidden");
-		radioMarker.classList.replace(RADIOMARKERINFOAREA, "hidden");
-		weather.classList = MENUBARBTN;
-		radio.classList = MENUBARBTN;
-		eq.classList = MENUBARBTN;
-		boolWeatherBtn = false;
-		boolRadioBtn = false;
-		boolEQBtn = false;
-		boolEQGraBtn = true;
-	}
-};
+// const selectEQGraBtn = (event) => {
+// 	if (!boolEQGraBtn) {
+// 		eqGra.classList.replace(MENUBARBTN, SELECTEDBTN);
+// 		eqMarker.classList.replace(EQMARKERINFOAREA, "hidden");
+// 		radioMarker.classList.replace(RADIOMARKERINFOAREA, "hidden");
+// 		weather.classList = MENUBARBTN;
+// 		radio.classList = MENUBARBTN;
+// 		eq.classList = MENUBARBTN;
+// 		boolWeatherBtn = false;
+// 		boolRadioBtn = false;
+// 		boolEQBtn = false;
+// 		boolEQGraBtn = true;
+// 	}
+// };
 
 // 메뉴 버튼 hover 시 메뉴 바 커짐/작아짐
 const mouseoverMenuBar = (event) => {
@@ -100,20 +100,21 @@ const showMenuBar = () => {
 	if (weather.className == SELECTEDBTN) {
 		radio.classList.replace("hiddenAni", MENUBARBTN);
 		eq.classList.replace("hiddenAni", MENUBARBTN);
-		eqGra.classList.replace("hiddenAni", MENUBARBTN);
+		// eqGra.classList.replace("hiddenAni", MENUBARBTN);
 	} else if (radio.className == SELECTEDBTN) {
 		weather.classList.replace("hiddenAni", MENUBARBTN);
 		eq.classList.replace("hiddenAni", MENUBARBTN);
-		eqGra.classList.replace("hiddenAni", MENUBARBTN);
+		// eqGra.classList.replace("hiddenAni", MENUBARBTN);
 	} else if (eq.className == SELECTEDBTN) {
 		weather.classList.replace("hiddenAni", MENUBARBTN);
 		radio.classList.replace("hiddenAni", MENUBARBTN);
-		eqGra.classList.replace("hiddenAni", MENUBARBTN);
-	} else if (eqGra.className == SELECTEDBTN) {
-		weather.classList.replace("hiddenAni", MENUBARBTN);
-		radio.classList.replace("hiddenAni", MENUBARBTN);
-		eq.classList.replace("hiddenAni", MENUBARBTN);
+		// eqGra.classList.replace("hiddenAni", MENUBARBTN);
 	}
+	// else if (eqGra.className == SELECTEDBTN) {
+	// 	weather.classList.replace("hiddenAni", MENUBARBTN);
+	// 	radio.classList.replace("hiddenAni", MENUBARBTN);
+	// 	eq.classList.replace("hiddenAni", MENUBARBTN);
+	// }
 };
 
 // 메뉴 버튼 hover 시 선택되지 않은 메뉴 숨기기
@@ -121,20 +122,21 @@ const hideMenuBar = () => {
 	if (weather.className == SELECTEDBTN) {
 		radio.classList.replace(MENUBARBTN, "hiddenAni");
 		eq.classList.replace(MENUBARBTN, "hiddenAni");
-		eqGra.classList.replace(MENUBARBTN, "hiddenAni");
+		// eqGra.classList.replace(MENUBARBTN, "hiddenAni");
 	} else if (radio.className == SELECTEDBTN) {
 		weather.classList.replace(MENUBARBTN, "hiddenAni");
 		eq.classList.replace(MENUBARBTN, "hiddenAni");
-		eqGra.classList.replace(MENUBARBTN, "hiddenAni");
+		// eqGra.classList.replace(MENUBARBTN, "hiddenAni");
 	} else if (eq.className == SELECTEDBTN) {
 		weather.classList.replace(MENUBARBTN, "hiddenAni");
 		radio.classList.replace(MENUBARBTN, "hiddenAni");
-		eqGra.classList.replace(MENUBARBTN, "hiddenAni");
-	} else if (eqGra.className == SELECTEDBTN) {
-		weather.classList.replace(MENUBARBTN, "hiddenAni");
-		radio.classList.replace(MENUBARBTN, "hiddenAni");
-		eq.classList.replace(MENUBARBTN, "hiddenAni");
+		// eqGra.classList.replace(MENUBARBTN, "hiddenAni");
 	}
+	// else if (eqGra.className == SELECTEDBTN) {
+	// 	weather.classList.replace(MENUBARBTN, "hiddenAni");
+	// 	radio.classList.replace(MENUBARBTN, "hiddenAni");
+	// 	eq.classList.replace(MENUBARBTN, "hiddenAni");
+	// }
 };
 
 // 메뉴 hover 시 방문자 보여줌
