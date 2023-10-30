@@ -136,7 +136,6 @@ const eqClose = (map) => {
 	console.log("closed EQ Marker");
 };
 
-/* 
 function GroundOverlay(bounds, imgSrc) {
 	this.bounds = bounds;
 	//div 생성
@@ -202,7 +201,7 @@ var overlay = new GroundOverlay(bounds, "");
 overlay.setMap(map);
 
 ///Contourmap 제작 함수 부분입니다.
-eqContourPush = async () => {
+eqGraAction = async () => {
 	const year = "2023"; //year 별로 조회하는기능입니다.
 	//이곳에 연결해서 연도별 조회가 가능합니다.
 	console.log("눌림");
@@ -316,4 +315,3 @@ eqContourPush = async () => {
 		//document.querySelector('.contourMap').src = img;
 	});
 };
-*/
