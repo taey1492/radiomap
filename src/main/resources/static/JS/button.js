@@ -13,6 +13,7 @@ const visitCountArea = document.querySelector("#visitCountArea");
 const weather = document.querySelector("#weatherBtn");
 const radio = document.querySelector("#radioBtn");
 const eq = document.querySelector("#eqBtn");
+const eqGra = document.querySelector("#eqGraBtn");
 
 const radioMarker = document.querySelector("#radioMarkerInfo");
 const eqMarker = document.querySelector("#eqMarkerInfo");
@@ -23,6 +24,7 @@ const expand = document.querySelector("#iconExpandArea");
 let boolWeatherBtn = true;
 let boolRadioBtn = false;
 let boolEQBtn = false;
+let boolEQGraBtn = false;
 
 // 선택된 메뉴 CSS 변경
 const selectWeatherBtn = (event) => {
@@ -32,9 +34,11 @@ const selectWeatherBtn = (event) => {
 		eqMarker.classList.replace(EQMARKERINFOAREA, "hidden");
 		radio.className = MENUBARBTN;
 		eq.classList = MENUBARBTN;
+		eqGra.classList = MENUBARBTN;
 		boolWeatherBtn = true;
 		boolRadioBtn = false;
 		boolEQBtn = false;
+		boolEQGraBtn = false;
 	}
 };
 const selectRadioBtn = (event) => {
@@ -44,9 +48,11 @@ const selectRadioBtn = (event) => {
 		eqMarker.classList.replace(EQMARKERINFOAREA, "hidden");
 		weather.classList = MENUBARBTN;
 		eq.classList = MENUBARBTN;
+		eqGra.classList = MENUBARBTN;
 		boolWeatherBtn = false;
 		boolRadioBtn = true;
 		boolEQBtn = false;
+		boolEQGraBtn = false;
 	}
 };
 const selectEQBtn = (event) => {
@@ -56,9 +62,26 @@ const selectEQBtn = (event) => {
 		radioMarker.classList.replace(RADIOMARKERINFOAREA, "hidden");
 		weather.classList = MENUBARBTN;
 		radio.classList = MENUBARBTN;
+		eqGra.classList = MENUBARBTN;
 		boolWeatherBtn = false;
 		boolRadioBtn = false;
 		boolEQBtn = true;
+		boolEQGraBtn = false;
+	}
+};
+
+const selectEQGraBtn = (event) => {
+	if (!boolEQGraBtn) {
+		eqGra.classList.replace(MENUBARBTN, SELECTEDBTN);
+		eqMarker.classList.replace("hidden", EQMARKERINFOAREA);
+		radioMarker.classList.replace(RADIOMARKERINFOAREA, "hidden");
+		weather.classList = MENUBARBTN;
+		eq.classList = MENUBARBTN;
+		radio.classList = MENUBARBTN;
+		boolWeatherBtn = false;
+		boolRadioBtn = false;
+		boolEQBtn = false;
+		boolEQGraBtn = true;
 	}
 };
 
@@ -77,12 +100,19 @@ const showMenuBar = () => {
 	if (weather.className == SELECTEDBTN) {
 		radio.classList.replace("hiddenAni", MENUBARBTN);
 		eq.classList.replace("hiddenAni", MENUBARBTN);
+		eqGra.classList.replace("hiddenAni", MENUBARBTN);
 	} else if (radio.className == SELECTEDBTN) {
 		weather.classList.replace("hiddenAni", MENUBARBTN);
 		eq.classList.replace("hiddenAni", MENUBARBTN);
-	} else {
+		eqGra.classList.replace("hiddenAni", MENUBARBTN);
+	} else if (eq.className == SELECTEDBTN) {
 		weather.classList.replace("hiddenAni", MENUBARBTN);
 		radio.classList.replace("hiddenAni", MENUBARBTN);
+		eqGra.classList.replace("hiddenAni", MENUBARBTN);
+	} else if (eqGra.className == SELECTEDBTN) {
+		weather.classList.replace("hiddenAni", MENUBARBTN);
+		radio.classList.replace("hiddenAni", MENUBARBTN);
+		eq.classList.replace("hiddenAni", MENUBARBTN);
 	}
 };
 
@@ -91,12 +121,19 @@ const hideMenuBar = () => {
 	if (weather.className == SELECTEDBTN) {
 		radio.classList.replace(MENUBARBTN, "hiddenAni");
 		eq.classList.replace(MENUBARBTN, "hiddenAni");
+		eqGra.classList.replace(MENUBARBTN, "hiddenAni");
 	} else if (radio.className == SELECTEDBTN) {
 		weather.classList.replace(MENUBARBTN, "hiddenAni");
 		eq.classList.replace(MENUBARBTN, "hiddenAni");
-	} else {
+		eqGra.classList.replace(MENUBARBTN, "hiddenAni");
+	} else if (eq.className == SELECTEDBTN) {
 		weather.classList.replace(MENUBARBTN, "hiddenAni");
 		radio.classList.replace(MENUBARBTN, "hiddenAni");
+		eqGra.classList.replace(MENUBARBTN, "hiddenAni");
+	} else if (eqGra.className == SELECTEDBTN) {
+		weather.classList.replace(MENUBARBTN, "hiddenAni");
+		radio.classList.replace(MENUBARBTN, "hiddenAni");
+		eq.classList.replace(MENUBARBTN, "hiddenAni");
 	}
 };
 
