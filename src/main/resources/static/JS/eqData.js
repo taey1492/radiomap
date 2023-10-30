@@ -126,7 +126,6 @@ const eqAction = () => {
 	for (let i = 0; i < eqMarkers.length; i++) {
 		eqMarkers[i].setMap(map);
 	}
-	console.log("action EQ DATA");
 };
 
 // 다른 메뉴를 눌렀을 때 지진 마커 지우기
@@ -134,7 +133,6 @@ const eqClose = (map) => {
 	for (let i = 0; i < eqMarkers.length; i++) {
 		eqMarkers[i].setMap(null);
 	}
-	console.log("closed EQ Marker");
 };
 
 // 그래프 생성

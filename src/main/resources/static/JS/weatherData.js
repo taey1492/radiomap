@@ -191,14 +191,12 @@ const weatherAction = () => {
 	for (let i = 0; i < weatherMarkers.length; i++) {
 		weatherMarkers[i].setMap(map);
 	}
-	console.log("Action Weather Marker");
 };
 
 const weatherClose = () => {
 	for (let i = 0; i < weatherMarkers.length; i++) {
 		weatherMarkers[i].setMap(null);
 	}
-	console.log("Closed Weather Marker");
 };
 // ------------------------------------
 

@@ -124,7 +124,6 @@ const radioAction = () => {
 	for (let i = 0; i < radioMarkers.length; i++) {
 		radioMarkers[i].setMap(map);
 	}
-	console.log("Action radio Marker");
 };
 
 // 다른 메뉴 눌렀을 때 마커 지우기
@@ -132,5 +131,4 @@ const radioClose = (map) => {
 	for (let i = 0; i < radioMarkers.length; i++) {
 		radioMarkers[i].setMap(null);
 	}
-	console.log("Closed radio Marker");
 };
