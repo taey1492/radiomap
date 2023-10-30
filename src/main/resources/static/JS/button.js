@@ -73,7 +73,7 @@ const selectEQBtn = (event) => {
 const selectEQGraBtn = (event) => {
 	if (!boolEQGraBtn) {
 		eqGra.classList.replace(MENUBARBTN, SELECTEDBTN);
-		eqMarker.classList.replace("hidden", EQMARKERINFOAREA);
+		eqMarker.classList.replace(EQMARKERINFOAREA, "hidden");
 		radioMarker.classList.replace(RADIOMARKERINFOAREA, "hidden");
 		weather.classList = MENUBARBTN;
 		eq.classList = MENUBARBTN;
