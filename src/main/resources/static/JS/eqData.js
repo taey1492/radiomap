@@ -3,6 +3,7 @@ let marker_earthquake = "";
 
 // api 마커 배열
 const eqMarkers = [];
+const eqGraph = [];
 
 // 지진 마커 정보 불러옴과 동시에 마커들을 eqMarkers에 저장.
 const eqDataPush = async () => {
@@ -136,7 +137,8 @@ const eqClose = (map) => {
 	console.log("closed EQ Marker");
 };
 
-function GroundOverlay(bounds, imgSrc) {
+// 그래프 생성
+function eqGraMake(bounds, imgSrc) {
 	this.bounds = bounds;
 	//div 생성
 	var node = (this.node = document.createElement("div"));
@@ -155,26 +157,26 @@ function GroundOverlay(bounds, imgSrc) {
 	gradientDiv.appendChild(img);
 }
 // "AbstractOverlay":#AbstractOverlay 상속. 프로토타입 체인을 연결한다..
-GroundOverlay.prototype = new kakao.maps.AbstractOverlay();
+eqGraMake.prototype = new kakao.maps.AbstractOverlay();
 
 // 필수 구현 메소드.
 // AbstractOverlay의 getPanels() 메소드로 MapPanel 객체를 가져오고
 // 거기에서 오버레이 레이어를 얻어 생성자에서 만든 엘리먼트를 자식 노드로 넣어준다.
-GroundOverlay.prototype.onAdd = function () {
+eqGraMake.prototype.onAdd = function () {
 	var panel = this.getPanels().overlayLayer;
 	panel.appendChild(this.node);
 };
 
 // 필수 구현 메소드.
 // 생성자에서 만든 엘리먼트를 오버레이 레이어에서 제거한다.
-GroundOverlay.prototype.onRemove = function () {
+eqGraMake.prototype.onRemove = function () {
 	this.node.parentNode.removeChild(this.node);
 };
 
 // 필수 구현 메소드.
 // 지도의 속성 값들이 변화할 때마다 호출된다. (zoom, center, mapType)
 // 엘리먼트의 위치를 재조정 해 주어야 한다.
-GroundOverlay.prototype.draw = function () {
+eqGraMake.prototype.draw = function () {
 	var projection = this.getProjection();
 	var ne = projection.pointFromCoords(this.bounds.getNorthEast());
 	var sw = projection.pointFromCoords(this.bounds.getSouthWest());
@@ -188,6 +190,7 @@ GroundOverlay.prototype.draw = function () {
 	this.img.style.height = height + "px";
 };
 
+// 그래프를 png로 변경
 //초기값 좌상단 [124.20796222050159, 42.366046008446546]
 //좌상단 1/2 [124.39396537459614 ,37.64945785060459]
 //우하단 [130.14530720470964, 32.91305919195217]
@@ -197,11 +200,11 @@ ne = new kakao.maps.LatLng(32.91305919195217, 130.14530720470964);
 
 var bounds = new kakao.maps.LatLngBounds(sw, ne);
 
-var overlay = new GroundOverlay(bounds, "");
-overlay.setMap(map);
+var overlay = new eqGraMake(bounds, "");
+overlay.setMap(null);
 
 ///Contourmap 제작 함수 부분입니다.
-eqGraAction = async () => {
+const eqGraPng = async () => {
 	const year = "2023"; //year 별로 조회하는기능입니다.
 	//이곳에 연결해서 연도별 조회가 가능합니다.
 	console.log("눌림");
@@ -219,9 +222,11 @@ eqGraAction = async () => {
 	let coordinates = [
 		[124.20796222050159, 42.366046008446546],
 		[130.14530720470964, 32.91305919195217],
+		[124.20796222050159, 32.91305919195217],
+		[130.57113958661236, 42.34440918488924], //우하단
 	];
 
-	let zValues = [null, null]; //좌상단,우하단,null,null값넣어줌
+	let zValues = [1.2, 1.2, 1.2, 1.2]; //좌상단,우하단,null,null값넣어줌
 	// i 번째 json 형태에서 필요한 데이터 가져오기
 	for (let i = 0; i < eqJson.length; i++) {
 		let eqLat = eqJson[i].lat;
@@ -308,10 +313,21 @@ eqGraAction = async () => {
 		var img = new Image();
 		img.src = dataUrl;
 
-		var overlay = new GroundOverlay(bounds, dataUrl);
-		overlay.setMap(map);
+		var overlay = new eqGraMake(bounds, dataUrl);
+		overlay.setMap(null);
+
+		eqGraph.push(overlay);
 		//console.log(dataUrl)
-		console.log("출력되었습니다");
 		//document.querySelector('.contourMap').src = img;
 	});
+	console.log("Pushed eqGraph Img");
+};
+eqGraMake();
+eqGraPng();
+
+const eqGraAction = () => {
+	overlay.setMap(map);
+};
+const eqGraClose = () => {
+	overlay.setMap(null);
 };
