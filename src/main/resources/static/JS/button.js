@@ -69,7 +69,7 @@ const mouseoverMenuBar = (event) => {
 };
 const mouseoutMenuBar = (event) => {
 	expand.classList.replace("hidden", "iconExpandArea");
-	menuBarArea.style.height = "8.5%";
+	menuBarArea.style.height = "82px";
 };
 
 // 메뉴 버튼 hover 시 선택되지 않은 메뉴 보이기
