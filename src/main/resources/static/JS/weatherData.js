@@ -63,13 +63,42 @@ const weatherDataPush = async () => {
 		let weatherHumi = weatherJson.response.body.items.item[1].obsrValue; // 습도
 		let weatherWind = weatherJson.response.body.items.item[5].obsrValue; // 풍향
 		let weatherWindSp = weatherJson.response.body.items.item[7].obsrValue; // 풍속
-		// let wetherCity = weatherLocation[i].city; // 지역
+		let weatherCity = weatherLocation[i].city; // 지역
 
 		// 지역에 따른 마커 배정
-		marker_weather = "../img/marker_weather_Seoul.png";
-		// if (weatherCity == "서울") {
-		// 	marker_weather = '../img/marker_weather_Seoul'
-		// }
+		// marker_weather = "../img/marker_weather_Seoul.png";
+		if (weatherCity == "서울")
+			marker_weather = "../img/marker_weather_서울.png";
+		else if (weatherCity == "경기")
+			marker_weather = "../img/marker_weather_경기.png";
+		else if (weatherCity == "부산")
+			marker_weather = "../img/marker_weather_부산.png";
+		else if (weatherCity == "대구")
+			marker_weather = "../img/marker_weather_대구.png";
+		else if (weatherCity == "인천")
+			marker_weather = "../img/marker_weather_인천.png";
+		else if (weatherCity == "광주")
+			marker_weather = "../img/marker_weather_광주.png";
+		else if (weatherCity == "대전")
+			marker_weather = "../img/marker_weather_대전.png";
+		else if (weatherCity == "울산")
+			marker_weather = "../img/marker_weather_울산.png";
+		else if (weatherCity == "제주")
+			marker_weather = "../img/marker_weather_제주.png";
+		else if (weatherCity == "충북")
+			marker_weather = "../img/marker_weather_충북.png";
+		else if (weatherCity == "충남")
+			marker_weather = "../img/marker_weather_충남.png";
+		else if (weatherCity == "전북")
+			marker_weather = "../img/marker_weather_전북.png";
+		else if (weatherCity == "전남")
+			marker_weather = "../img/marker_weather_전남.png";
+		else if (weatherCity == "경북")
+			marker_weather = "../img/marker_weather_경북.png";
+		else if (weatherCity == "경남")
+			marker_weather = "../img/marker_weather_경남.png";
+		else if (weatherCity == "강원")
+			marker_weather = "../img/marker_weather_강원.png";
 
 		if (weatherWind >= 315) weatherWind = "북서북";
 		else if (weatherWind >= 270) weatherWind = "서북서";
@@ -90,7 +119,7 @@ const weatherDataPush = async () => {
 		else if (weatherState == 6) weatherState = "빗방울/눈날림";
 		else weatherState = "눈날림";
 
-		const imageSize = new kakao.maps.Size(50, 50);
+		const imageSize = new kakao.maps.Size(65, 65);
 		// 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 		const imageOption = { offset: new kakao.maps.Point(25, 35) };
 		let markerImage = new kakao.maps.MarkerImage(
