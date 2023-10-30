@@ -10,7 +10,7 @@ const weatherDataPush = async () => {
 	let year = now.getFullYear();
 	let month = now.getMonth() + 1;
 	let date = now.getDate();
-	let hours = now.getHours();
+	let hours = now.getHours() - 1;
 	//0시, 1시 앞에 0 붙이기
 	hours = String(hours).padStart(2, "0");
 	let min = now.getMinutes();
