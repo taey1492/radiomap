@@ -187,12 +187,13 @@ const weatherDataPush = async () => {
 
 weatherDataPush();
 
+// 저장한 날씨 마커 지도에 표시하기
 const weatherAction = () => {
 	for (let i = 0; i < weatherMarkers.length; i++) {
 		weatherMarkers[i].setMap(map);
 	}
 };
-
+// 다른 메뉴 눌렀을 때 마커 지우기
 const weatherClose = () => {
 	for (let i = 0; i < weatherMarkers.length; i++) {
 		weatherMarkers[i].setMap(null);
