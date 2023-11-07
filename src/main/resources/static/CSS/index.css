@@ -82,6 +82,19 @@
 	height: 30px;
 }
 
+.eqYearMenu {
+	width: 200px;
+	height: 30px;
+	padding: 5px 10px;
+	background-color: rgba(255, 255, 255, 0.461);
+	border: 0;
+	border-radius: 10px;
+	outline: none;
+}
+.eqYearMenu:hover {
+	background-color: #bcbcbce1;
+}
+
 /* 메뉴바 확장 표시 아이콘 */
 .iconExpandArea {
 	position: absolute;
