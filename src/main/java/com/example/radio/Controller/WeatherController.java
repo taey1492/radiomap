@@ -27,7 +27,7 @@ public class WeatherController {
     @ResponseBody
     public List<Weather> weather(@ModelAttribute Weather weather) {
 
-       List<Weather> weatherList = weatherRepository.findAll();
+        List<Weather> weatherList = weatherRepository.findAll();
 
         return weatherList;
     }
