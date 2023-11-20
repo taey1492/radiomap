@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="kr">
+
 <head>
     <meta charset="UTF-8" />
-    <meta
-            name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <style>
@@ -45,51 +44,49 @@
 
 <body>
 
-<div id="myModal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p id="markerTitle"></p>
-        <p id="markerSub"></p>
-        <p id="markerSub1"></p>
-        <p id="markerSub2"></p>
-        <p id="markerSub3"></p>
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="markerTitle"></p>
+            <p id="markerSub"></p>
+            <p id="markerSub1"></p>
+            <p id="markerSub2"></p>
+            <p id="markerSub3"></p>
+        </div>
     </div>
-</div>
 
-<p id="result"></p>
+    <p id="result"></p>
 
-<!-- 지도를 표시할 div 입니다 -->
-<div id="map" style="width: 40%; height: 800px"></div>
+    <!-- 지도를 표시할 div 입니다 -->
+    <div id="map" style="width: 40%; height: 800px"></div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-        type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ff6d272e36cf8a9c0cc865875558ac29"
-></script>
-<script>
-    var modal = document.getElementById("myModal");
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1599ebd89f92e779af67726a3670fb94"></script>
+    <script>
+        var modal = document.getElementById("myModal");
 
-    // Get the span element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+        // Get the span element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
 
-    // When the user clicks on span (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    };
-
-    var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-        mapOption = {
-            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 14, // 지도의 확대 레벨
+        // When the user clicks on span (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
         };
 
-    // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-    var map = new kakao.maps.Map(mapContainer, mapOption);
+        var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                level: 14, // 지도의 확대 레벨
+            };
 
-    // 마커 이미지의 이미지 주소입니다
-    var imageSrc =
-        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // 마커 이미지의 이미지 주소입니다
+        var imageSrc =
+            "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
 
         $.ajax({
@@ -147,6 +144,7 @@
                 }
             },
         });
-</script>
+    </script>
 </body>
+
 </html>

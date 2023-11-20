@@ -30,7 +30,6 @@ public class RadioController {
     @Autowired
     PostRepository postRepository;
 
-
     @GetMapping("index")
     public String index(Model model) {
 
@@ -51,9 +50,8 @@ public class RadioController {
             if (!post.getLastUpdated().isEqual(today)) {
                 // 날짜가 바뀌었다면 일일 방문자 수를 초기화
                 post.setDailyPost(0);
-                post.setLastUpdated(today);  // 마지막 업데이트 날짜를 오늘로 설정
+                post.setLastUpdated(today); // 마지막 업데이트 날짜를 오늘로 설정
             }
-
 
             post.setPost(post.getPost() + 1); // Post 값 증가
             post.setDailyPost(post.getDailyPost() + 1);
@@ -61,7 +59,6 @@ public class RadioController {
         }
 
         model.addAttribute("post", post);
-
 
         return "map/index";
     }
