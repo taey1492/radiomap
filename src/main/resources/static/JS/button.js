@@ -9,7 +9,7 @@ const EQMARKERINFOAREA = "eqMarkerInfoArea";
 
 const menuBarArea = document.querySelector("#menuBarArea");
 const visitCountArea = document.querySelector("#visitCountArea");
-const eqYearArea = document.querySelector("#eqYearArea");
+// const eqYearArea = document.querySelector("#eqYearArea");
 
 const weather = document.querySelector("#weatherBtn");
 const radio = document.querySelector("#radioBtn");
@@ -28,7 +28,7 @@ let boolEQBtn = false;
 let boolEQGraBtn = false;
 
 // 선택된 메뉴 CSS 변경
-const selectWeatherBtn = (event) => {
+const selectWeatherBtn = () => {
 	if (!boolWeatherBtn) {
 		weather.classList.replace(MENUBARBTN, SELECTEDBTN);
 		radioMarker.classList.replace(RADIOMARKERINFOAREA, "hidden");
@@ -42,7 +42,7 @@ const selectWeatherBtn = (event) => {
 		boolEQGraBtn = false;
 	}
 };
-const selectRadioBtn = (event) => {
+const selectRadioBtn = () => {
 	if (!boolRadioBtn) {
 		radio.classList.replace(MENUBARBTN, SELECTEDBTN);
 		radioMarker.classList.replace("hidden", RADIOMARKERINFOAREA);
@@ -56,7 +56,7 @@ const selectRadioBtn = (event) => {
 		boolEQGraBtn = false;
 	}
 };
-const selectEQBtn = (event) => {
+const selectEQBtn = () => {
 	if (!boolEQBtn) {
 		eq.classList.replace(MENUBARBTN, SELECTEDBTN);
 		eqMarker.classList.replace("hidden", EQMARKERINFOAREA);
@@ -87,62 +87,62 @@ const selectEQBtn = (event) => {
 // };
 
 // 메뉴 버튼 hover 시 메뉴 바 커짐/작아짐
-const mouseoverMenuBar = (event) => {
+const mouseoverMenuBar = () => {
 	expand.classList.replace("iconExpandArea", "hidden");
 	menuBarArea.style.height = "88%";
 };
-const mouseoutMenuBar = (event) => {
+const mouseoutMenuBar = () => {
 	expand.classList.replace("hidden", "iconExpandArea");
 	menuBarArea.style.height = "82px";
 };
 
 // 메뉴 버튼 hover 시 선택되지 않은 메뉴 보이기
 const showMenuBar = () => {
-	if (weather.className == SELECTEDBTN) {
-		radio.classList.replace("hiddenAni", MENUBARBTN);
-		eq.classList.replace("hiddenAni", MENUBARBTN);
-		// eqGra.classList.replace("hiddenAni", MENUBARBTN);
-	} else if (radio.className == SELECTEDBTN) {
-		weather.classList.replace("hiddenAni", MENUBARBTN);
-		eq.classList.replace("hiddenAni", MENUBARBTN);
-		// eqGra.classList.replace("hiddenAni", MENUBARBTN);
-	} else if (eq.className == SELECTEDBTN) {
-		weather.classList.replace("hiddenAni", MENUBARBTN);
-		radio.classList.replace("hiddenAni", MENUBARBTN);
-		// eqGra.classList.replace("hiddenAni", MENUBARBTN);
+	if (weather.className === SELECTEDBTN) {
+		radio.classList.replace("hidden", MENUBARBTN);
+		eq.classList.replace("hidden", MENUBARBTN);
+		// eqGra.classList.replace("hidden", MENUBARBTN);
+	} else if (radio.className === SELECTEDBTN) {
+		weather.classList.replace("hidden", MENUBARBTN);
+		eq.classList.replace("hidden", MENUBARBTN);
+		// eqGra.classList.replace("hidden", MENUBARBTN);
+	} else if (eq.className === SELECTEDBTN) {
+		weather.classList.replace("hidden", MENUBARBTN);
+		radio.classList.replace("hidden", MENUBARBTN);
+		// eqGra.classList.replace("hidden", MENUBARBTN);
 	}
-	// else if (eqGra.className == SELECTEDBTN) {
-	// 	weather.classList.replace("hiddenAni", MENUBARBTN);
-	// 	radio.classList.replace("hiddenAni", MENUBARBTN);
-	// 	eq.classList.replace("hiddenAni", MENUBARBTN);
+	// else if (eqGra.className === SELECTEDBTN) {
+	// 	weather.classList.replace("hidden", MENUBARBTN);
+	// 	radio.classList.replace("hidden", MENUBARBTN);
+	// 	eq.classList.replace("hidden", MENUBARBTN);
 	// }
 };
 
 // 메뉴 버튼 hover 시 선택되지 않은 메뉴 숨기기
 const hideMenuBar = () => {
-	if (weather.className == SELECTEDBTN) {
-		radio.classList.replace(MENUBARBTN, "hiddenAni");
-		eq.classList.replace(MENUBARBTN, "hiddenAni");
-		// eqGra.classList.replace(MENUBARBTN, "hiddenAni");
-	} else if (radio.className == SELECTEDBTN) {
-		weather.classList.replace(MENUBARBTN, "hiddenAni");
-		eq.classList.replace(MENUBARBTN, "hiddenAni");
-		// eqGra.classList.replace(MENUBARBTN, "hiddenAni");
-	} else if (eq.className == SELECTEDBTN) {
-		weather.classList.replace(MENUBARBTN, "hiddenAni");
-		radio.classList.replace(MENUBARBTN, "hiddenAni");
-		// eqGra.classList.replace(MENUBARBTN, "hiddenAni");
+	if (weather.className === SELECTEDBTN) {
+		radio.classList.replace(MENUBARBTN, "hidden");
+		eq.classList.replace(MENUBARBTN, "hidden");
+		// eqGra.classList.replace(MENUBARBTN, "hidden");
+	} else if (radio.className === SELECTEDBTN) {
+		weather.classList.replace(MENUBARBTN, "hidden");
+		eq.classList.replace(MENUBARBTN, "hidden");
+		// eqGra.classList.replace(MENUBARBTN, "hidden");
+	} else if (eq.className === SELECTEDBTN) {
+		weather.classList.replace(MENUBARBTN, "hidden");
+		radio.classList.replace(MENUBARBTN, "hidden");
+		// eqGra.classList.replace(MENUBARBTN, "hidden");
 	}
-	// else if (eqGra.className == SELECTEDBTN) {
-	// 	weather.classList.replace(MENUBARBTN, "hiddenAni");
-	// 	radio.classList.replace(MENUBARBTN, "hiddenAni");
-	// 	eq.classList.replace(MENUBARBTN, "hiddenAni");
+	// else if (eqGra.className === SELECTEDBTN) {
+	// 	weather.classList.replace(MENUBARBTN, "hidden");
+	// 	radio.classList.replace(MENUBARBTN, "hidden");
+	// 	eq.classList.replace(MENUBARBTN, "hidden");
 	// }
 };
 
 // 메뉴 hover 시 방문자 보여줌
 const showVisitor = () => {
-	if (menuBarArea.style.height == "88%") {
+	if (menuBarArea.style.height === "88%") {
 		visitCountArea.classList.replace("hidden", "visitCountArea");
 	} else {
 		visitCountArea.classList.replace("visitCountArea", "hidden");

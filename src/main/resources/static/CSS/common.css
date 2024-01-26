@@ -1,6 +1,5 @@
 /* 나눔 고딕체 */
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
-
 .nanumgothic * {
 	font-family: "Nanum Gothic", sans-serif;
 }
@@ -54,16 +53,6 @@ button {
 
 .hiddenAni {
 	display: none;
-	animation-name: hiddenAnimation;
-	animation-duration: 1s;
-}
-@keyframes hiddenAnimation {
-	from {
-		opacity: 1;
-	}
-	to {
-		opacity: 0;
-	}
 }
 
 /* 전체 영역 */
