@@ -3,6 +3,8 @@
 // 자동완성 편의성을 위한 string을 변수로 변환.
 const MENUBARBTN = "menuBarBtn";
 const SELECTEDBTN = "selectedBtn";
+const FADE_IN = "menuBarBtn-fade_in";
+const FADE_OUT = "menuBarBtn-fade_out";
 
 const RADIOMARKERINFOAREA = "radioMarkerInfoArea";
 const EQMARKERINFOAREA = "eqMarkerInfoArea";
@@ -96,19 +98,37 @@ const mouseoutMenuBar = () => {
 	menuBarArea.style.height = "82px";
 };
 
+const showAction = (theme, fade, time) => {
+	theme.classList.replace("hidden", fade);
+	setTimeout(function () {
+		theme.classList.replace(fade, MENUBARBTN);
+	}, time);
+};
+const hiddenAction = (theme, fade, time) => {
+	theme.clientLeft.replace(MENUBARBTN, fade);
+	setTimeout(function () {
+		theme.classList.replace(fade, "hidden");
+	}, time);
+};
 // 메뉴 버튼 hover 시 선택되지 않은 메뉴 보이기
 const showMenuBar = () => {
 	if (weather.className === SELECTEDBTN) {
 		radio.classList.replace("hidden", MENUBARBTN);
 		eq.classList.replace("hidden", MENUBARBTN);
+		// showAction(radio, FADE_IN, 300);
+		// showAction(eq, FADE_IN, 300);
 		// eqGra.classList.replace("hidden", MENUBARBTN);
 	} else if (radio.className === SELECTEDBTN) {
 		weather.classList.replace("hidden", MENUBARBTN);
 		eq.classList.replace("hidden", MENUBARBTN);
+		// showAction(weather, FADE_IN, 300);
+		// showAction(eq, FADE_IN, 300);
 		// eqGra.classList.replace("hidden", MENUBARBTN);
 	} else if (eq.className === SELECTEDBTN) {
 		weather.classList.replace("hidden", MENUBARBTN);
 		radio.classList.replace("hidden", MENUBARBTN);
+		// showAction(weather, FADE_IN, 300);
+		// showAction(radio, FADE_IN, 300);
 		// eqGra.classList.replace("hidden", MENUBARBTN);
 	}
 	// else if (eqGra.className === SELECTEDBTN) {
@@ -121,14 +141,20 @@ const showMenuBar = () => {
 // 메뉴 버튼 hover 시 선택되지 않은 메뉴 숨기기
 const hideMenuBar = () => {
 	if (weather.className === SELECTEDBTN) {
+		// hiddenAction(radio, FADE_OUT, 300);
+		// hiddenAction(eq, FADE_OUT, 300);
 		radio.classList.replace(MENUBARBTN, "hidden");
 		eq.classList.replace(MENUBARBTN, "hidden");
 		// eqGra.classList.replace(MENUBARBTN, "hidden");
 	} else if (radio.className === SELECTEDBTN) {
+		// hiddenAction(weather, FADE_OUT, 300);
+		// hiddenAction(eq, FADE_OUT, 300);
 		weather.classList.replace(MENUBARBTN, "hidden");
 		eq.classList.replace(MENUBARBTN, "hidden");
 		// eqGra.classList.replace(MENUBARBTN, "hidden");
 	} else if (eq.className === SELECTEDBTN) {
+		// hiddenAction(weather, FADE_OUT, 300);
+		// hiddenAction(radio, FADE_OUT, 300);
 		weather.classList.replace(MENUBARBTN, "hidden");
 		radio.classList.replace(MENUBARBTN, "hidden");
 		// eqGra.classList.replace(MENUBARBTN, "hidden");
