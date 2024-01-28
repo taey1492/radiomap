@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface DustRepositoy extends JpaRepository<Dust, Integer> {
+public interface DustRepositoy extends JpaRepository<Dust, String> {
 
 
 
