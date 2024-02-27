@@ -12,15 +12,16 @@ const weatherDataPush = async () => {
 	let month = now.getMonth() + 1;
 	let date = now.getDate();
 	let hours = now.getHours() - 1;
-	// 0시, 1시 앞에 0 붙이기
-	hours = String(hours).padStart(2, "0");
 	let min = now.getMinutes();
+	// 앞에 0 붙이기
+	month = String(month).padStart(2, "0");
+	hours = String(hours).padStart(2, "0");
 	if (min >= 55) min = "30";
 	else if (min >= 25) min = "00";
 	else min = "30";
 
 	let base_date = String(year) + String(month) + String(date);
-	let base_time = String(hours) + min;
+	let base_time = hours + min;
 
 	const location = [
 		[60, 127, "서울", 126.980008333333, 37.5635694444444],
@@ -53,9 +54,9 @@ const weatherDataPush = async () => {
 		let nx = weatherLocation[i].x;
 		let ny = weatherLocation[i].y;
 
-		const data = await fetch(
-			`https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=YyVdtivuQmwFOj1yZVtSmLQmIbuLGIBYB3xuDJajCAFnz%2F%2BdBdgrPstXhVdn1HfaoA01mXG5kcKx%2BsTMGLii0Q%3D%3D&pageNo=1&numOfRows=1000&dataType=json&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`
-		); // 각 도시의 날씨 정보를 불러옴(기상청에서 한 번에 전국 데이터를 가져올 수 없게 막아둠.)
+		let url = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=YyVdtivuQmwFOj1yZVtSmLQmIbuLGIBYB3xuDJajCAFnz%2F%2BdBdgrPstXhVdn1HfaoA01mXG5kcKx%2BsTMGLii0Q%3D%3D&pageNo=1&numOfRows=1000&dataType=json&base_date=${base_date}&base_time=${base_time}&nx=${nx}&ny=${ny}`;
+
+		const data = await fetch(url); // 각 도시의 날씨 정보를 불러옴(기상청에서 한 번에 전국 데이터를 가져올 수 없게 막아둠.)
 		let weatherJson = await data.json();
 		let weatherLat = weatherLocation[i].lat;
 		let weatherLon = weatherLocation[i].lon;
