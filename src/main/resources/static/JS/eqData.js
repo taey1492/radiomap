@@ -1,17 +1,13 @@
 // 마커 이미지 변수
 let marker_earthquake = "";
-
 // api 마커 배열
-const eqMarkers = [];
+let eqMarkers = [];
 
 // 지진 마커 정보 불러옴과 동시에 마커들을 eqMarkers에 저장.
 const eqDataPush = async () => {
-	// year로 인식할 input 구현해야 합니다.
-	// const year = document.querySelector("#eqYearMenu").value;
-
-	const year = "2023";
+	let year = document.querySelector("#eqYearMenu").value;
 	const data = await fetch(`/yearsearch?year=${year}`);
-	const eqJson = await data.json(); // JSON 데이터를 eqJson으로 명명.
+	const eqJson = await data.json();
 
 	// i 번째 json 형태에서 필요한 데이터 가져오기
 	for (let i = 0; i < eqJson.length; i++) {
@@ -100,23 +96,21 @@ const eqDataPush = async () => {
 		});
 
 		// 마커를 마우스를 올렸을 때 커스텀 오버레이를 표시합니다
-		kakao.maps.event.addListener(marker, "mouseover", function (event) {
+		kakao.maps.event.addListener(marker, "mouseover", function () {
 			overlay.setMap(map);
 		});
 
 		// 마우스가 마커 밖으로 나가면 오버레이를 끕니다.
-		kakao.maps.event.addListener(marker, "mouseout", function (event) {
+		kakao.maps.event.addListener(marker, "mouseout", function () {
 			overlay.setMap(null);
 		});
 
 		// 마커를 저장
 		eqMarkers.push(marker);
-
 		// 마커를 지도에 표시할 준비
 		marker.setMap(null);
 		overlay.setMap(null);
 	}
-	console.log("Pushed EQ DATA");
 };
 
 eqDataPush();
@@ -129,8 +123,15 @@ const eqAction = () => {
 };
 
 // 다른 메뉴를 눌렀을 때 지진 마커 지우기
-const eqClose = (map) => {
+const eqClose = () => {
 	for (let i = 0; i < eqMarkers.length; i++) {
 		eqMarkers[i].setMap(null);
 	}
+};
+
+const changedYear = async () => {
+	eqClose();
+	eqMarkers = [];
+	await eqDataPush();
+	eqAction();
 };

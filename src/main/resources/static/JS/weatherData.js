@@ -16,6 +16,8 @@ const weatherDataPush = async () => {
 	// 앞에 0 붙이기
 	month = String(month).padStart(2, "0");
 	hours = String(hours).padStart(2, "0");
+	date = String(date).padStart(2, "0");
+	
 	if (min >= 55) min = "30";
 	else if (min >= 25) min = "00";
 	else min = "30";
